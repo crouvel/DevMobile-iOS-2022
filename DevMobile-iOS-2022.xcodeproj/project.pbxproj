@@ -1,0 +1,604 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6FCF6DAF27BABB9E00369461 /* DevMobile_iOS_2022App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCF6DAE27BABB9E00369461 /* DevMobile_iOS_2022App.swift */; };
+		6FCF6DB127BABB9E00369461 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCF6DB027BABB9E00369461 /* ContentView.swift */; };
+		6FCF6DB327BABB9F00369461 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FCF6DB227BABB9F00369461 /* Assets.xcassets */; };
+		6FCF6DB627BABB9F00369461 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FCF6DB527BABB9F00369461 /* Preview Assets.xcassets */; };
+		6FCF6DC027BABB9F00369461 /* DevMobile_iOS_2022Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCF6DBF27BABB9F00369461 /* DevMobile_iOS_2022Tests.swift */; };
+		6FCF6DCA27BABB9F00369461 /* DevMobile_iOS_2022UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCF6DC927BABB9F00369461 /* DevMobile_iOS_2022UITests.swift */; };
+		6FCF6DCC27BABB9F00369461 /* DevMobile_iOS_2022UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCF6DCB27BABB9F00369461 /* DevMobile_iOS_2022UITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6FCF6DBC27BABB9F00369461 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6FCF6DA327BABB9E00369461 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6FCF6DAA27BABB9E00369461;
+			remoteInfo = "DevMobile-iOS-2022";
+		};
+		6FCF6DC627BABB9F00369461 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6FCF6DA327BABB9E00369461 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6FCF6DAA27BABB9E00369461;
+			remoteInfo = "DevMobile-iOS-2022";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6FCF6DAB27BABB9E00369461 /* DevMobile-iOS-2022.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DevMobile-iOS-2022.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FCF6DAE27BABB9E00369461 /* DevMobile_iOS_2022App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevMobile_iOS_2022App.swift; sourceTree = "<group>"; };
+		6FCF6DB027BABB9E00369461 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6FCF6DB227BABB9F00369461 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6FCF6DB527BABB9F00369461 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6FCF6DBB27BABB9F00369461 /* DevMobile-iOS-2022Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DevMobile-iOS-2022Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FCF6DBF27BABB9F00369461 /* DevMobile_iOS_2022Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevMobile_iOS_2022Tests.swift; sourceTree = "<group>"; };
+		6FCF6DC527BABB9F00369461 /* DevMobile-iOS-2022UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DevMobile-iOS-2022UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FCF6DC927BABB9F00369461 /* DevMobile_iOS_2022UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevMobile_iOS_2022UITests.swift; sourceTree = "<group>"; };
+		6FCF6DCB27BABB9F00369461 /* DevMobile_iOS_2022UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevMobile_iOS_2022UITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6FCF6DA827BABB9E00369461 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FCF6DB827BABB9F00369461 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FCF6DC227BABB9F00369461 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6FCF6DA227BABB9E00369461 = {
+			isa = PBXGroup;
+			children = (
+				6FCF6DAD27BABB9E00369461 /* DevMobile-iOS-2022 */,
+				6FCF6DBE27BABB9F00369461 /* DevMobile-iOS-2022Tests */,
+				6FCF6DC827BABB9F00369461 /* DevMobile-iOS-2022UITests */,
+				6FCF6DAC27BABB9E00369461 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6FCF6DAC27BABB9E00369461 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6FCF6DAB27BABB9E00369461 /* DevMobile-iOS-2022.app */,
+				6FCF6DBB27BABB9F00369461 /* DevMobile-iOS-2022Tests.xctest */,
+				6FCF6DC527BABB9F00369461 /* DevMobile-iOS-2022UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6FCF6DAD27BABB9E00369461 /* DevMobile-iOS-2022 */ = {
+			isa = PBXGroup;
+			children = (
+				6FCF6DAE27BABB9E00369461 /* DevMobile_iOS_2022App.swift */,
+				6FCF6DB027BABB9E00369461 /* ContentView.swift */,
+				6FCF6DB227BABB9F00369461 /* Assets.xcassets */,
+				6FCF6DB427BABB9F00369461 /* Preview Content */,
+			);
+			path = "DevMobile-iOS-2022";
+			sourceTree = "<group>";
+		};
+		6FCF6DB427BABB9F00369461 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				6FCF6DB527BABB9F00369461 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6FCF6DBE27BABB9F00369461 /* DevMobile-iOS-2022Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6FCF6DBF27BABB9F00369461 /* DevMobile_iOS_2022Tests.swift */,
+			);
+			path = "DevMobile-iOS-2022Tests";
+			sourceTree = "<group>";
+		};
+		6FCF6DC827BABB9F00369461 /* DevMobile-iOS-2022UITests */ = {
+			isa = PBXGroup;
+			children = (
+				6FCF6DC927BABB9F00369461 /* DevMobile_iOS_2022UITests.swift */,
+				6FCF6DCB27BABB9F00369461 /* DevMobile_iOS_2022UITestsLaunchTests.swift */,
+			);
+			path = "DevMobile-iOS-2022UITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6FCF6DAA27BABB9E00369461 /* DevMobile-iOS-2022 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FCF6DCF27BABB9F00369461 /* Build configuration list for PBXNativeTarget "DevMobile-iOS-2022" */;
+			buildPhases = (
+				6FCF6DA727BABB9E00369461 /* Sources */,
+				6FCF6DA827BABB9E00369461 /* Frameworks */,
+				6FCF6DA927BABB9E00369461 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DevMobile-iOS-2022";
+			productName = "DevMobile-iOS-2022";
+			productReference = 6FCF6DAB27BABB9E00369461 /* DevMobile-iOS-2022.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6FCF6DBA27BABB9F00369461 /* DevMobile-iOS-2022Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FCF6DD227BABB9F00369461 /* Build configuration list for PBXNativeTarget "DevMobile-iOS-2022Tests" */;
+			buildPhases = (
+				6FCF6DB727BABB9F00369461 /* Sources */,
+				6FCF6DB827BABB9F00369461 /* Frameworks */,
+				6FCF6DB927BABB9F00369461 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6FCF6DBD27BABB9F00369461 /* PBXTargetDependency */,
+			);
+			name = "DevMobile-iOS-2022Tests";
+			productName = "DevMobile-iOS-2022Tests";
+			productReference = 6FCF6DBB27BABB9F00369461 /* DevMobile-iOS-2022Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6FCF6DC427BABB9F00369461 /* DevMobile-iOS-2022UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FCF6DD527BABB9F00369461 /* Build configuration list for PBXNativeTarget "DevMobile-iOS-2022UITests" */;
+			buildPhases = (
+				6FCF6DC127BABB9F00369461 /* Sources */,
+				6FCF6DC227BABB9F00369461 /* Frameworks */,
+				6FCF6DC327BABB9F00369461 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6FCF6DC727BABB9F00369461 /* PBXTargetDependency */,
+			);
+			name = "DevMobile-iOS-2022UITests";
+			productName = "DevMobile-iOS-2022UITests";
+			productReference = 6FCF6DC527BABB9F00369461 /* DevMobile-iOS-2022UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6FCF6DA327BABB9E00369461 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1310;
+				TargetAttributes = {
+					6FCF6DAA27BABB9E00369461 = {
+						CreatedOnToolsVersion = 13.1;
+					};
+					6FCF6DBA27BABB9F00369461 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 6FCF6DAA27BABB9E00369461;
+					};
+					6FCF6DC427BABB9F00369461 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 6FCF6DAA27BABB9E00369461;
+					};
+				};
+			};
+			buildConfigurationList = 6FCF6DA627BABB9E00369461 /* Build configuration list for PBXProject "DevMobile-iOS-2022" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6FCF6DA227BABB9E00369461;
+			productRefGroup = 6FCF6DAC27BABB9E00369461 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6FCF6DAA27BABB9E00369461 /* DevMobile-iOS-2022 */,
+				6FCF6DBA27BABB9F00369461 /* DevMobile-iOS-2022Tests */,
+				6FCF6DC427BABB9F00369461 /* DevMobile-iOS-2022UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6FCF6DA927BABB9E00369461 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FCF6DB627BABB9F00369461 /* Preview Assets.xcassets in Resources */,
+				6FCF6DB327BABB9F00369461 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FCF6DB927BABB9F00369461 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FCF6DC327BABB9F00369461 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6FCF6DA727BABB9E00369461 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FCF6DB127BABB9E00369461 /* ContentView.swift in Sources */,
+				6FCF6DAF27BABB9E00369461 /* DevMobile_iOS_2022App.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FCF6DB727BABB9F00369461 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FCF6DC027BABB9F00369461 /* DevMobile_iOS_2022Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FCF6DC127BABB9F00369461 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FCF6DCC27BABB9F00369461 /* DevMobile_iOS_2022UITestsLaunchTests.swift in Sources */,
+				6FCF6DCA27BABB9F00369461 /* DevMobile_iOS_2022UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6FCF6DBD27BABB9F00369461 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6FCF6DAA27BABB9E00369461 /* DevMobile-iOS-2022 */;
+			targetProxy = 6FCF6DBC27BABB9F00369461 /* PBXContainerItemProxy */;
+		};
+		6FCF6DC727BABB9F00369461 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6FCF6DAA27BABB9E00369461 /* DevMobile-iOS-2022 */;
+			targetProxy = 6FCF6DC627BABB9F00369461 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6FCF6DCD27BABB9F00369461 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6FCF6DCE27BABB9F00369461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6FCF6DD027BABB9F00369461 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DevMobile-iOS-2022/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ig.DevMobile-iOS-2022";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6FCF6DD127BABB9F00369461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DevMobile-iOS-2022/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ig.DevMobile-iOS-2022";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6FCF6DD327BABB9F00369461 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ig.DevMobile-iOS-2022Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DevMobile-iOS-2022.app/DevMobile-iOS-2022";
+			};
+			name = Debug;
+		};
+		6FCF6DD427BABB9F00369461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ig.DevMobile-iOS-2022Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DevMobile-iOS-2022.app/DevMobile-iOS-2022";
+			};
+			name = Release;
+		};
+		6FCF6DD627BABB9F00369461 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ig.DevMobile-iOS-2022UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "DevMobile-iOS-2022";
+			};
+			name = Debug;
+		};
+		6FCF6DD727BABB9F00369461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ig.DevMobile-iOS-2022UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "DevMobile-iOS-2022";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6FCF6DA627BABB9E00369461 /* Build configuration list for PBXProject "DevMobile-iOS-2022" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FCF6DCD27BABB9F00369461 /* Debug */,
+				6FCF6DCE27BABB9F00369461 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6FCF6DCF27BABB9F00369461 /* Build configuration list for PBXNativeTarget "DevMobile-iOS-2022" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FCF6DD027BABB9F00369461 /* Debug */,
+				6FCF6DD127BABB9F00369461 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6FCF6DD227BABB9F00369461 /* Build configuration list for PBXNativeTarget "DevMobile-iOS-2022Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FCF6DD327BABB9F00369461 /* Debug */,
+				6FCF6DD427BABB9F00369461 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6FCF6DD527BABB9F00369461 /* Build configuration list for PBXNativeTarget "DevMobile-iOS-2022UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FCF6DD627BABB9F00369461 /* Debug */,
+				6FCF6DD727BABB9F00369461 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6FCF6DA327BABB9E00369461 /* Project object */;
+}
