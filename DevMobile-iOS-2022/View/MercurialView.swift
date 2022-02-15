@@ -10,7 +10,7 @@ import SwiftUI
 struct MercurialView: View {
     var body: some View {
         NavigationView{
-            Text("Ici, vous pouvez consulter ...")
+            Text("Ici, vous pouvez créer, consulter ainsi que modifier vos ingrédients.")
                 .navigationTitle("Mercurial")
         }
     }
