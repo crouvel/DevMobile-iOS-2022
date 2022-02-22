@@ -9,18 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+        
         TabView{
            HomeView()
                 .tabItem{
                     Image(systemName: "house")
                     Text("Accueil")
                 }
-            SheetView()
+            SheetView(viewModel: SheetListViewModel())
                 .tabItem{
                     Image(systemName: "folder")
                     Text("Fiches Techniques")
                 }
-            MercurialView()
+            MercurialView(viewModel: IngredientListViewModel())
                 .tabItem{
                     Image(systemName: "leaf.fill")
                     Text("Mercurial")
