@@ -11,9 +11,12 @@ struct SheetView: View {
     @State private var searchString = ""
     @ObservedObject var viewModel: SheetListViewModel
     @StateObject var dataSheet: SheetListViewModel = SheetListViewModel()
+    @ObservedObject var viewModel2: SheetCompleteListViewModel
+    @StateObject var dataSheetComplete: SheetCompleteListViewModel = SheetCompleteListViewModel()
     
-    init(viewModel: SheetListViewModel){
+    init(viewModel: SheetListViewModel, viewModel2: SheetCompleteListViewModel){
         self.viewModel = viewModel
+        self.viewModel2 = viewModel2
         //print(viewModel.idIngredientCat)
         //self.categoryId = categoryId
         //self.categoryId = categoryId
@@ -24,25 +27,29 @@ struct SheetView: View {
     private var sheetListState : SheetListState{
            return self.viewModel.sheetListState
        }
+    private var sheetCompleteListState : SheetCompleteListState {
+        return self.viewModel2.sheetListState
+    }
     
     var body: some View {
-       
-        switch sheetListState {
-        case .loading:
-            Text("Chargement des fiches techniques")
-                .foregroundColor(.blue)
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                .scaleEffect(2)
-        case .loadingError:
-            Text("erreur")
-        default :
                 NavigationView{
-                VStack{
-                    List {
-                        ForEach(searchString == "" ? dataSheet.vms : dataSheet.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
+                        VStack{
+                     switch sheetCompleteListState {
+                     case .loading:
+                         Text("Chargement des fiches techniques")
+                             .foregroundColor(.blue)
+                         
+                         ProgressView()
+                             .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                             .scaleEffect(2)
+                         
+                     case .loadingError:
+                         Text("erreur")
+                     default :
+                         List {
+                        ForEach(searchString == "" ? dataSheetComplete.vms : dataSheetComplete.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
                             vm in
-                            NavigationLink(destination: SheetDetailView(vm: vm)){
+                            NavigationLink(destination: SheetCompleteDetailView(vm: vm)){
                                 VStack(alignment: .leading) {
                                     Text(vm.sheet.nomRecette)
                                         .fontWeight(.bold)
@@ -53,28 +60,72 @@ struct SheetView: View {
                                     }
                                     Text("Couverts : \(vm.sheet.Nbre_couverts)")
                                         .italic()
-                                    /*Text("Album : \(vm.track.collectionName) ")*/
-                                }
+                               }
                             }
-                        }.navigationTitle("Fiches Techniques complètes")
+                        }.navigationTitle("Fiches Complètes")
+                                 /*.navigationBarItems(leading:
+                                                        NavigationLink(destination: CreateSheetView()){
+                                     Text("CREER FICHE +")
+                                         .fontWeight(.bold)
+                                         .foregroundColor(.cyan)
+                                     EmptyView()
+                                 }
+                                 )*/
+                             //Navigation bar Item pour accéder aux fiches techniques imcomplètes
                         
-                        /*ForEach(searchString == "" ? dataSheet.vms : dataSheet.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche){
-                            
-                        }.navigationTitle("A remplir")*/
                         /*.onDelete{ indexSet in dataTrack.data.remove(atOffsets: indexSet)
-                        }
+                         }i
                         .onMove {
                             indexSet, index in
                             dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
                         }*/
                     }.searchable(text: $searchString)
-                }
+                     }
+                    /*switch sheetListState {
+                         case .loading:
+                             Text("Chargement des fiches techniques")
+                                 .foregroundColor(.blue)
+                             
+                             ProgressView()
+                                 .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                                 .scaleEffect(2)
+                             
+                         case .loadingError:
+                             Text("erreur")
+                         default :
+                             List {
+                            ForEach(searchString == "" ? dataSheet.vms : dataSheet.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
+                                vm in
+                                //NavigationLink(destination: SheetDetailView(vm: vm)){
+                                    VStack(alignment: .leading) {
+                                        Text(vm.sheet.nomRecette)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.blue)
+                                        HStack{
+                                        Text("Catégorie : \(vm.sheet.categorieRecette)")
+                                                .fontWeight(.semibold)
+                                        }
+                                        Text("Couverts : \(vm.sheet.Nbre_couverts)")
+                                            .italic()
+                                   // }
+                                }
+                            }.navigationTitle("Fiches Incomplètes")
+                            
+                            /*.onDelete{ indexSet in dataTrack.data.remove(atOffsets: indexSet)
+                            }
+                            .onMove {
+                                indexSet, index in
+                                dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
+                            }*/
+                        }.searchable(text: $searchString)
+                         }*/
             }
     }
-}}
+}
+}
 
 struct SheetView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetView(viewModel: SheetListViewModel())
+        SheetView(viewModel: SheetListViewModel(), viewModel2: SheetCompleteListViewModel())
     }
 }

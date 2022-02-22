@@ -16,7 +16,7 @@ struct ContentView: View {
                     Image(systemName: "house")
                     Text("Accueil")
                 }
-            SheetView(viewModel: SheetListViewModel())
+            SheetView(viewModel: SheetListViewModel(), viewModel2: SheetCompleteListViewModel())
                 .tabItem{
                     Image(systemName: "folder")
                     Text("Fiches Techniques")

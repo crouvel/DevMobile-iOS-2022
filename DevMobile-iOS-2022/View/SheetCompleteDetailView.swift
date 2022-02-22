@@ -1,5 +1,5 @@
 //
-//  SheetDetailView.swift
+//  SheetCompleteDetailView.swift
 //  DevMobile-iOS-2022
 //
 //  Created by m1 on 22/02/2022.
@@ -7,18 +7,25 @@
 
 import SwiftUI
 
-struct SheetDetailView: View {
-    var intent: SheetIntent
-    @ObservedObject var viewModel: SheetViewModel
+struct SheetCompleteDetailView: View {
+    var intent: SheetCompleteIntent
+    @ObservedObject var viewModel: SheetCompleteViewModel
     @State var errorMessage: String = ""
     @State var showErrorMessage: Bool = false
+    //@ObservedObject var listvm : StepProgressionListViewModel
     
-    init(vm: SheetViewModel){
-        self.intent = SheetIntent()
+    private var _listvm: StepProgressionListViewModel!
+        var listvm: StepProgressionListViewModel {
+            return _listvm
+        }
+    init(vm: SheetCompleteViewModel){
+        self.intent = SheetCompleteIntent()
         self.viewModel = vm
-        self.intent.addObserver(vm: self.viewModel)
+        //self.intent.addObserver(vm: self.viewModel)
+        self._listvm = StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)
     }
-
+    //private var dataSteps: StepProgressionListViewModel { return StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)}
+    
     var body: some View {
         VStack{
             HStack{
@@ -27,6 +34,7 @@ struct SheetDetailView: View {
                     .frame(maxHeight: .infinity)
                 Text("\(viewModel.nomRecette)")
                     .frame(maxHeight: .infinity)
+                Text("\(listvm.vms.count)")
             }.fixedSize(horizontal: false, vertical: true)
             HStack{
                 Text("Nombre de couverts : ")
@@ -39,9 +47,23 @@ struct SheetDetailView: View {
             HStack{
             Text("Responsable :")
                 .fontWeight(.bold)
-                .frame(maxHeight: .infinity)
             Text("\(viewModel.nomAuteur)")
-                .frame(maxHeight: .infinity)
+                    .padding()
+            }
+        }
+        VStack{
+                ForEach( _listvm.vms,id: \.step.id1) {
+                    vm in
+                    //NavigationLink(destination: SheetCompleteDetailView(vm: vm)){
+                    if vm.step.titre2 == nil {
+                            Text("\(vm.step.titre1)")
+                                .fontWeight(.bold)
+                                .underline()
+                        Text(vm.step.description1 ?? "")
+                            .italic()
+                        
+                    }// }
+                    //}
             }
         }
         .navigationTitle("\(viewModel.nomRecette)")
@@ -64,10 +86,12 @@ struct SheetDetailView: View {
                 showErrorMessage = false
             }
         }
-    }}
+    }
+}
 
-struct SheetDetailView_Previews: PreviewProvider {
+struct SheetCompleteDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetDetailView(vm: SheetViewModel(sheet:Sheet(nomRecette:"oui", idFiche: 555555, nomAuteur: "test", Nbre_couverts: 8, categorieRecette: "categorie")))
+        SheetCompleteDetailView(
+            vm: SheetCompleteViewModel(sheet:SheetComplete(nomRecette:"oui", idFiche: 555555, nomAuteur: "test", Nbre_couverts: 8, categorieRecette: "categorie", nomProgression: "ok")))
     }
 }
