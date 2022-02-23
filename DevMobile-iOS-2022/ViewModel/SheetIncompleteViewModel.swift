@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-enum SheetError: Error, Equatable, CustomStringConvertible {
+enum SheetIncompleteError: Error, Equatable, CustomStringConvertible {
     case NONE
     /*case TRACKNAME(String)
     case ARTISTNAME(String)
@@ -28,20 +28,20 @@ enum SheetError: Error, Equatable, CustomStringConvertible {
     }
 }
 
-class SheetViewModel: ObservableObject, Subscriber {
-    typealias Input = SheetIntentState
+class SheetIncompleteViewModel: ObservableObject, Subscriber {
+    typealias Input = SheetIncompleteIntentState
     typealias Failure = Never
     
-    private(set) var sheet: Sheet
+    private(set) var sheet: SheetIncomplete
     public var idFiche: Int
     @Published var nomRecette : String
     @Published var nomAuteur: String
     @Published var Nbre_couverts: Int
     @Published var categorieRecette: String     //@Published var collectionName: String
-    @Published var error: SheetError = .NONE
-    var delegate: SheetViewModelDelegate?
+    @Published var error: SheetIncompleteError = .NONE
+    var delegate: SheetIncompleteViewModelDelegate?
     
-    init(sheet: Sheet){
+    init(sheet: SheetIncomplete){
         self.sheet = sheet
         self.idFiche = sheet.idFiche
         self.nomRecette = sheet.nomRecette
@@ -74,7 +74,7 @@ class SheetViewModel: ObservableObject, Subscriber {
         return
     }
     
-    func receive(_ input: SheetIntentState) -> Subscribers.Demand {
+    func receive(_ input: SheetIncompleteIntentState) -> Subscribers.Demand {
         switch input {
             case .READY:
                 break

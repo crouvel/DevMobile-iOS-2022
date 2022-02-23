@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol SheetViewModelDelegate{
+protocol SheetIncompleteViewModelDelegate{
     func sheetViewModelChanged()
 }

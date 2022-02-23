@@ -7,11 +7,9 @@
 
 import SwiftUI
 
-class SheetListViewModel: ObservableObject, SheetViewModelDelegate {
-  
-
-    var data: [Sheet]
-    var vms: [SheetViewModel]
+class SheetIncompleteListViewModel: ObservableObject, SheetIncompleteViewModelDelegate {
+    var data: [SheetIncomplete]
+    var vms: [SheetIncompleteViewModel]
     
     func sheetViewModelChanged() {
         objectWillChange.send()
@@ -34,23 +32,21 @@ class SheetListViewModel: ObservableObject, SheetViewModelDelegate {
        }
     
     init(){
-        
         self.vms = []
         self.data = []
-        self.sheetListState = .loading("https://awi-back-2021.herokuapp.com/api/sheet")
-        let surl = "https://awi-back-2021.herokuapp.com/api/sheet"
+        self.sheetListState = .loading("https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
+        let surl = "https://awi-back-2021.herokuapp.com/api/sheet/incomplete"
             guard let url = URL(string: surl) else { print("rien"); return }
             let request = URLRequest(url: url)
             URLSession.shared.dataTask(with: request) { data,response,error in
                 guard let data = data else{return}
-
                 do{
-                    let dataDTO : [SheetDTO] = try JSONDecoder().decode([SheetDTO].self, from: data)
+                    let dataDTO : [SheetIncompleteDTO] = try JSONDecoder().decode([SheetIncompleteDTO].self, from: data)
                     //print(re)
                     for tdata in dataDTO{
-                        let sheet = Sheet(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette )
+                        let sheet = SheetIncomplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette )
                         self.data.append(sheet)
-                        let vm = SheetViewModel(sheet: sheet)
+                        let vm = SheetIncompleteViewModel(sheet: sheet)
                         vm.delegate = self
                         self.vms.append(vm)
                     }

@@ -26,8 +26,9 @@ struct MercurialView: View {
        }
     
     var body: some View {
-       
-        switch ingredientState {
+        NavigationView {
+            VStack{
+            switch ingredientState {
         case .loading:
             Text("Chargement du mercurial")
                 .foregroundColor(.purple)
@@ -37,9 +38,7 @@ struct MercurialView: View {
         case .loadingError:
             Text("erreur")
         default :
-            NavigationView {
-                VStack{
-                    List {
+          List {
                         ForEach(searchString == "" ? dataIngredient.vms : dataIngredient.vms.filter { $0.ingredient.libelle.contains(searchString) || $0.ingredient.nomCategorie.contains(searchString) }, id: \.ingredient.idIngredient) {
                             vm in
                             NavigationLink(destination: IngredientView(vm: vm)){

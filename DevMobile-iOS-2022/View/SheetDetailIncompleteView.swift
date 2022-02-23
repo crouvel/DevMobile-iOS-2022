@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct SheetDetailView: View {
+struct SheetDetailIncompleteView: View {
     var intent: SheetIntent
-    @ObservedObject var viewModel: SheetViewModel
+    @ObservedObject var viewModel: SheetIncompleteViewModel
     @State var errorMessage: String = ""
     @State var showErrorMessage: Bool = false
     
-    init(vm: SheetViewModel){
+    init(vm: SheetIncompleteViewModel){
         self.intent = SheetIntent()
         self.viewModel = vm
         self.intent.addObserver(vm: self.viewModel)
@@ -24,24 +24,16 @@ struct SheetDetailView: View {
             HStack{
                 Text("Intitulé")
                     .fontWeight(.bold)
-                    .frame(maxHeight: .infinity)
                 Text("\(viewModel.nomRecette)")
                     .frame(maxHeight: .infinity)
             }.fixedSize(horizontal: false, vertical: true)
-            HStack{
-                Text("Nombre de couverts : ")
+            
+            VStack{
+                Text("Cette fiche technique ne contient pas de progression, veuillez en ajouter une")
                     .fontWeight(.bold)
-                    .frame(maxHeight: .infinity)
-                Text("\(viewModel.Nbre_couverts)")
-                    .frame(maxHeight: .infinity)              }.fixedSize(horizontal: false, vertical: true)
-        }
-        VStack{
-            HStack{
-            Text("Responsable :")
-                .fontWeight(.bold)
-                .frame(maxHeight: .infinity)
-            Text("\(viewModel.nomAuteur)")
-                .frame(maxHeight: .infinity)
+                    .padding()
+                Text("Ou veuillez supprimer la fiche")
+                    .fontWeight(.bold)
             }
         }
         .navigationTitle("\(viewModel.nomRecette)")
@@ -68,6 +60,6 @@ struct SheetDetailView: View {
 
 struct SheetDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetDetailView(vm: SheetViewModel(sheet:Sheet(nomRecette:"oui", idFiche: 555555, nomAuteur: "test", Nbre_couverts: 8, categorieRecette: "categorie")))
+        SheetDetailIncompleteView(vm: SheetIncompleteViewModel(sheet:SheetIncomplete(nomRecette:"oui", idFiche: 555555, nomAuteur: "test", Nbre_couverts: 8, categorieRecette: "categorie")))
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-enum SheetIntentState: Equatable, CustomStringConvertible {
+enum SheetIncompleteIntentState: Equatable, CustomStringConvertible {
     //case ready
     case READY
     /*case CHANGING_ARTISTNAME(String)*/
@@ -27,14 +27,14 @@ enum SheetIntentState: Equatable, CustomStringConvertible {
 }
 
 class SheetIntent: ObservableObject {
-    private var state = PassthroughSubject<SheetIntentState, Never>()
+    private var state = PassthroughSubject<SheetIncompleteIntentState, Never>()
     
     func intentToChange(artistName: String){
         /*self.state.send(.CHANGING_ARTISTNAME(artistName))*/
         self.state.send(.LIST_UPDATED)
     }
     
-    func addObserver(vm: SheetViewModel){
+    func addObserver(vm: SheetIncompleteViewModel){
         self.state.subscribe(vm)
     }
 }

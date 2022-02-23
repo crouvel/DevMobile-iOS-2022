@@ -35,7 +35,6 @@ class StepProgressionListViewModel: ObservableObject/*, SheetCompleteViewModelDe
        }
     
     init(referenceProgression: String){
-        
         self.vms = []
         self.data = []
         self.referenceProgression = referenceProgression
@@ -46,7 +45,6 @@ class StepProgressionListViewModel: ObservableObject/*, SheetCompleteViewModelDe
             let request = URLRequest(url: url)
             URLSession.shared.dataTask(with: request) { data,response,error in
                 guard let data = data else{return}
-
                 do{
                     let dataDTO : [StepProgressionDTO] = try JSONDecoder().decode([StepProgressionDTO].self, from: data)
                     //print(re)
@@ -69,7 +67,6 @@ class StepProgressionListViewModel: ObservableObject/*, SheetCompleteViewModelDe
                     }
                     print("Error: \(error)")
                 }
-
             }.resume()
        
     }

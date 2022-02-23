@@ -1,59 +1,55 @@
 //
-//  SheetView.swift
+//  SheetIncompleteListView.swift
 //  DevMobile-iOS-2022
 //
-//  Created by m1 on 14/02/2022.
+//  Created by m1 on 23/02/2022.
 //
 
 import SwiftUI
 
-struct SheetView: View {
+struct SheetIncompleteListView: View {
     @State private var searchString = ""
-    /*@ObservedObject var viewModel: SheetListViewModel
-    @StateObject var dataSheet: SheetListViewModel = SheetListViewModel()*/
-    @ObservedObject var viewModel2: SheetCompleteListViewModel
-    @StateObject var dataSheetComplete: SheetCompleteListViewModel = SheetCompleteListViewModel()
+    @ObservedObject var viewModel: SheetIncompleteListViewModel
+    @StateObject var dataSheetIncomplete: SheetIncompleteListViewModel = SheetIncompleteListViewModel()
     
-    init(viewModel2: SheetCompleteListViewModel){
+    init(viewModel: SheetIncompleteListViewModel){
         //self.viewModel = viewModel
-        self.viewModel2 = viewModel2
+        self.viewModel = viewModel
         //print(viewModel.idIngredientCat)
         //self.categoryId = categoryId
         //self.categoryId = categoryId
         //TrackDAO.get()
-        
         }
     
-    /*private var sheetListState : SheetListState{
-           return self.viewModel.sheetListState
-       }*/
-    private var sheetCompleteListState : SheetCompleteListState {
-        return self.viewModel2.sheetListState
+    private var sheetListState : SheetListState {
+        return self.viewModel.sheetListState
     }
     
     var body: some View {
                 NavigationView{
-                        VStack{
-                     switch sheetCompleteListState {
-                     case .loading:
-                         Text("Chargement des fiches techniques")
+                    /*VStack{
+                        Text("Sélectionnez une fiche technique et ajoutez-y une progression")                        }*/
+                    VStack{
+                     switch sheetListState {
+                     case .loading :
+                         Text("Chargement des fiches à compléter")
                              .foregroundColor(.blue)
                          
                          ProgressView()
-                             .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                             .progressViewStyle(CircularProgressViewStyle(tint: .cyan))
                              .scaleEffect(2)
                          
                      case .loadingError:
                          Text("erreur")
                      default :
                          List {
-                        ForEach(searchString == "" ? dataSheetComplete.vms : dataSheetComplete.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
+                        ForEach(searchString == "" ? dataSheetIncomplete.vms : dataSheetIncomplete.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
                             vm in
-                            NavigationLink(destination: SheetCompleteDetailView(vm: vm)){
+                            NavigationLink(destination: SheetDetailIncompleteView(vm: vm)){
                                 VStack(alignment: .leading) {
                                     Text(vm.sheet.nomRecette)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.blue)
+                                        .foregroundColor(.cyan)
                                     HStack{
                                     Text("Catégorie : \(vm.sheet.categorieRecette)")
                                             .fontWeight(.semibold)
@@ -62,7 +58,7 @@ struct SheetView: View {
                                         .italic()
                                }
                             }
-                        }.navigationTitle("Fiches Complètes")
+                        }.navigationTitle("Fiches Incomplètes")
                                  /*.navigationBarItems(trailing:
                                                        
                                  )*/
@@ -113,29 +109,26 @@ struct SheetView: View {
                                 dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
                             }*/
                         }.searchable(text: $searchString)*/
-                     HStack{
+                     /*HStack{
                          NavigationLink(destination: CreateSheetView()){
-                             Text("Créer une fiche")
+                             Text("CREER FICHE +")
                                  .fontWeight(.bold)
                                  .foregroundColor(.cyan)
                              EmptyView()
                          }.padding()
-                         NavigationLink(destination: SheetIncompleteListView(viewModel: SheetIncompleteListViewModel())){
-                             Text("Liste Fiches vides")
+                         NavigationLink(destination: SheetIncompleteListView()){
+                             Text("Fiches vides>>")
                                  .fontWeight(.bold)
                                  .foregroundColor(.cyan)
                              EmptyView()
                          }
-                         
-                     }
+                     }*/
                 }
             }
-        }
-}
+        }}
 
-
-struct SheetView_Previews: PreviewProvider {
+struct SheetIncompleteListView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetView(/*viewModel: SheetListViewModel(),*/ viewModel2: SheetCompleteListViewModel())
+        SheetIncompleteListView(viewModel: SheetIncompleteListViewModel())
     }
 }
