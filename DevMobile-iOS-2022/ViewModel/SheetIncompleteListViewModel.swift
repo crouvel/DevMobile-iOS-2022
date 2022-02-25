@@ -34,7 +34,7 @@ class SheetIncompleteListViewModel: ObservableObject, SheetIncompleteViewModelDe
     init(){
         self.vms = []
         self.data = []
-        SheetListViewIntent(list : self ).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
+        SheetListViewIntent(list : self ).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
         //self.sheetListState = .loading("https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/incomplete"
             guard let url = URL(string: surl) else { print("rien"); return }

@@ -10,6 +10,7 @@ import SwiftUI
 struct SheetCompleteDetailView: View {
     var intent: SheetCompleteIntent
     @ObservedObject var viewModel: SheetCompleteViewModel
+    //@ObservedObject var viewModel2: IngredientProgressionViewModel
     @State var errorMessage: String = ""
     @State var showErrorMessage: Bool = false
     //@ObservedObject var listvm : StepProgressionListViewModel
@@ -18,11 +19,21 @@ struct SheetCompleteDetailView: View {
         var listvm: StepProgressionListViewModel {
             return _listvm
         }
-    init(vm: SheetCompleteViewModel){
+    private var _listvm2: IngredientsProgressionListViewModel!
+        var listvm2: IngredientsProgressionListViewModel {
+            return _listvm2
+        }
+    init(vm: SheetCompleteViewModel/*, vm2: IngredientProgressionViewModel*/){
         self.intent = SheetCompleteIntent()
         self.viewModel = vm
+        //self.viewModel2 = vm2
         //self.intent.addObserver(vm: self.viewModel)
         self._listvm = StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)
+        self._listvm2 = IngredientsProgressionListViewModel(idFiche: self.viewModel.idFiche)
+        /*vm.ingredients.split(separator: ",").map {_ in
+           
+        }*/
+        
     }
     //private var dataSteps: StepProgressionListViewModel { return StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)}
     
@@ -58,7 +69,57 @@ struct SheetCompleteDetailView: View {
                 Text("\(viewModel.Nbre_couverts)")
                     .frame(maxHeight: .infinity)              }.fixedSize(horizontal: false, vertical: true)*/
         }
-        VStack{
+            VStack{
+                HStack{
+                Spacer()
+                    HStack{
+                        Text("Ingrédients")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .font(.system(size: 20))
+                        /*Text("Unité")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .font(.system(size: 20))
+                        Text("Qté")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .font(.system(size: 20))*/                    }
+                    /*.fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .font(.system(size: 20))*/
+                    Spacer()
+                }.background(Color.cyan)
+                    .frame( alignment: .center)
+                
+                VStack{
+                    ForEach( _listvm2.vms,id: \.ingredient.nomListeIngredients) {
+                        vm in
+                       
+                        HStack{
+                        VStack{
+                            Text("\(vm.nomListeIngredients)")
+                                .fontWeight(.bold)
+                                .underline()
+                            ForEach(vm.ingredients.split(separator: ","), id: \.self){ ingredient in
+                            Text(ingredient)
+                        }
+                        }
+                        VStack{
+                        ForEach(vm.unites.split(separator: ","), id: \.self){ unite in
+                            Text(unite)
+                        }
+                        }
+                        VStack{
+                            ForEach(vm.quantites.split(separator: ","), id: \.self){ quantite in
+                                Text(quantite)
+                            }
+                            }
+                        }
+                    }
+            }
+            }
+            VStack{
             HStack{
             Spacer()
                 Text("Réalisation")
@@ -90,7 +151,6 @@ struct SheetCompleteDetailView: View {
             VStack{
                 ForEach( _listvm.vms,id: \.step.id1) {
                     vm in
-                    //NavigationLink(destination: SheetCompleteDetailView(vm: vm)){
                     if vm.step.titre2 == nil {
                             Text("\(vm.step.titre1)")
                                 .fontWeight(.bold)
@@ -98,8 +158,7 @@ struct SheetCompleteDetailView: View {
                         Text(vm.step.description1 ?? "")
                             .italic()
                             .fixedSize(horizontal: false, vertical: true)
-                    }// }
-                    //}
+                    }
             }
         }
         }
