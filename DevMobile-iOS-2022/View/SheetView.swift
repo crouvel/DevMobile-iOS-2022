@@ -35,7 +35,7 @@ struct SheetView: View {
                 NavigationView{
                         VStack{
                      switch sheetCompleteListState {
-                     case .loading:
+                     case .loading, .loaded:
                          Text("Chargement des fiches techniques")
                              .foregroundColor(.blue)
                          

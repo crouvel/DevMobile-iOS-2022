@@ -10,7 +10,7 @@ import Foundation
 enum SheetListState : CustomStringConvertible{
     case ready
     case loading(String)
-    case loaded([SheetIncomplete])
+    case loaded([SheetIncompleteDTO])
     case loadingError(String)
     //case newEditeurs([EditeurViewModel])
 
@@ -26,52 +26,52 @@ enum SheetListState : CustomStringConvertible{
     
 }
 
-/*class SearchEditeurListViewIntent{
+class SheetListViewIntent{
     
-    @ObservedObject var TrackList : TracksViewModel
+    var sheetincompleteList: SheetIncompleteListViewModel
     
-    init(list: TracksViewModel){
-        self.TrackList = list
+    init(list: SheetIncompleteListViewModel){
+        self.sheetincompleteList = list
     }
         
-    func loaded(editeurs: [Editeur]){
+    func loaded(sheets: [SheetIncomplete]){
         #if DEBUG
-        debugPrint("SearchIntent: \(self.editeurList.editeurListState) => \(editeurs.count) editors loaded")
+        debugPrint("SearchIntent: \(self.sheetincompleteList.sheetListState) => \(sheets.count) editors loaded")
         #endif
-        self.editeurList.editeurListState = .ready
+        self.sheetincompleteList.sheetListState = .ready
     }
     
-    func httpJsonLoaded(result: Result<[Editeur], HttpRequestError>){
-        switch result {
-        case let .success(data):
+    func httpJsonLoaded(results: [SheetIncompleteDTO]){
             #if DEBUG
             debugPrint("SearchIntent: httpJsonLoaded -> success -> .loaded(editors)")
             #endif
-
-            editeurList.editeurListState = .loaded(data)
-
-        case let .failure(error):
-            editeurList.editeurListState = .loadingError(error)
-        }
+            sheetincompleteList.sheetListState = .loaded(results)
+            /*}else{
+                sheetincompleteList.sheetListState = .loadingError("\(error)")
+            }*/
     }
-    
+
+func httpJsonLoadedError(error: Error){       
+            sheetincompleteList.sheetListState = .loadingError("\(error)")
+}
+
     func editeurLoaded(){
         #if DEBUG
         debugPrint("SearchIntent: editor deleted => save data")
         #endif
-        editeurList.editeurListState = .ready
+        sheetincompleteList.sheetListState = .ready
     }
 
-    var editeurFilter : String? = nil
+    //var editeurFilter : String? = nil
 
-    func loadEditeurs(url : String, editeurFilter: String?){
-        self.editeurFilter = editeurFilter
+    func loadEditeurs(url : String/*, editeurFilter: String?*/){
+        //self.editeurFilter = editeurFilter
         #if DEBUG
         debugPrint("SearchIntent: .loading(\(url))")
         debugPrint("SearchIntent: asyncLoadEditors")
         #endif
-        editeurList.editeurListState = .loading(url)
+        sheetincompleteList.sheetListState = .loading(url)
     }
     
 
-}*/
+}

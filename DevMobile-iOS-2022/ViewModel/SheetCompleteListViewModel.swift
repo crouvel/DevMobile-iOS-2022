@@ -9,7 +9,6 @@ import SwiftUI
 
 class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelegate {
   
-
     var data: [SheetComplete]
     var vms: [SheetCompleteViewModel]
     
@@ -34,19 +33,18 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
        }
     
     init(){
-        
         self.vms = []
         self.data = []
-        self.sheetListState = .loading("https://awi-back-2021.herokuapp.com/api/sheet/join")
+        SheetCompleteListViewIntent(list : self ).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/join"
             guard let url = URL(string: surl) else { print("rien"); return }
             let request = URLRequest(url: url)
             URLSession.shared.dataTask(with: request) { data,response,error in
                 guard let data = data else{return}
-
                 do{
                     let dataDTO : [SheetCompleteDTO] = try JSONDecoder().decode([SheetCompleteDTO].self, from: data)
                     //print(re)
+                    SheetCompleteListViewIntent(list : self ).httpJsonLoaded(result: dataDTO)
                     for tdata in dataDTO{
                         let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: tdata.nomProgression )
                         self.data.append(sheet)
@@ -55,8 +53,8 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
                         self.vms.append(vm)
                     }
                     DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
-                        self.sheetListState = .loaded(self.data)
-                        print(self.data)
+                        SheetCompleteListViewIntent(list : self ).loaded(sheets: self.data)
+                        //print(self.data)
                     }
                     
                 }catch{

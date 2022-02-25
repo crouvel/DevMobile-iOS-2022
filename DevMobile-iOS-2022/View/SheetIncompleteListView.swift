@@ -27,13 +27,12 @@ struct SheetIncompleteListView: View {
     
     var body: some View {
                 NavigationView{
-                    /*VStack{
-                        Text("Sélectionnez une fiche technique et ajoutez-y une progression")                        }*/
+                  
                     VStack{
                      switch sheetListState {
-                     case .loading :
-                         Text("Chargement des fiches à compléter")
-                             .foregroundColor(.blue)
+                     case .loading, .loaded :
+                         Text("Chargement des fiches vides")
+                             .foregroundColor(.cyan)
                          
                          ProgressView()
                              .progressViewStyle(CircularProgressViewStyle(tint: .cyan))

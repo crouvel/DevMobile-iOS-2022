@@ -34,7 +34,8 @@ class SheetIncompleteListViewModel: ObservableObject, SheetIncompleteViewModelDe
     init(){
         self.vms = []
         self.data = []
-        self.sheetListState = .loading("https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
+        SheetListViewIntent(list : self ).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
+        //self.sheetListState = .loading("https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/incomplete"
             guard let url = URL(string: surl) else { print("rien"); return }
             let request = URLRequest(url: url)
@@ -42,6 +43,7 @@ class SheetIncompleteListViewModel: ObservableObject, SheetIncompleteViewModelDe
                 guard let data = data else{return}
                 do{
                     let dataDTO : [SheetIncompleteDTO] = try JSONDecoder().decode([SheetIncompleteDTO].self, from: data)
+                    SheetListViewIntent(list : self ).httpJsonLoaded(results: dataDTO)
                     //print(re)
                     for tdata in dataDTO{
                         let sheet = SheetIncomplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette )
@@ -51,13 +53,15 @@ class SheetIncompleteListViewModel: ObservableObject, SheetIncompleteViewModelDe
                         self.vms.append(vm)
                     }
                     DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
-                        self.sheetListState = .loaded(self.data)
+                        //self.sheetListState = .loaded(self.data)
+                        //SheetListViewIntent(list : self ).httpJsonLoaded(results: dataDTO)
+                        SheetListViewIntent(list : self ).loaded(sheets: self.data)
                         print(self.data)
                     }
                     
                 }catch{
                     DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
-                        self.sheetListState = .loadingError("\(error)")
+                        SheetListViewIntent(list : self ).httpJsonLoadedError(error: error)
                         print("error")
                     }
                     print("Error: \(error)")

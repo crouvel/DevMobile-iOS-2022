@@ -27,31 +27,67 @@ struct SheetCompleteDetailView: View {
     //private var dataSteps: StepProgressionListViewModel { return StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)}
     
     var body: some View {
+        ScrollView {
         VStack{
             HStack{
+            Spacer()
                 Text("Intitulé")
-                    .fontWeight(.bold)
-                    .frame(maxHeight: .infinity)
-                Text("\(viewModel.nomRecette)")
-                    .frame(maxHeight: .infinity)
-                Text("\(listvm.vms.count)")
-            }.fixedSize(horizontal: false, vertical: true)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .font(.system(size: 20))
+                Spacer()
+            }.background(Color.cyan)
+                .frame( alignment: .center)
             HStack{
+                Text("\(viewModel.nomRecette)")
+                    .fontWeight(.semibold)
+                    .font(.system(size: 19))
+                //Text("\(listvm.vms.count)")
+            }
+            HStack{
+                Text("Nombre de couverts : ")
+                .fontWeight(.bold)
+                .font(.system(size: 17))
+                      
+                Text("\(viewModel.Nbre_couverts)")                //Text("\(listvm.vms.count)")
+            }
+            /*HStack{
                 Text("Nombre de couverts : ")
                     .fontWeight(.bold)
                     .frame(maxHeight: .infinity)
                 Text("\(viewModel.Nbre_couverts)")
-                    .frame(maxHeight: .infinity)              }.fixedSize(horizontal: false, vertical: true)
+                    .frame(maxHeight: .infinity)              }.fixedSize(horizontal: false, vertical: true)*/
         }
         VStack{
             HStack{
-            Text("Responsable :")
+            Spacer()
+                Text("Réalisation")
                 .fontWeight(.bold)
-            Text("\(viewModel.nomAuteur)")
-                    .padding()
+                .foregroundColor(.white)
+                .font(.system(size: 20))
+                Spacer()
+            }.background(Color.cyan)
+                .frame( alignment: .center)
+            HStack{
+                Text("\(viewModel.nomProgression)")
+                .fontWeight(.semibold)
+                .font(.system(size: 18))
             }
+            HStack{
+            Spacer()
+                Text("Responsable : \(viewModel.nomAuteur)")
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .font(.system(size: 17))
+                Spacer()
+            }.background(Color.cyan)
+                .frame( alignment: .center)
+            /*HStack{
+                Text("\(viewModel.nomAuteur)")                //Text("\(listvm.vms.count)")
+            }*/
         }
-        VStack{
+            HStack {
+            VStack{
                 ForEach( _listvm.vms,id: \.step.id1) {
                     vm in
                     //NavigationLink(destination: SheetCompleteDetailView(vm: vm)){
@@ -61,10 +97,12 @@ struct SheetCompleteDetailView: View {
                                 .underline()
                         Text(vm.step.description1 ?? "")
                             .italic()
-                        
+                            .fixedSize(horizontal: false, vertical: true)
                     }// }
                     //}
             }
+        }
+        }
         }
         .navigationTitle("\(viewModel.nomRecette)")
         .onChange(of: viewModel.error){ error in

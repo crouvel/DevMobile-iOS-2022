@@ -20,14 +20,14 @@
 		6F41AB2927C4D14400649DC6 /* SheetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB2827C4D14400649DC6 /* SheetIntent.swift */; };
 		6F41AB2B27C4D1E000649DC6 /* SheetIncompleteViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB2A27C4D1E000649DC6 /* SheetIncompleteViewModelDelegate.swift */; };
 		6F41AB2D27C4D26C00649DC6 /* SheetIncompleteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB2C27C4D26C00649DC6 /* SheetIncompleteListViewModel.swift */; };
-		6F41AB2F27C4D3CE00649DC6 /* SheetsIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB2E27C4D3CE00649DC6 /* SheetsIntent.swift */; };
+		6F41AB2F27C4D3CE00649DC6 /* SheetListViewIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB2E27C4D3CE00649DC6 /* SheetListViewIntent.swift */; };
 		6F41AB3127C4E1B300649DC6 /* SheetDetailIncompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB3027C4E1B300649DC6 /* SheetDetailIncompleteView.swift */; };
 		6F41AB3327C50C1E00649DC6 /* SheetCompleteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB3227C50C1E00649DC6 /* SheetCompleteListViewModel.swift */; };
 		6F41AB3527C50C3800649DC6 /* SheetComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB3427C50C3800649DC6 /* SheetComplete.swift */; };
 		6F41AB3727C50D1000649DC6 /* SheetCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB3627C50D1000649DC6 /* SheetCompleteViewModel.swift */; };
 		6F41AB3927C50E1A00649DC6 /* SheetCompleteIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB3827C50E1A00649DC6 /* SheetCompleteIntent.swift */; };
 		6F41AB3B27C50E8200649DC6 /* SheetCompleteViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB3A27C50E8200649DC6 /* SheetCompleteViewModelDelegate.swift */; };
-		6F41AB3F27C50FAD00649DC6 /* SheetCompleteListIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB3E27C50FAD00649DC6 /* SheetCompleteListIntent.swift */; };
+		6F41AB3F27C50FAD00649DC6 /* SheetCompleteListViewIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB3E27C50FAD00649DC6 /* SheetCompleteListViewIntent.swift */; };
 		6F41AB4127C512C700649DC6 /* SheetCompleteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB4027C512C700649DC6 /* SheetCompleteDetailView.swift */; };
 		6F41AB4327C5172300649DC6 /* CreateSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB4227C5172300649DC6 /* CreateSheetView.swift */; };
 		6F41AB4527C520FC00649DC6 /* CreateIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB4427C520FC00649DC6 /* CreateIngredientView.swift */; };
@@ -38,6 +38,7 @@
 		6F41AB5127C6340800649DC6 /* SheetIncompleteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB5027C6340800649DC6 /* SheetIncompleteListView.swift */; };
 		6F41AB5427C640D700649DC6 /* SheetDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB5327C640D700649DC6 /* SheetDAO.swift */; };
 		6F41AB5627C6499800649DC6 /* SheetIncomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB5527C6499800649DC6 /* SheetIncomplete.swift */; };
+		6F41AB5A27C87C4100649DC6 /* CreateProgressionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB5927C87C4100649DC6 /* CreateProgressionView.swift */; };
 		6F4E00B427BB13C200BA78AC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E00B327BB13C200BA78AC /* HomeView.swift */; };
 		6F4E00B627BB15F700BA78AC /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E00B527BB15F700BA78AC /* SheetView.swift */; };
 		6F4E00B827BB165600BA78AC /* MercurialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E00B727BB165600BA78AC /* MercurialView.swift */; };
@@ -81,14 +82,14 @@
 		6F41AB2827C4D14400649DC6 /* SheetIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetIntent.swift; sourceTree = "<group>"; };
 		6F41AB2A27C4D1E000649DC6 /* SheetIncompleteViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetIncompleteViewModelDelegate.swift; sourceTree = "<group>"; };
 		6F41AB2C27C4D26C00649DC6 /* SheetIncompleteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetIncompleteListViewModel.swift; sourceTree = "<group>"; };
-		6F41AB2E27C4D3CE00649DC6 /* SheetsIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsIntent.swift; sourceTree = "<group>"; };
+		6F41AB2E27C4D3CE00649DC6 /* SheetListViewIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetListViewIntent.swift; sourceTree = "<group>"; };
 		6F41AB3027C4E1B300649DC6 /* SheetDetailIncompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDetailIncompleteView.swift; sourceTree = "<group>"; };
 		6F41AB3227C50C1E00649DC6 /* SheetCompleteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCompleteListViewModel.swift; sourceTree = "<group>"; };
 		6F41AB3427C50C3800649DC6 /* SheetComplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetComplete.swift; sourceTree = "<group>"; };
 		6F41AB3627C50D1000649DC6 /* SheetCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCompleteViewModel.swift; sourceTree = "<group>"; };
 		6F41AB3827C50E1A00649DC6 /* SheetCompleteIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCompleteIntent.swift; sourceTree = "<group>"; };
 		6F41AB3A27C50E8200649DC6 /* SheetCompleteViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCompleteViewModelDelegate.swift; sourceTree = "<group>"; };
-		6F41AB3E27C50FAD00649DC6 /* SheetCompleteListIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCompleteListIntent.swift; sourceTree = "<group>"; };
+		6F41AB3E27C50FAD00649DC6 /* SheetCompleteListViewIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCompleteListViewIntent.swift; sourceTree = "<group>"; };
 		6F41AB4027C512C700649DC6 /* SheetCompleteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCompleteDetailView.swift; sourceTree = "<group>"; };
 		6F41AB4227C5172300649DC6 /* CreateSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSheetView.swift; sourceTree = "<group>"; };
 		6F41AB4427C520FC00649DC6 /* CreateIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIngredientView.swift; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		6F41AB5027C6340800649DC6 /* SheetIncompleteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetIncompleteListView.swift; sourceTree = "<group>"; };
 		6F41AB5327C640D700649DC6 /* SheetDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDAO.swift; sourceTree = "<group>"; };
 		6F41AB5527C6499800649DC6 /* SheetIncomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetIncomplete.swift; sourceTree = "<group>"; };
+		6F41AB5927C87C4100649DC6 /* CreateProgressionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProgressionView.swift; sourceTree = "<group>"; };
 		6F4E00B327BB13C200BA78AC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6F4E00B527BB15F700BA78AC /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		6F4E00B727BB165600BA78AC /* MercurialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercurialView.swift; sourceTree = "<group>"; };
@@ -253,9 +255,9 @@
 				6F41AB1C27C4C5E300649DC6 /* IngredientIntent.swift */,
 				6F41AB1E27C4C68F00649DC6 /* IngredientsIntent.swift */,
 				6F41AB2827C4D14400649DC6 /* SheetIntent.swift */,
-				6F41AB2E27C4D3CE00649DC6 /* SheetsIntent.swift */,
+				6F41AB2E27C4D3CE00649DC6 /* SheetListViewIntent.swift */,
 				6F41AB3827C50E1A00649DC6 /* SheetCompleteIntent.swift */,
-				6F41AB3E27C50FAD00649DC6 /* SheetCompleteListIntent.swift */,
+				6F41AB3E27C50FAD00649DC6 /* SheetCompleteListViewIntent.swift */,
 				6F41AB4C27C5297300649DC6 /* StepProgressionListIntent.swift */,
 			);
 			path = Intent;
@@ -273,6 +275,7 @@
 				6F41AB4227C5172300649DC6 /* CreateSheetView.swift */,
 				6F41AB4427C520FC00649DC6 /* CreateIngredientView.swift */,
 				6F41AB5027C6340800649DC6 /* SheetIncompleteListView.swift */,
+				6F41AB5927C87C4100649DC6 /* CreateProgressionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -417,13 +420,14 @@
 				6F41AB2727C4D10400649DC6 /* SheetIncompleteViewModel.swift in Sources */,
 				6F41AB1B27C4C56A00649DC6 /* IngredientViewDelegate.swift in Sources */,
 				6FCF6DB127BABB9E00369461 /* ContentView.swift in Sources */,
-				6F41AB2F27C4D3CE00649DC6 /* SheetsIntent.swift in Sources */,
+				6F41AB2F27C4D3CE00649DC6 /* SheetListViewIntent.swift in Sources */,
 				6F41AB1F27C4C68F00649DC6 /* IngredientsIntent.swift in Sources */,
 				6F41AB3327C50C1E00649DC6 /* SheetCompleteListViewModel.swift in Sources */,
 				6F41AB3527C50C3800649DC6 /* SheetComplete.swift in Sources */,
 				6F41AB4B27C5273500649DC6 /* StepProgressionViewModel.swift in Sources */,
 				6F41AAF727BEA1BE00649DC6 /* Ingredient.swift in Sources */,
 				6F41AB5127C6340800649DC6 /* SheetIncompleteListView.swift in Sources */,
+				6F41AB5A27C87C4100649DC6 /* CreateProgressionView.swift in Sources */,
 				6F41AB2927C4D14400649DC6 /* SheetIntent.swift in Sources */,
 				6F4E00B627BB15F700BA78AC /* SheetView.swift in Sources */,
 				6F41AB2B27C4D1E000649DC6 /* SheetIncompleteViewModelDelegate.swift in Sources */,
@@ -431,7 +435,7 @@
 				6F41AB5627C6499800649DC6 /* SheetIncomplete.swift in Sources */,
 				6F41AB4F27C52A0500649DC6 /* StepProgressionListViewModel.swift in Sources */,
 				6F41AB5427C640D700649DC6 /* SheetDAO.swift in Sources */,
-				6F41AB3F27C50FAD00649DC6 /* SheetCompleteListIntent.swift in Sources */,
+				6F41AB3F27C50FAD00649DC6 /* SheetCompleteListViewIntent.swift in Sources */,
 				6F41AB3727C50D1000649DC6 /* SheetCompleteViewModel.swift in Sources */,
 				6F41AAF927BEE10800649DC6 /* APIHelper.swift in Sources */,
 				6F41AB2D27C4D26C00649DC6 /* SheetIncompleteListViewModel.swift in Sources */,
