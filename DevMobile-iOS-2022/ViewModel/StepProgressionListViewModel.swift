@@ -49,7 +49,8 @@ class StepProgressionListViewModel: ObservableObject/*, SheetCompleteViewModelDe
                     let dataDTO : [StepProgressionDTO] = try JSONDecoder().decode([StepProgressionDTO].self, from: data)
                     //print(re)
                     for tdata in dataDTO{
-                        let step = StepProgression(id1: tdata.id1, titre1: tdata.titre1, ordre1: tdata.ordre1, temps1: tdata.temps1, description1: tdata.description1 ,id2: tdata.id2, titre2: tdata.titre2, ordre2: tdata.ordre2, temps2: tdata.temps2, description2: tdata.description2)
+                        let id = tdata.id2 ?? tdata.id1
+                        let step = StepProgression(id1: tdata.id1, titre1: tdata.titre1, ordre1: tdata.ordre1, temps1: tdata.temps1, description1: tdata.description1 ,id2: tdata.id2, titre2: tdata.titre2, ordre2: tdata.ordre2, temps2: tdata.temps2, description2: tdata.description2, id: id)
                         self.data.append(step)
                         let vm = StepProgressionViewModel(step: step)
                         //vm.delegate = self

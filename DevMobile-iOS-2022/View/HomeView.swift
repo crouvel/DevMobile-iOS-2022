@@ -11,13 +11,17 @@ struct HomeView: View {
     var body: some View {
         NavigationView{
             VStack{
-            // Cards de redirection pour chaque onglets de l'application
+                Text("Ici, vous pouvez gérer vos fiches techniques, gérer un mercurial, et consulter les ingrédients allergènes.")
+                    .fontWeight(.semibold)
+                    .padding()
+                Divider()
+                // Cards de redirection pour chaque onglets de l'application
             Image("cooking")
                     .resizable()
                     .scaledToFit()
                 
             }
-                .navigationTitle("Bienvenue !")
+            .navigationTitle("Bienvenue !")
                    
                       
         }

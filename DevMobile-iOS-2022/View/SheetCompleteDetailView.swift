@@ -42,19 +42,19 @@ struct SheetCompleteDetailView: View {
         VStack{
             HStack{
             Spacer()
-                Text("Intitulé")
+                Text("Intitulé : \(viewModel.nomRecette)")
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .font(.system(size: 20))
                 Spacer()
             }.background(Color.cyan)
                 .frame( alignment: .center)
-            HStack{
+            /*HStack{
                 Text("\(viewModel.nomRecette)")
                     .fontWeight(.semibold)
                     .font(.system(size: 19))
                 //Text("\(listvm.vms.count)")
-            }
+            }*/
             HStack{
                 Text("Nombre de couverts : ")
                 .fontWeight(.bold)
@@ -149,19 +149,62 @@ struct SheetCompleteDetailView: View {
         }
             HStack {
             VStack{
-                ForEach( _listvm.vms,id: \.step.id1) {
+                ForEach( _listvm.vms, id: \.step.id ) {
                     vm in
                     if vm.step.titre2 == nil {
-                            Text("\(vm.step.titre1)")
+                        VStack{
+                        Text("\(vm.step.titre1)")
                                 .fontWeight(.bold)
                                 .underline()
                         Text(vm.step.description1 ?? "")
                             .italic()
                             .fixedSize(horizontal: false, vertical: true)
+                        }.padding()
+                    }else {
+                        VStack{
+                        /*Text("\(vm.step.titre1)")
+                            .fontWeight(.bold)
+                            .font(.system(size: 19))*/
+                        Text(vm.step.titre2 ?? "")
+                            .fontWeight(.bold)
+                            .underline()
+                    Text(vm.step.description2 ?? "")
+                        .italic()
+                        .fixedSize(horizontal: false, vertical: true)
+                        }.padding()
                     }
             }
         }
         }
+            VStack {
+            HStack{
+            Spacer()
+                Text("Synthèse")
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .font(.system(size: 20))
+                Spacer()
+            }.background(Color.cyan)
+                .frame( alignment: .center)
+            
+                VStack{
+                    Text("Ingrédients necessaires")
+                        .fontWeight(.bold)
+                        .font(.system(size: 20))
+                    ForEach( _listvm2.vms,id: \.ingredient.nomListeIngredients) {
+                        vm in
+                        HStack{
+                        VStack{
+                            ForEach(vm.ingredients.split(separator: ","), id: \.self){ ingredient in
+                            Text(ingredient)
+                                    
+                        }
+                        }
+                        }
+                    }
+                }.frame(alignment: .topLeading)
+            }
+            
         }
         .navigationTitle("\(viewModel.nomRecette)")
         .onChange(of: viewModel.error){ error in

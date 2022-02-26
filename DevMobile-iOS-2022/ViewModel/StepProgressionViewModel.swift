@@ -43,7 +43,9 @@ class StepProgressionViewModel: ObservableObject /*Subscriber*/ {
     public var titre2: String?
     public var ordre2: Int?
     public var temps2: Int?
-    public  var description2: String?        //@Published var collectionName: String
+    public  var description2: String?
+    public var id: Int
+    //@Published var collectionName: String
     @Published var error: StepProgressionError = .NONE
     //var delegate: SheetViewModelDelegate?
     
@@ -59,6 +61,7 @@ class StepProgressionViewModel: ObservableObject /*Subscriber*/ {
         self.ordre2 = step.ordre2
         self.temps2 = step.temps2
         self.description2 = step.description2
+        self.id = step.id
         /*self.track.addObserver(obs: self)*/
     }
     

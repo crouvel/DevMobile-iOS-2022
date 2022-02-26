@@ -38,7 +38,8 @@ class StepProgression: ObservableObject {
    public var titre2: String?
    public var ordre2: Int?
    public var temps2: Int?
-   public  var description2: String?    /*@Published var trackName: String {
+   public  var description2: String?
+    public var id: Int/*@Published var trackName: String {
         didSet {
             notifyObservers(t: .TRACKNAME)
         }
@@ -66,7 +67,7 @@ class StepProgression: ObservableObject {
     }
     */
     
-    init(id1: Int, titre1: String, ordre1: Int, temps1: Int, description1: String? ,id2: Int?, titre2: String?, ordre2: Int?, temps2: Int?, description2: String?){
+    init(id1: Int, titre1: String, ordre1: Int, temps1: Int, description1: String? ,id2: Int?, titre2: String?, ordre2: Int?, temps2: Int?, description2: String?, id: Int){
         self.id1 = id1
         self.id2 = id2
         self.titre1 = titre1
@@ -77,6 +78,7 @@ class StepProgression: ObservableObject {
         self.ordre2 = ordre2
         self.temps2 = temps2
         self.description2 = description2
+        self.id = id
     }
     
     /*func addObserver(obs: TrackObserver){
