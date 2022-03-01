@@ -32,13 +32,31 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
     typealias Input = SheetCompleteIntentState
     typealias Failure = Never
     
+    @Published var creationState : ProgressionCreationIntentState = .ready{
+        didSet{
+            print("state: \(self.creationState)")
+            switch self.creationState { // state has changed
+            case .created:    // new data has been loaded, to change all games of list
+                //let sortedData = data.sorted(by: { $0. < $1.name })
+                print("created")
+            case .creatingError(let error):
+                print("\(error)")
+            default:                   // nothing to do for ViewModel, perhaps for the view
+                return
+            }
+        }
+    }
+    
     private(set) var sheet: SheetComplete
     public var idFiche: Int
     @Published var nomRecette : String
     @Published var nomAuteur: String
     @Published var Nbre_couverts: Int
     @Published var categorieRecette: String
-    @Published var nomProgression: String    //@Published var collectionName: String
+    @Published var nomProgression: String?
+    @Published var PDFUrl: URL?
+    @Published var showShareSheet: Bool = false
+    //@Published var collectionName: String
     @Published var error: SheetCompleteError = .NONE
     var delegate: SheetCompleteViewModelDelegate?
     

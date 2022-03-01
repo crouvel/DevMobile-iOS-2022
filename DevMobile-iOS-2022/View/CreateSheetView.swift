@@ -14,49 +14,58 @@ struct CreateSheetView: View {
     @State var categorieRecette: String = ""
     var body: some View {
         NavigationView{
-            Form{
-               HStack{
-                  Text("Nom de la recette:");
-                  TextField("nom recette", text: $nomRecette)
-                     /*.onSubmit {
-                        vm.intentstate.intentToChange(name: name)
-                     }*/
-               }
-               HStack{
-                  Text("Nom de l'auteur :");
-                  TextField("auteur", text: $nomAuteur)
-                     /*.onSubmit {
-                        vm.intentstate.intentToChange(ram: vm.ram)
-                     }*/
-               }
-                HStack{
-                   Text("Nombre de couverts :");
-                    TextField("couverts", value: $Nbre_couverts, formatter: NumberFormatter())
-                      /*.onSubmit {
+            VStack{
+                Text("")
+                Form{
+                    /*Section(header: Text("Création fiche technique")
+                     .font(.system(size: 20))
+                     .foregroundColor(.black)
+                     .fontWeight(.bold)){*/
+                    HStack{
+                        Text("Nom de la recette:");
+                        TextField("nom recette", text: $nomRecette)
+                        /*.onSubmit {
+                         vm.intentstate.intentToChange(name: name)
+                         }*/
+                    }
+                    HStack{
+                        Text("Nom de l'auteur :");
+                        TextField("auteur", text: $nomAuteur)
+                        /*.onSubmit {
                          vm.intentstate.intentToChange(ram: vm.ram)
-                      }*/
-                }
-                HStack{
-                Picker("Catégorie de recette", selection: $categorieRecette) {
-                    Text("Entrée").tag("Entrée")
-                    Text("Plat").tag("Plat")
-                    Text("Dessert").tag("Dessert")
-                    Text("Autre").tag("Autre")
-                              }
-                Text("\(categorieRecette)")
-                }
-                Divider()
-                /*Text("name: \(vm.name)")
-               Text("ram : \(vm.ram)")*/
-                if (nomRecette != "") && (categorieRecette != "") && (Nbre_couverts != nil) && (nomAuteur != "")  {
-                    Button(action: {SheetDAO.CreateSheet(nomRecette: nomRecette, nomAuteur: nomAuteur, nombreCouverts: Nbre_couverts, categorieRecette: categorieRecette) }){
-                        Text("Créer fiche technique")
+                         }*/
+                    }
+                    HStack{
+                        Text("Nombre de couverts :");
+                        TextField("couverts", value: $Nbre_couverts, formatter: NumberFormatter())
+                        /*.onSubmit {
+                         vm.intentstate.intentToChange(ram: vm.ram)
+                         }*/
+                    }
+                    HStack{
+                        Picker("Catégorie de recette", selection: $categorieRecette) {
+                            Text("Entrée").tag("Entrée")
+                            Text("Plat").tag("Plat")
+                            Text("Dessert").tag("Dessert")
+                            Text("Autre").tag("Autre")
+                        }
+                        Text("\(categorieRecette)")
+                    }
+                    
+                    /*Text("name: \(vm.name)")
+                     Text("ram : \(vm.ram)")*/
+                    if (nomRecette != "") && (categorieRecette != "") && (Nbre_couverts != nil) && (nomAuteur != "")  {
+                        Divider()
+                        Button(action: {SheetDAO.CreateSheet(nomRecette: nomRecette, nomAuteur: nomAuteur, nombreCouverts: Nbre_couverts, categorieRecette: categorieRecette) }){
+                            Text("Créer fiche technique")
+                        }
                     }
                 }
-            }.navigationTitle("Créer une fiche")
-                .foregroundColor(.blue)
-            
+            }
         }
+        .navigationTitle("Créer une fiche")
+        .foregroundColor(.blue)
+        
     }
 }
 

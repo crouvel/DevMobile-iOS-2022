@@ -15,7 +15,7 @@ struct SheetCompleteDTO: Decodable{
     var nomAuteur: String
     var Nbre_couverts: Int
     var categorieRecette: String
-    var nomProgression: String
+    var nomProgression: String?
 }
 
 /*protocol TrackObserver {
@@ -37,7 +37,7 @@ class SheetComplete: ObservableObject {
     @Published var nomAuteur: String
     @Published var Nbre_couverts: Int
     @Published var categorieRecette: String
-    @Published var nomProgression: String
+    @Published var nomProgression: String?
     /*@Published var trackName: String {
         didSet {
             notifyObservers(t: .TRACKNAME)
@@ -66,7 +66,7 @@ class SheetComplete: ObservableObject {
     }
     */
     
-    init(nomRecette: String, idFiche: Int, nomAuteur: String, Nbre_couverts: Int, categorieRecette: String, nomProgression: String){
+    init(nomRecette: String, idFiche: Int, nomAuteur: String, Nbre_couverts: Int, categorieRecette: String, nomProgression: String?){
         self.nomRecette = nomRecette
         self.idFiche = idFiche
         self.nomAuteur = nomAuteur

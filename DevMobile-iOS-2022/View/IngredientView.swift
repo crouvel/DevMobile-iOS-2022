@@ -18,7 +18,7 @@ struct IngredientView: View {
         self.viewModel = vm
         self.intent.addObserver(vm: self.viewModel)
     }
-
+    
     var body: some View {
         VStack{
             HStack{
@@ -26,8 +26,8 @@ struct IngredientView: View {
                     .padding()
                     .frame(maxHeight: .infinity)
                 /*TextField("", text: $viewModel.trackName)
-                    .padding()
-                    .frame(maxHeight: .infinity)*/
+                 .padding()
+                 .frame(maxHeight: .infinity)*/
                 
             }.fixedSize(horizontal: false, vertical: true)
             HStack{
@@ -35,11 +35,11 @@ struct IngredientView: View {
                     .padding()
                     .frame(maxHeight: .infinity)
                 /*TextField("", text: $viewModel.artistName)
-                    .padding()
-                    .frame(maxHeight: .infinity)
-                    .onSubmit {
-                        intent.intentToChange(artistName: viewModel.artistName)
-                    }*/
+                 .padding()
+                 .frame(maxHeight: .infinity)
+                 .onSubmit {
+                 intent.intentToChange(artistName: viewModel.artistName)
+                 }*/
             }.fixedSize(horizontal: false, vertical: true)
             
             HStack{
@@ -47,25 +47,25 @@ struct IngredientView: View {
                     .padding()
                     .frame(maxHeight: .infinity)
                 /*TextField("", text: $viewModel.collectionName)
-                    .padding()
-                    .frame(maxHeight: .infinity)*/
+                 .padding()
+                 .frame(maxHeight: .infinity)*/
                 
             }.fixedSize(horizontal: false, vertical: true)
         }
         .navigationTitle("\(viewModel.libelle)")
         .onChange(of: viewModel.error){ error in
             switch error {
-                case .NONE:
-                    return
+            case .NONE:
+                return
                 /*case .ARTISTNAME(let reason):
-                    self.errorMessage = reason
-                    self.showErrorMessage = true
-                case .TRACKNAME(let reason):
-                    self.errorMessage = reason
-                    self.showErrorMessage = true
-                case .COLLECTIONNAME(let reason):
-                    self.errorMessage = reason
-                    self.showErrorMessage = true*/
+                 self.errorMessage = reason
+                 self.showErrorMessage = true
+                 case .TRACKNAME(let reason):
+                 self.errorMessage = reason
+                 self.showErrorMessage = true
+                 case .COLLECTIONNAME(let reason):
+                 self.errorMessage = reason
+                 self.showErrorMessage = true*/
             }
         }.alert("\(errorMessage)", isPresented: $showErrorMessage){
             Button("Ok", role: .cancel){

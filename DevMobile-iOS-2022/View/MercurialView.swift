@@ -19,26 +19,26 @@ struct MercurialView: View {
         //self.categoryId = categoryId
         //TrackDAO.get()
         
-        }
+    }
     
     private var ingredientState : IngredientsListState{
-           return self.viewModel.ingredientListState
-       }
+        return self.viewModel.ingredientListState
+    }
     
     var body: some View {
         NavigationView {
             VStack{
-            switch ingredientState {
-        case .loading:
-            Text("Chargement du mercurial")
-                .foregroundColor(.purple)
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .purple))
-                .scaleEffect(2)
-        case .loadingError:
-            Text("erreur")
-        default :
-          List {
+                switch ingredientState {
+                case .loading:
+                    Text("Chargement du mercurial")
+                        .foregroundColor(.purple)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .purple))
+                        .scaleEffect(2)
+                case .loadingError:
+                    Text("erreur")
+                default :
+                    List {
                         ForEach(searchString == "" ? dataIngredient.vms : dataIngredient.vms.filter { $0.ingredient.libelle.contains(searchString) || $0.ingredient.nomCategorie.contains(searchString) }, id: \.ingredient.idIngredient) {
                             vm in
                             NavigationLink(destination: IngredientView(vm: vm)){
@@ -47,30 +47,30 @@ struct MercurialView: View {
                                         .fontWeight(.bold)
                                         .foregroundColor(.purple)
                                     HStack{
-                                    Text("Catégorie : \(vm.ingredient.nomCategorie)")
-                                        .fontWeight(.semibold)
-                                       
+                                        Text("Catégorie : \(vm.ingredient.nomCategorie)")
+                                            .fontWeight(.semibold)
+                                        
                                     }
                                     Text("Code : \(vm.ingredient.idIngredient)")
                                         .italic()
-                                        //.foregroundColor(.purple)
+                                    //.foregroundColor(.purple)
                                     /*Text("Album : \(vm.track.collectionName) ")*/
                                 }
                             }
                         }.navigationTitle("Mercurial")
                         
                         /*.onDelete{ indexSet in dataTrack.data.remove(atOffsets: indexSet)
-                        }
-                        .onMove {
-                            indexSet, index in
-                            dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
-                        }*/
+                         }
+                         .onMove {
+                         indexSet, index in
+                         dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
+                         }*/
                     }.searchable(text: $searchString)
                 }
                 
             }
-    }
-}}
+        }
+    }}
 
 struct MercurialView_Previews: PreviewProvider {
     static var previews: some View {

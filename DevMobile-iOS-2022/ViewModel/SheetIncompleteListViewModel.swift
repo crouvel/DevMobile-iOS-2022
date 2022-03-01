@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-class SheetIncompleteListViewModel: ObservableObject, SheetIncompleteViewModelDelegate {
-    var data: [SheetIncomplete]
-    var vms: [SheetIncompleteViewModel]
+class SheetIncompleteListViewModel: ObservableObject, SheetCompleteViewModelDelegate {
+    var data: [SheetComplete]
+    var vms: [SheetCompleteViewModel]
     
-    func sheetViewModelChanged() {
+    func sheetCompleteViewModelChanged() {
         objectWillChange.send()
     }
  
@@ -42,13 +42,14 @@ class SheetIncompleteListViewModel: ObservableObject, SheetIncompleteViewModelDe
             URLSession.shared.dataTask(with: request) { data,response,error in
                 guard let data = data else{return}
                 do{
-                    let dataDTO : [SheetIncompleteDTO] = try JSONDecoder().decode([SheetIncompleteDTO].self, from: data)
+                    let dataDTO : [SheetCompleteDTO] = try JSONDecoder().decode([SheetCompleteDTO].self, from: data)
                     SheetListViewIntent(list : self ).httpJsonLoaded(results: dataDTO)
                     //print(re)
                     for tdata in dataDTO{
-                        let sheet = SheetIncomplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette )
+                        let nomProgression = ""
+                        let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: nomProgression )
                         self.data.append(sheet)
-                        let vm = SheetIncompleteViewModel(sheet: sheet)
+                        let vm = SheetCompleteViewModel(sheet: sheet)
                         vm.delegate = self
                         self.vms.append(vm)
                     }

@@ -16,14 +16,14 @@ struct HomeView: View {
                     .padding()
                 Divider()
                 // Cards de redirection pour chaque onglets de l'application
-            Image("cooking")
+                Image("cooking")
                     .resizable()
                     .scaledToFit()
                 
             }
             .navigationTitle("Bienvenue !")
-                   
-                      
+            
+            
         }
     }
 }

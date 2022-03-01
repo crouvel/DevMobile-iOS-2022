@@ -1,16 +1,16 @@
 //
-//  TracksIntent.swift
-//  Test_Cours_listUI
+//  ProgressionIntent.swift
+//  DevMobile-iOS-2022
 //
-//  Created by m1 on 19/02/2022.
+//  Created by m1 on 28/02/2022.
 //
 
 import Foundation
 
-enum SheetListState : CustomStringConvertible{
+enum ProgressionState : CustomStringConvertible{
     case ready
     case loading(String)
-    case loaded([SheetCompleteDTO])
+    case loaded([Ingredient])
     case loadingError(String)
     //case newEditeurs([EditeurViewModel])
 
@@ -18,7 +18,7 @@ enum SheetListState : CustomStringConvertible{
         switch self {
         case .ready                               : return "ready"
         case .loading(let s)                      : return "loading"
-        case .loaded(let editeurs)                  : return "loaded: \(editeurs.count) incomplete sheets"
+        case .loaded(let editeurs)                  : return "loaded: \(editeurs.count) ingredients"
         case .loadingError(let error)             : return "loadingError: Error loading -> \(error)"
         //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
@@ -26,19 +26,13 @@ enum SheetListState : CustomStringConvertible{
     
 }
 
-class SheetListViewIntent{
-    
-    var sheetincompleteList: SheetIncompleteListViewModel
-    
-    init(list: SheetIncompleteListViewModel){
-        self.sheetincompleteList = list
-    }
+/*class ProgressionIntent : ObservableObject {
         
-    func loaded(sheets: [SheetComplete]){
+    func created(){
         #if DEBUG
-        debugPrint("SearchIntent: \(self.sheetincompleteList.sheetListState) => \(sheets.count) editors loaded")
+        debugPrint("SearchIntent: \(self.creationState) => progression created")
         #endif
-        self.sheetincompleteList.sheetListState = .ready
+        self.creationState = .ready
     }
     
     func httpJsonLoaded(results: [SheetCompleteDTO]){
@@ -46,20 +40,20 @@ class SheetListViewIntent{
             debugPrint("SearchIntent: httpJsonLoaded -> success -> .loaded(editors)")
             #endif
             sheetincompleteList.sheetListState = .loaded(results)
-            /*}else{
+            }else{
                 sheetincompleteList.sheetListState = .loadingError("\(error)")
-            }*/
+            }
     }
 
-func httpJsonLoadedError(error: Error){       
-            sheetincompleteList.sheetListState = .loadingError("\(error)")
+    func creatingError(error: String){
+        self.creationState = .creatingError("\(error)")
 }
 
-    func editeurLoaded(){
+    func progressionCreated(){
         #if DEBUG
         debugPrint("SearchIntent: editor deleted => save data")
         #endif
-        sheetincompleteList.sheetListState = .ready
+        self.creationState = .created
     }
 
     //var editeurFilter : String? = nil
@@ -73,5 +67,5 @@ func httpJsonLoadedError(error: Error){
         sheetincompleteList.sheetListState = .loading(url)
     }
     
+}*/
 
-}
