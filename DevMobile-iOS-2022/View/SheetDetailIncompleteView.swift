@@ -42,8 +42,10 @@ struct SheetDetailIncompleteView: View {
                     .padding()
                 Divider()
             }
-        }
-        .navigationTitle("\(viewModel.nomRecette)")
+        }.navigationViewStyle(StackNavigationViewStyle())
+                
+        .navigationBarHidden(true)
+        
         .onChange(of: viewModel.error){ error in
             switch error {
             case .NONE:
@@ -63,7 +65,12 @@ struct SheetDetailIncompleteView: View {
                 showErrorMessage = false
             }
         }
-        }.navigationBarBackButtonHidden(true)
+      
+
+        }
+        .navigationTitle("\(viewModel.nomRecette)")
+        .navigationBarBackButtonHidden(true)
+        
     }
     
 }

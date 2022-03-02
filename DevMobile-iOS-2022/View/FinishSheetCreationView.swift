@@ -23,7 +23,7 @@ struct FinishSheetCreationView: View {
                 .italic()
                 .padding()
             Divider()
-                NavigationLink(destination: HomeView()){
+                NavigationLink.init(destination:  HomeView()){
                     Text("Retour à l'accueil")
                         .fontWeight(.bold)
                         .foregroundColor(.black)
@@ -31,6 +31,7 @@ struct FinishSheetCreationView: View {
                 }.padding()
                 
             }.navigationTitle("Fiche complétée")
+                //.navigationBarHidden(true)
         }
         .navigationBarBackButtonHidden(true)
     }

@@ -21,14 +21,14 @@ class IngredientsListStepDAO {
         request.httpBody = parameters.percentEncoded()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
-                let response = response as? HTTPURLResponse,
-                error == nil
+                  let response = response as? HTTPURLResponse,
+                  error == nil
             else {                                              // check for fundamental networking error
                 print("error", error ?? "Unknown error")
                 return
             }
             vm.creationStateIngredientList = .created
-
+            
             guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
@@ -38,8 +38,8 @@ class IngredientsListStepDAO {
             if response.statusCode == 200 {
                 
             }
-           
-
+            
+            
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(responseString)")
         }
@@ -51,24 +51,24 @@ class IngredientsListStepDAO {
         let surl = "https://awi-back-2021.herokuapp.com/api/ingredientsList/last/\(String(nomListe.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""))"
         print(surl)
         guard let url1 = URL(string: surl) else { print("rien"); return }
-            let request1 = URLRequest(url: url1)
-            URLSession.shared.dataTask(with: request1) { data,response,error in
-                guard let data = data else{return}
-                do{
-                    let tdata : [LastIngredientListDTO] = try JSONDecoder().decode([LastIngredientListDTO].self, from: data)
-                    //print(re)
-                    DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
-                        print(tdata)
-                        IngredientsListStepDAO.AddIngredientListFinal(libelleIngredient: libelleIngredient, quantite: quantite, idListeIngredient: tdata[0].idLastCreatedList, nomProgression: nomProgression, vm: vm)
-                    }
+        let request1 = URLRequest(url: url1)
+        URLSession.shared.dataTask(with: request1) { data,response,error in
+            guard let data = data else{return}
+            do{
+                let tdata : [LastIngredientListDTO] = try JSONDecoder().decode([LastIngredientListDTO].self, from: data)
+                //print(re)
+                DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                    print(tdata)
+                    IngredientsListStepDAO.AddIngredientListFinal(libelleIngredient: libelleIngredient, quantite: quantite, idListeIngredient: tdata[0].idLastCreatedList, nomProgression: nomProgression, vm: vm)
                 }
-                catch{
-                    DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
-                        print("error")
-                    }
-                    print("Error: \(error)")
+            }
+            catch{
+                DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                    print("error")
                 }
-            }.resume()
+                print("Error: \(error)")
+            }
+        }.resume()
     }
     
     static func AddIngredientListFinal(libelleIngredient: String, quantite: Double, idListeIngredient: Int, nomProgression: String, vm: SheetCompleteViewModel){
@@ -86,12 +86,12 @@ class IngredientsListStepDAO {
         request.httpBody = parameters.percentEncoded()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
-                let response = response as? HTTPURLResponse,
-                error == nil else {                                              // check for fundamental networking error
-                print("error", error ?? "Unknown error")
-                return
-            }
-            vm.addStateIngredientList = .added
+                  let response = response as? HTTPURLResponse,
+                  error == nil else {                                              // check for fundamental networking error
+                      print("error", error ?? "Unknown error")
+                      return
+                  }
+            
             guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
@@ -99,13 +99,14 @@ class IngredientsListStepDAO {
                 vm.addStateIngredientList = .addingError("\(error)")
                 return
             }
-            if response.statusCode == 200 {
-                //vm.creationStateIngredientList = .created
-            }
+            vm.addStateIngredientList = .added
+            var listSheets : SheetCompleteListViewModel = SheetCompleteListViewModel()
+            SheetDAO.fetchSheet(list: listSheets)
+            //vm.creationStateIngredientList = .created
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(responseString)")
         }
-
+        
         task.resume()
     }
     

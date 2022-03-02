@@ -57,7 +57,7 @@ struct SheetIncompleteListView: View {
                                         .italic()
                                 }
                             }
-                        }.navigationTitle("Fiches Incomplètes")
+                        }
                         /*.navigationBarItems(trailing:
                          
                          )*/
@@ -70,6 +70,8 @@ struct SheetIncompleteListView: View {
                          dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
                          }*/
                     }.searchable(text: $searchString)
+                      
+                            //.navigationBarHidden(true)
                 }
                 /*switch sheetListState {
                  case .loading:
@@ -122,9 +124,11 @@ struct SheetIncompleteListView: View {
                  EmptyView()
                  }
                  }*/
-            }
+            } .navigationTitle("Fiches Incomplètes")
         }
-    }}
+    }
+    
+}
 
 struct SheetIncompleteListView_Previews: PreviewProvider {
     static var previews: some View {

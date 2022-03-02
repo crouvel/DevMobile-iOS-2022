@@ -140,7 +140,7 @@ struct CreateIngredientsListView: View {
                             }){
                                 Text("Non, terminer")
                                     .fontWeight(.bold)
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.black)
                                     .frame(alignment: .center)
                             }
                         }

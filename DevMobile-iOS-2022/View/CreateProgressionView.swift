@@ -96,7 +96,7 @@ struct CreateProgressionView: View {
                          @State var temps : Int = 0
                          @State var progressionAj : String = ""*/
                     case .creating:
-                        Text("Création de la progression")
+                        Text("Création de l'étape")
                             .foregroundColor(.black)
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .black))
@@ -105,7 +105,7 @@ struct CreateProgressionView: View {
                         Text(error)
                             .foregroundColor(.black)
                     case .ready:
-                        Text("Progression Créée !")
+                        Text("Progression \(referenceProgression) Créée !")
                             .fontWeight(.bold)
                             .font(.system(size: 20))
                             .padding()
@@ -190,7 +190,7 @@ struct CreateProgressionView: View {
                     }
                 case .ready:
                     Form{
-                        Section(header: Text("Ajout Progression")
+                        Section(header: Text("Ajoutez une progression")
                                     .font(.system(size: 20))
                                     .foregroundColor(.black)
                                     .fontWeight(.bold)){
@@ -218,10 +218,8 @@ struct CreateProgressionView: View {
                     }
                 }
                 
-                /*if self.intent.creationState.description == "created" {
-                 Text("ok")
-                 }*/
             }.navigationTitle("Créer une progression")
+                .navigationBarHidden(true)
         }
         .navigationBarBackButtonHidden(true)
     }
