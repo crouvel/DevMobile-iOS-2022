@@ -99,9 +99,13 @@ class IngredientsListStepDAO {
                 vm.addStateIngredientList = .addingError("\(error)")
                 return
             }
-            vm.addStateIngredientList = .added
+           
+            DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                vm.addStateIngredientList = .added
+            }
+            
             var listSheets : SheetCompleteListViewModel = SheetCompleteListViewModel()
-            SheetDAO.fetchSheet(list: listSheets)
+            //SheetDAO.fetchSheet(list: listSheets)
             //vm.creationStateIngredientList = .created
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(responseString)")

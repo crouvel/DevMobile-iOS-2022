@@ -69,7 +69,10 @@ class ProgressionDAO {
                 vm.creationState = .creatingError("\(response)")
                 return
             }
+            
+             DispatchQueue.main.async {
             vm.creationState = .created
+             }
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(responseString)")
         }

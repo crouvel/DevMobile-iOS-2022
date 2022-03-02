@@ -69,7 +69,7 @@ struct SheetDetailIncompleteView: View {
 
         }
         .navigationTitle("\(viewModel.nomRecette)")
-        .navigationBarBackButtonHidden(true)
+        //.navigationBarBackButtonHidden(true)
         
     }
     

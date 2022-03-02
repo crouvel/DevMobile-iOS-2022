@@ -9,8 +9,9 @@ import SwiftUI
 
 class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelegate {
   
-    var data: [SheetComplete]
-    var vms: [SheetCompleteViewModel]
+    @Published var data: [SheetComplete]
+    @Published var vms: [SheetCompleteViewModel]
+    @Published var fetching : Bool = false
     
     func sheetCompleteViewModelChanged() {
         objectWillChange.send()
@@ -31,12 +32,17 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
                }
            }
        }
-    
     init(){
         self.vms = []
         self.data = []
-        SheetCompleteListViewIntent(list : self ).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
-        let surl = "https://awi-back-2021.herokuapp.com/api/sheet/join"
+    }
+    
+    func fetchData() async{
+        self.vms = []
+        self.data = []
+        fetching = true
+        //SheetCompleteListViewIntent(list : self ).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet")
+        let surl = "https://awi-back-2021.herokuapp.com/api/sheet"
             guard let url = URL(string: surl) else { print("rien"); return }
             let request = URLRequest(url: url)
             URLSession.shared.dataTask(with: request) { data,response,error in
@@ -44,21 +50,31 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
                 do{
                     let dataDTO : [SheetCompleteDTO] = try JSONDecoder().decode([SheetCompleteDTO].self, from: data)
                     //print(re)
-                    SheetCompleteListViewIntent(list : self ).httpJsonLoaded(result: dataDTO)
+                    //SheetCompleteListViewIntent(list : self ).httpJsonLoaded(result: dataDTO)
                     for tdata in dataDTO{
                         let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: tdata.nomProgression )
-                        self.data.append(sheet)
+                        let hasSheet = self.data.contains(where: { $0.idFiche == sheet.idFiche })
+                        if hasSheet == false {
+                            self.data.append(sheet)
+                        }
+                        //self.data.append(sheet)
                         let vm = SheetCompleteViewModel(sheet: sheet)
                         vm.delegate = self
-                        self.vms.append(vm)
+                        let hasSheetvm = self.vms.contains(where: { $0.sheet.idFiche == vm.sheet.idFiche })
+                        if hasSheetvm == false {
+                            self.vms.append(vm)
+                        }
+                        //self.vms.append(vm)
                     }
                     DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
                         SheetCompleteListViewIntent(list : self ).loaded(sheets: self.data)
+                        self.fetching = false
                         //print(self.data)
                     }
                     
                 }catch{
                     DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                        self.fetching = false
                         self.sheetListState = .loadingError("\(error)")
                         print("error")
                     }

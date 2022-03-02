@@ -45,7 +45,7 @@ struct SheetView: View {
                     
                 case .loadingError:
                     Text("erreur")
-                default :
+                case .ready:
                     List {
                         ForEach(searchString == "" ? dataSheetComplete.vms : dataSheetComplete.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
                             vm in
@@ -74,7 +74,23 @@ struct SheetView: View {
                          indexSet, index in
                          dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
                          }*/
-                    }.searchable(text: $searchString)
+                    }.overlay {
+                        if dataSheetComplete.fetching {
+                            Text("Chargement des fiches techniques")
+                                .foregroundColor(.blue)
+                            
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                                .scaleEffect(2)
+
+                        }
+                    }
+                    .searchable(text: $searchString)
+                    .task{
+                        do{
+                            await dataSheetComplete.fetchData()
+                        }
+                        }
                 }
                 /*switch sheetListState {
                  case .loading:
