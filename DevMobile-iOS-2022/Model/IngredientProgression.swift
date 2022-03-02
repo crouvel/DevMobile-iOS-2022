@@ -33,6 +33,27 @@ struct IngredientProgressionDTO: Decodable{
     var nomListeIngredients: String
 }
 
+struct LastIngredientListDTO: Decodable{
+   /*static func tracksDTO2Track(data: [TrackDTO]) -> [Track]?{
+      var tracks = [Track]()
+      for tdata in data{
+         /*guard (tdata.collectionId != nil) || (tdata.trackId != nil) else{
+            return nil
+         }
+          let id : Int = tdata.trackId ?? 0000
+          let name : String = tdata.trackName ?? "unspecified"
+          let artist : String = tdata.artistName ?? "unspecified"
+          let album : String = tdata.collectionName ?? "unspecified"
+          let date : String = tdata.releaseDate ?? "unspecified"*/
+          let track = Track(libelle: tdata.libelle, idIngredient: tdata.idIngredient, nomCategorie: tdata.libelleCategorie )
+         tracks.append(track)
+      }
+      return tracks
+   }*/
+   var idLastCreatedList: Int
+  
+}
+
 /*protocol TrackObserver {
     func changed(trackName: String)
     func changed(collectionName: String)

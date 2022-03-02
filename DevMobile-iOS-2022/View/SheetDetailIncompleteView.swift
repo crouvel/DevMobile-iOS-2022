@@ -20,6 +20,7 @@ struct SheetDetailIncompleteView: View {
     }
     
     var body: some View {
+        NavigationView{
         VStack{
             VStack{
                 Text("Cette fiche technique ne contient pas de progression, veuillez en ajouter une.")
@@ -62,7 +63,10 @@ struct SheetDetailIncompleteView: View {
                 showErrorMessage = false
             }
         }
-    }}
+        }.navigationBarBackButtonHidden(true)
+    }
+    
+}
 
 struct SheetDetailView_Previews: PreviewProvider {
     static var previews: some View {

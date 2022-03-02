@@ -7,24 +7,6 @@
 
 import Foundation
 
-enum ProgressionCreationIntentState : CustomStringConvertible{
-    case ready
-    case creating
-    case created
-    case creatingError(String)
-    //case newEditeurs([EditeurViewModel])
-
-    var description: String{
-        switch self {
-        case .ready                               : return "ready"
-        case .creating                            : return "creating progession"
-        case .created                              : return "created"
-        case .creatingError(let error)             : return "creatingError: Error loading -> \(error)"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
-        }
-    }
-    
-}
 
 class ProgressionToCreateViewModel : ObservableObject{
     

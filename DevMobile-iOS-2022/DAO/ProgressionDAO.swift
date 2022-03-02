@@ -11,6 +11,7 @@ class ProgressionDAO {
     //@ObservedObject var vm: ProgressionViewModel = ProgressionViewModel(progression: )
     static func CreateProgression(nomProgression: String, nomRecette: String, vm: SheetCompleteViewModel){
         let url = URL(string: "https://awi-back-2021.herokuapp.com/api/progression/create")!
+        vm.creationState = .creating
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -68,11 +69,7 @@ class ProgressionDAO {
                 vm.creationState = .creatingError("\(response)")
                 return
             }
-
-            if response.statusCode == 200 {
-                vm.creationState = .created
-                //ProgressionIntent().creationState = .ready
-            }
+            vm.creationState = .created
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(responseString)")
         }

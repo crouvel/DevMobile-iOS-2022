@@ -28,7 +28,7 @@ enum SheetIncompleteError: Error, Equatable, CustomStringConvertible {
     }
 }
 
-class SheetIncompleteViewModel: ObservableObject, Subscriber {
+/*class SheetIncompleteViewModel: ObservableObject, Subscriber {
     typealias Input = SheetIncompleteIntentState
     typealias Failure = Never
     
@@ -90,5 +90,5 @@ class SheetIncompleteViewModel: ObservableObject, Subscriber {
         
         return .none
     }
-}
+}*/
 

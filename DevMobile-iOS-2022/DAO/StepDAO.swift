@@ -7,8 +7,9 @@
 
 import Foundation
 class StepDAO {
-    static func CreateStep(titre: String, ordre: Int, temps: Int, description: String, refprogression: String, desprogression: String){
+    static func CreateStep(titre: String, ordre: Int, temps: Int, description: String, refprogression: String, desprogression: String, vm: SheetCompleteViewModel){
         let url = URL(string: "https://awi-back-2021.herokuapp.com/api/step/create")!
+        vm.creationStateStep = .creating
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -21,6 +22,7 @@ class StepDAO {
             "ordre": ordre,
             "referenceProgression": refprogression,
         ]}else {
+            if description == "" {
             parameters = [
                 "titre": titre,
                 "description": description,
@@ -28,7 +30,15 @@ class StepDAO {
                 "ordre": ordre,
                 "referenceProgression": refprogression,
                 "descriptionProgression": desprogression,
-            ]
+            ]}else {
+                parameters = [
+                    "titre": titre,
+                    "description": description,
+                    "temps": temps,
+                    "ordre": ordre,
+                    "referenceProgression": refprogression
+                ]
+            }
         }
         request.httpBody = parameters.percentEncoded()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -42,7 +52,13 @@ class StepDAO {
             guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
+                vm.creationStateStep = .creatingError("\(response)")
                 return
+            }
+            
+            if response.statusCode == 200 {
+                vm.creationStateStep = .created
+                //ProgressionIntent().creationState = .ready
             }
 
             let responseString = String(data: data, encoding: .utf8)
