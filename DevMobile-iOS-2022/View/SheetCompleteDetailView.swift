@@ -71,8 +71,9 @@ struct SheetCompleteDetailView: View {
                              //}*/
                             
                         }.padding()
-                        NavigationLink(destination: SheetIncompleteListView(viewModel: SheetIncompleteListViewModel())){
+                        NavigationLink(destination: CalculCoutsView(vm: self.viewModel)){
                             Text("Calcul des coûts")
+                                .fontWeight(.bold)
                             EmptyView()
                         }
                     }
@@ -86,6 +87,7 @@ struct SheetCompleteDetailView: View {
                             Spacer()
                         }.background(Color.cyan)
                             .frame( alignment: .center)
+                        Divider()
                         /*HStack{
                          Text("\(viewModel.nomRecette)")
                          .fontWeight(.semibold)
@@ -106,6 +108,7 @@ struct SheetCompleteDetailView: View {
                          Text("\(viewModel.Nbre_couverts)")
                          .frame(maxHeight: .infinity)              }.fixedSize(horizontal: false, vertical: true)*/
                     }
+                    Divider()
                     VStack{
                         HStack{
                             Spacer()
@@ -128,11 +131,10 @@ struct SheetCompleteDetailView: View {
                             Spacer()
                         }.background(Color.cyan)
                             .frame( alignment: .center)
-                        
+                        Divider()
                         VStack{
                             ForEach( _listvm2.vms,id: \.ingredient.nomListeIngredients) {
                                 vm in
-                                
                                 HStack{
                                     VStack{
                                         Text("\(vm.nomListeIngredients)")
@@ -156,6 +158,7 @@ struct SheetCompleteDetailView: View {
                             }
                         }
                     }
+                    Divider()
                     VStack{
                         HStack{
                             Spacer()
@@ -166,11 +169,13 @@ struct SheetCompleteDetailView: View {
                             Spacer()
                         }.background(Color.cyan)
                             .frame( alignment: .center)
+                        Divider()
                         HStack{
                             Text("\(viewModel.nomProgression ?? "")")
                                 .fontWeight(.semibold)
                                 .font(.system(size: 18))
                         }
+                        Divider()
                         HStack{
                             Spacer()
                             Text("Responsable : \(viewModel.nomAuteur)")
@@ -180,6 +185,7 @@ struct SheetCompleteDetailView: View {
                             Spacer()
                         }.background(Color.cyan)
                             .frame( alignment: .center)
+                        Divider()
                         /*HStack{
                          Text("\(viewModel.nomAuteur)")                //Text("\(listvm.vms.count)")
                          }*/
@@ -213,7 +219,7 @@ struct SheetCompleteDetailView: View {
                             }
                         }
                     }
-                    
+                    Divider()
                     VStack {
                         HStack{
                             Spacer()
@@ -224,7 +230,7 @@ struct SheetCompleteDetailView: View {
                             Spacer()
                         }.background(Color.cyan)
                             .frame( alignment: .center)
-                        
+                        Divider()
                         VStack{
                             Text("Ingrédients necessaires")
                                 .fontWeight(.bold)
@@ -235,7 +241,6 @@ struct SheetCompleteDetailView: View {
                                     VStack{
                                         ForEach(vm.ingredients.split(separator: ","), id: \.self){ ingredient in
                                             Text(ingredient)
-                                            
                                         }
                                     }
                                 }

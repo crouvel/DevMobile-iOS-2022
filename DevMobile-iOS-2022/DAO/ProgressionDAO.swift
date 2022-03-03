@@ -72,7 +72,7 @@ class ProgressionDAO {
             
              DispatchQueue.main.async {
             vm.creationState = .created
-            SheetDAO.fetchSheet(list: SheetCompleteListViewModel())
+            //SheetDAO.fetchSheet(list: SheetCompleteListViewModel())
              }
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(responseString)")

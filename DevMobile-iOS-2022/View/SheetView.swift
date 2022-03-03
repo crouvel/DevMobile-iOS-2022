@@ -32,7 +32,7 @@ struct SheetView: View {
     
     var body: some View {
         NavigationView{
-
+            
             VStack{
                 switch sheetCompleteListState {
                 case .loading, .loaded:
@@ -135,25 +135,29 @@ struct SheetView: View {
                         }){
                             Text("Rafraîchir la liste")
                                 .fontWeight(.bold)
-                                .foregroundColor(.teal)
-                                .frame(alignment: .center)
-                        }.padding()
+                                .foregroundColor(.cyan)
+                                .padding()
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.cyan, lineWidth: 5)
+                                )
+                        }
                     }
                     
                     HStack{
-                    NavigationLink(destination: CreateSheetView()){
-                        Text("Créer une fiche   ")
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
-                        EmptyView()
-                    }
-                    NavigationLink(destination: SheetIncompleteListView(viewModel: SheetIncompleteListViewModel())){
-                        Text("   Liste Fiches vides")
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
-                        EmptyView()
-                    }
-                   
+                        NavigationLink(destination: CreateSheetView()){
+                            Text("Créer une fiche  +   ")
+                                .fontWeight(.bold)
+                                .foregroundColor(.teal)
+                            EmptyView()
+                        }
+                        NavigationLink(destination: SheetIncompleteListView(viewModel: SheetIncompleteListViewModel())){
+                            Text("   Liste Fiches vides")
+                                .fontWeight(.bold)
+                                .foregroundColor(.teal)
+                            EmptyView()
+                        }
+                        
                     }.padding()
                 }
             }
