@@ -118,6 +118,24 @@ enum DeleteSheetIntentState : CustomStringConvertible {
     }
 }
 
+enum CreateSheetIntentState : CustomStringConvertible {
+    case ready
+    case creating
+    case created
+    case creatingError(String)
+    //case newEditeurs([EditeurViewModel])
+
+    var description: String{
+        switch self {
+        case .ready                               : return "ready"
+        case .creating                            : return "creating sheet"
+        case .created                              : return "created"
+        case .creatingError(let error)             : return "creatingError: Error loading -> \(error)"
+        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
+        }
+    }
+}
+
 class SheetCompleteViewModel: ObservableObject, Subscriber {
     typealias Input = SheetCompleteIntentState
     typealias Failure = Never
@@ -136,6 +154,22 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
             }
         }
     }
+    
+    @Published var enteteCreationState : CreateSheetIntentState = .ready{
+        didSet{
+            print("state: \(self.enteteCreationState)")
+            switch self.enteteCreationState { // state has changed
+            case .created:    // new data has been loaded, to change all games of list
+                //let sortedData = data.sorted(by: { $0. < $1.name })
+                print("created")
+            case .creatingError(let error):
+                print("\(error)")
+            default:                   // nothing to do for ViewModel, perhaps for the view
+                return
+            }
+        }
+    }
+
     
     @Published var deletionState : DeleteSheetIntentState = .ready{
         didSet{

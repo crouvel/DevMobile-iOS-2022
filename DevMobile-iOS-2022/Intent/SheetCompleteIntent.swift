@@ -59,7 +59,39 @@ class SheetCompleteIntent: ObservableObject {
 #if DEBUG
         debugPrint("SearchIntent: editor deleted => save data")
 #endif
-        sheetCompletevm.deletionState = .deleted
+        DispatchQueue.main.async {
+            self.sheetCompletevm.deletionState = .deleted
+        }
+    }
+    
+    func created(){
+#if DEBUG
+        debugPrint("SheetCompleteListIntent: \(self.sheetCompletevm.enteteCreationState) => created")
+#endif
+        self.sheetCompletevm.enteteCreationState = .ready
+    }
+    
+    func creating(){
+#if DEBUG
+        debugPrint("SheetCompleteListIntent: \(self.sheetCompletevm.enteteCreationState) => creating")
+#endif
+        self.sheetCompletevm.enteteCreationState = .creating
+    }
+    
+    func creatingError(error: Error){
+#if DEBUG
+        debugPrint("state: creating error")
+#endif
+        self.sheetCompletevm.enteteCreationState = .creatingError("\(error)")
+    }
+    
+    func sheetCreated(){
+#if DEBUG
+        debugPrint("SearchIntent: sheet created => save data")
+#endif
+        DispatchQueue.main.async {
+            self.sheetCompletevm.enteteCreationState = .created
+        }
     }
     
     func intentToChange(artistName: String){

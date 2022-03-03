@@ -88,12 +88,6 @@ struct SheetCompleteDetailView: View {
                         }.background(Color.cyan)
                             .frame( alignment: .center)
                         Divider()
-                        /*HStack{
-                         Text("\(viewModel.nomRecette)")
-                         .fontWeight(.semibold)
-                         .font(.system(size: 19))
-                         //Text("\(listvm.vms.count)")
-                         }*/
                         HStack{
                             Text("Nombre de couverts : ")
                                 .fontWeight(.bold)

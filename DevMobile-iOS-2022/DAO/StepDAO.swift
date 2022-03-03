@@ -15,40 +15,40 @@ class StepDAO {
         request.httpMethod = "POST"
         let parameters : [String : Any]
         if desprogression == "" {
-        parameters = [
-            "titre": titre,
-            "description": description,
-            "temps": temps,
-            "ordre": ordre,
-            "referenceProgression": refprogression,
-        ]}else {
-            if description == "" {
             parameters = [
                 "titre": titre,
                 "description": description,
                 "temps": temps,
                 "ordre": ordre,
                 "referenceProgression": refprogression,
-                "descriptionProgression": desprogression,
-            ]}else {
-                parameters = [
-                    "titre": titre,
-                    "description": description,
-                    "temps": temps,
-                    "ordre": ordre,
-                    "referenceProgression": refprogression
-                ]
+            ]} else {
+                if description == "" {
+                    parameters = [
+                        "titre": titre,
+                        "description": description,
+                        "temps": temps,
+                        "ordre": ordre,
+                        "referenceProgression": refprogression,
+                        "descriptionProgression": desprogression,
+                    ]}else {
+                        parameters = [
+                            "titre": titre,
+                            "description": description,
+                            "temps": temps,
+                            "ordre": ordre,
+                            "referenceProgression": refprogression
+                        ]
+                    }
             }
-        }
         request.httpBody = parameters.percentEncoded()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
-                let response = response as? HTTPURLResponse,
-                error == nil else {                                              // check for fundamental networking error
-                print("error", error ?? "Unknown error")
-                return
-            }
-
+                  let response = response as? HTTPURLResponse,
+                  error == nil else {                                              // check for fundamental networking error
+                      print("error", error ?? "Unknown error")
+                      return
+                  }
+            
             guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
@@ -60,13 +60,11 @@ class StepDAO {
                 vm.creationStateStep = .created
                 //ProgressionIntent().creationState = .ready
             }
-
+            
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(responseString)")
         }
-
         task.resume()
-        
     }
-
+    
 }

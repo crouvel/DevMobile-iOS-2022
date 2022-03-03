@@ -21,7 +21,7 @@ struct HomeView: View {
                     .scaledToFit()
                 
             }
-            .navigationTitle("Bienvenue !")
+            .navigationTitle("🧑‍🍳 Bienvenue !")
             
             
         }

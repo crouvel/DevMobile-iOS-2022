@@ -68,7 +68,7 @@ struct SheetDetailIncompleteView: View {
                     Text("La fiche technique a bien été supprimée !")
                         .font(.system(size: 20))
                         .fontWeight(.bold)
-                        .foregroundColor(.green)
+                        .foregroundColor(.blue)
                         .italic()
                         .padding()
                     Divider()

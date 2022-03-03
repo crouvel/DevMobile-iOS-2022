@@ -127,7 +127,6 @@ struct SheetView: View {
                   }*/
                  }.searchable(text: $searchString)*/
                 VStack {
-                    HStack {
                         Button(action: {
                             //print(self.intent.creationState.description)
                             SheetDAO.fetchSheet(list: dataSheetComplete)
@@ -142,19 +141,28 @@ struct SheetView: View {
                                         .stroke(Color.cyan, lineWidth: 5)
                                 )
                         }
-                    }
                     
                     HStack{
                         NavigationLink(destination: CreateSheetView()){
-                            Text("Créer une fiche  +   ")
+                            Text("Créer une fiche +   ")
                                 .fontWeight(.bold)
-                                .foregroundColor(.teal)
+                                .foregroundColor(.blue)
+                                //.padding()
+                                /*.overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.blue, lineWidth: 5)
+                                )*/
                             EmptyView()
                         }
                         NavigationLink(destination: SheetIncompleteListView(viewModel: SheetIncompleteListViewModel())){
                             Text("   Liste Fiches vides")
                                 .fontWeight(.bold)
-                                .foregroundColor(.teal)
+                                .foregroundColor(.blue)
+                                //.padding()
+                                /*.overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.blue, lineWidth: 5)
+                                )*/
                             EmptyView()
                         }
                         

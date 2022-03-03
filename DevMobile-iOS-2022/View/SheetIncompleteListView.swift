@@ -124,7 +124,7 @@ struct SheetIncompleteListView: View {
                  EmptyView()
                  }
                  }*/
-            } .navigationTitle("Fiches Incomplètes")
+            } .navigationTitle("Fiches à compléter")
         }
     }
     
