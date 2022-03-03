@@ -27,32 +27,46 @@ class SheetDAO {
                 print("error", error ?? "Unknown error")
                 return
             }
-
             guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
                 return
             }
-            
-
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(responseString)")
         }
-
         task.resume()
-        
     }
     
-    static func deleteSheet(idFiche: Int){
-        let parameters: [String: Any] = [
-            "id": idFiche
-        ]
-        guard let url = URL(string: "https://awi-back-2021.herokuapp.com/api/sheet/delete/\(idFiche)") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpBody = try? JSONSerialization.data(withJSONObject:parameters, options: []) else { return }
-        request.httpBody = httpBody
+    static func deleteSheet(idFiche: Int, vm: SheetCompleteViewModel){
+        SheetCompleteIntent( vm: vm ).deleting(s: "https://awi-back-2021.herokuapp.com/api/sheet/delete/\(idFiche)" )
+        guard let url = URL(string: "https://awi-back-2021.herokuapp.com/api/sheet/delete/\(idFiche)") else {
+                    print("Error: cannot create URL")
+                    return
+                }
+                // Create the request
+                var request = URLRequest(url: url)
+                request.httpMethod = "DELETE"
+                URLSession.shared.dataTask(with: request) { data, response, error in
+                    guard error == nil else {
+                        print("Error: error calling DELETE")
+                        SheetCompleteIntent( vm: vm ).deletingError(error: error!)
+                        print(error!)
+                        return
+                    }
+                    guard let data = data else {
+                        print("Error: Did not receive data")
+                        return
+                    }
+                    guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+                        print("Error: HTTP request failed")
+                        return
+                    }
+                    if response.statusCode == 200  {
+                        SheetCompleteIntent( vm: vm ).sheetDeleted()
+                        print("fiche supprimée !")
+                    }
+                }.resume()
     }
     
     static func fetchSheet(list : SheetCompleteListViewModel){
@@ -80,7 +94,6 @@ class SheetDAO {
                         print("reload")
                         //print(self.data)
                     }
-                    
                 }catch{
                     DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
                         list.sheetListState = .loadingError("\(error)")
@@ -88,7 +101,6 @@ class SheetDAO {
                     }
                     print("Error: \(error)")
                 }
-
             }.resume()
     }
     
@@ -117,7 +129,6 @@ class SheetDAO {
                         print("reload")
                         //print(self.data)
                     }
-                    
                 }catch{
                     DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
                         //list.sheetListState = .loadingError("\(error)")
@@ -125,8 +136,6 @@ class SheetDAO {
                     }
                     print("Error: \(error)")
                 }
-
             }.resume()
     }
-
 }

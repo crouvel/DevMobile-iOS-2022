@@ -133,7 +133,7 @@ struct CreateIngredientsListView: View {
                             }
                             Button(action: {
                                 /*libelle = ""
-                                quantite = 0*/
+                                 quantite = 0*/
                                 //print(self.intent.creationState.description)
                                 self.viewModel.addStateIngredientList = .addMoreList
                                 /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/

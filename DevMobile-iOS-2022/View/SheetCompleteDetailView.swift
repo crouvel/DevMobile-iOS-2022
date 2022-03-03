@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SheetCompleteDetailView: View {
     //var exportURL : URL
-    var intent: SheetCompleteIntent
+    //var intent: SheetCompleteIntent
     @ObservedObject var viewModel: SheetCompleteViewModel
     //@ObservedObject var viewModel2: IngredientProgressionViewModel
     @State var errorMessage: String = ""
@@ -25,7 +25,7 @@ struct SheetCompleteDetailView: View {
         return _listvm2
     }
     init(vm: SheetCompleteViewModel/*, vm2: IngredientProgressionViewModel*/){
-        self.intent = SheetCompleteIntent()
+        //self.intent = SheetCompleteIntent()
         self.viewModel = vm
         //self.exportURL = URL(string: "")!
         //self.viewModel2 = vm2

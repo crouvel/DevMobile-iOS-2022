@@ -16,18 +16,51 @@ enum SheetCompleteIntentState: Equatable, CustomStringConvertible {
     
     var description: String {
         switch self {
-            case .READY:
-                return "Ready"
+        case .READY:
+            return "Ready"
             /*case .CHANGING_ARTISTNAME(let artistName):
-                return "Changing artist name to \(artistName)"*/
+             return "Changing artist name to \(artistName)"*/
         case .LIST_UPDATED:
-                return "List updated"
+            return "List updated"
         }
     }
 }
 
 class SheetCompleteIntent: ObservableObject {
     private var state = PassthroughSubject<SheetCompleteIntentState, Never>()
+    
+    var sheetCompletevm : SheetCompleteViewModel
+    
+    init(vm: SheetCompleteViewModel){
+        self.sheetCompletevm = vm
+    }
+    
+    func deleted(){
+#if DEBUG
+        debugPrint("SheetCompleteListIntent: \(self.sheetCompletevm.deletionState) => deleted")
+#endif
+        self.sheetCompletevm.deletionState = .ready
+    }
+    
+    func deleting(s: String){
+#if DEBUG
+        debugPrint("SheetCompleteListIntent: \(self.sheetCompletevm.deletionState) => deleting")
+#endif
+        self.sheetCompletevm.deletionState = .deleting(s)
+    }
+    
+    func deletingError(error: Error){
+#if DEBUG
+        debugPrint("state: deleting error")
+#endif
+        self.sheetCompletevm.deletionState = .deletingError("\(error)")
+    }
+    func sheetDeleted(){
+#if DEBUG
+        debugPrint("SearchIntent: editor deleted => save data")
+#endif
+        sheetCompletevm.deletionState = .deleted
+    }
     
     func intentToChange(artistName: String){
         /*self.state.send(.CHANGING_ARTISTNAME(artistName))*/

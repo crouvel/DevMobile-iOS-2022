@@ -84,13 +84,12 @@ enum IngredientListCreationIntentState : CustomStringConvertible{
     }
 }
 
-enum AddIngredientToListIntentState : CustomStringConvertible{
+enum AddIngredientToListIntentState : CustomStringConvertible {
     case ready
     case adding
     case added
     case addingError(String)
     case addMoreList
-    //case newEditeurs([EditeurViewModel])
 
     var description: String{
         switch self {
@@ -99,11 +98,25 @@ enum AddIngredientToListIntentState : CustomStringConvertible{
         case .added                              : return "added"
         case .addingError(let error)             : return "creatingError: Error adding -> \(error)"
         case .addMoreList                        : return "add more"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
     }
 }
 
+enum DeleteSheetIntentState : CustomStringConvertible {
+    case ready
+    case deleting(String)
+    case deleted
+    case deletingError(String)
+
+    var description: String{
+        switch self {
+        case .ready                               : return "ready"
+        case .deleting(let s)                                : return "deleting \(s)"
+        case .deleted                             : return "deleted"
+        case .deletingError(let error)             : return "deletingError: Error adding -> \(error)"
+        }
+    }
+}
 
 class SheetCompleteViewModel: ObservableObject, Subscriber {
     typealias Input = SheetCompleteIntentState
@@ -117,6 +130,21 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
                 //let sortedData = data.sorted(by: { $0. < $1.name })
                 print("created")
             case .creatingError(let error):
+                print("\(error)")
+            default:                   // nothing to do for ViewModel, perhaps for the view
+                return
+            }
+        }
+    }
+    
+    @Published var deletionState : DeleteSheetIntentState = .ready{
+        didSet{
+            print("state: \(self.deletionState)")
+            switch self.deletionState { // state has changed
+            case .deleted:    // new data has been loaded, to change all games of list
+                //let sortedData = data.sorted(by: { $0. < $1.name })
+                print("deleted")
+            case .deletingError(let error):
                 print("\(error)")
             default:                   // nothing to do for ViewModel, perhaps for the view
                 return
@@ -207,6 +235,7 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
     func changed(artistName: String) {
         self.artistName = artistName
     }*/
+    
     
     func receive(subscription: Subscription) {
         subscription.request(.unlimited)
