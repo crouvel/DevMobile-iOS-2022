@@ -29,7 +29,11 @@ enum StepProgressionError: Error, Equatable, CustomStringConvertible {
     }
 }
 
-class StepProgressionViewModel: ObservableObject /*Subscriber*/ {
+class StepProgressionViewModel: ObservableObject , Equatable/*Subscriber*/ {
+    static func == (lhs: StepProgressionViewModel, rhs: StepProgressionViewModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     //typealias Input = SheetIntentState
     typealias Failure = Never
     

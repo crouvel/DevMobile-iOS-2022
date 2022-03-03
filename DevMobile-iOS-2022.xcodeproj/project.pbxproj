@@ -46,7 +46,7 @@
 		6F41AB6727C952C500649DC6 /* IngredientListProgressionIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB6627C952C500649DC6 /* IngredientListProgressionIntent.swift */; };
 		6F41AB6927CBED9600649DC6 /* PDFHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB6827CBED9600649DC6 /* PDFHelper.swift */; };
 		6F41AB6B27CC5FBB00649DC6 /* EtiquetteSansVenteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB6A27CC5FBB00649DC6 /* EtiquetteSansVenteView.swift */; };
-		6F41AB6D27CC608D00649DC6 /* CalculCoutsIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB6C27CC608D00649DC6 /* CalculCoutsIView.swift */; };
+		6F41AB6D27CC608D00649DC6 /* CalculCoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB6C27CC608D00649DC6 /* CalculCoutsView.swift */; };
 		6F41AB6F27CC6B2C00649DC6 /* ProgressionIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB6E27CC6B2C00649DC6 /* ProgressionIntent.swift */; };
 		6F41AB7127CC6BAB00649DC6 /* ProgressionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB7027CC6BAB00649DC6 /* ProgressionViewModel.swift */; };
 		6F41AB7527CC743E00649DC6 /* ProgressionDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41AB7427CC743E00649DC6 /* ProgressionDAO.swift */; };
@@ -126,7 +126,7 @@
 		6F41AB6627C952C500649DC6 /* IngredientListProgressionIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListProgressionIntent.swift; sourceTree = "<group>"; };
 		6F41AB6827CBED9600649DC6 /* PDFHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFHelper.swift; sourceTree = "<group>"; };
 		6F41AB6A27CC5FBB00649DC6 /* EtiquetteSansVenteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtiquetteSansVenteView.swift; sourceTree = "<group>"; };
-		6F41AB6C27CC608D00649DC6 /* CalculCoutsIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculCoutsIView.swift; sourceTree = "<group>"; };
+		6F41AB6C27CC608D00649DC6 /* CalculCoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculCoutsView.swift; sourceTree = "<group>"; };
 		6F41AB6E27CC6B2C00649DC6 /* ProgressionIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressionIntent.swift; sourceTree = "<group>"; };
 		6F41AB7027CC6BAB00649DC6 /* ProgressionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressionViewModel.swift; sourceTree = "<group>"; };
 		6F41AB7427CC743E00649DC6 /* ProgressionDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressionDAO.swift; sourceTree = "<group>"; };
@@ -326,7 +326,7 @@
 				6F41AB5027C6340800649DC6 /* SheetIncompleteListView.swift */,
 				6F41AB5927C87C4100649DC6 /* CreateProgressionView.swift */,
 				6F41AB6A27CC5FBB00649DC6 /* EtiquetteSansVenteView.swift */,
-				6F41AB6C27CC608D00649DC6 /* CalculCoutsIView.swift */,
+				6F41AB6C27CC608D00649DC6 /* CalculCoutsView.swift */,
 				6F41AB7C27CD94FC00649DC6 /* SearchBar.swift */,
 				6F41AB7E27CEA00E00649DC6 /* CreateIngredientsListView.swift */,
 				6F41AB8227CEB45400649DC6 /* FinishSheetCreationView.swift */,
@@ -499,7 +499,7 @@
 				6F41AB6227C94B7E00649DC6 /* IngredientProgressionIntent.swift in Sources */,
 				6F41AB7727CD56CA00649DC6 /* StepDAO.swift in Sources */,
 				6F41AB7B27CD6BE400649DC6 /* ProgressionListViewModel.swift in Sources */,
-				6F41AB6D27CC608D00649DC6 /* CalculCoutsIView.swift in Sources */,
+				6F41AB6D27CC608D00649DC6 /* CalculCoutsView.swift in Sources */,
 				6F41AB5427C640D700649DC6 /* SheetDAO.swift in Sources */,
 				6F41AB3F27C50FAD00649DC6 /* SheetCompleteListViewIntent.swift in Sources */,
 				6F41AB6427C94D4E00649DC6 /* IngredientProgressionViewModelDelegate.swift in Sources */,

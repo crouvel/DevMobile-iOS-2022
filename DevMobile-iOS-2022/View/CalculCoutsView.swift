@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct CalculCoutsIView: View {
+struct CalculCoutsView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
-struct CalculCoutsIView_Previews: PreviewProvider {
+struct CalculCoutsView_Previews: PreviewProvider {
     static var previews: some View {
-        CalculCoutsIView()
+        CalculCoutsView()
     }
 }

@@ -21,7 +21,6 @@ struct SheetView: View {
         //self.categoryId = categoryId
         //self.categoryId = categoryId
         //TrackDAO.get()
-        
     }
     
     /*private var sheetListState : SheetListState{
@@ -33,6 +32,7 @@ struct SheetView: View {
     
     var body: some View {
         NavigationView{
+
             VStack{
                 switch sheetCompleteListState {
                 case .loading, .loaded:
@@ -82,15 +82,12 @@ struct SheetView: View {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle(tint: .blue))
                                 .scaleEffect(2)
-
                         }
                     }
                     .searchable(text: $searchString)
-                    .task{
-                        do{
-                            await dataSheetComplete.fetchData()
-                        }
-                        }
+                    .refreshable {
+                        await dataSheetComplete.fetchData()
+                    }
                 }
                 /*switch sheetListState {
                  case .loading:
@@ -129,21 +126,36 @@ struct SheetView: View {
                   dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
                   }*/
                  }.searchable(text: $searchString)*/
-                HStack{
+                VStack {
+                    HStack {
+                        Button(action: {
+                            //print(self.intent.creationState.description)
+                            SheetDAO.fetchSheet(list: dataSheetComplete)
+                            /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/
+                        }){
+                            Text("Rafraîchir la liste")
+                                .fontWeight(.bold)
+                                .foregroundColor(.teal)
+                                .frame(alignment: .center)
+                        }.padding()
+                    }
+                    
+                    HStack{
                     NavigationLink(destination: CreateSheetView()){
-                        Text("Créer une fiche")
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
-                        EmptyView()
-                    }.padding()
-                    NavigationLink(destination: SheetIncompleteListView(viewModel: SheetIncompleteListViewModel())){
-                        Text("Liste Fiches vides")
+                        Text("Créer une fiche   ")
                             .fontWeight(.bold)
                             .foregroundColor(.blue)
                         EmptyView()
                     }
-                    
-                }.onAppear{SheetDAO.fetchSheet(list: self.viewModel2)}
+                    NavigationLink(destination: SheetIncompleteListView(viewModel: SheetIncompleteListViewModel())){
+                        Text("   Liste Fiches vides")
+                            .fontWeight(.bold)
+                            .foregroundColor(.blue)
+                        EmptyView()
+                    }
+                   
+                    }.padding()
+                }
             }
         }
     }

@@ -175,7 +175,7 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
     @Published var nomAuteur: String
     @Published var Nbre_couverts: Int
     @Published var categorieRecette: String
-    @Published var nomProgression: String?
+    @Published var nomProgression: String
     @Published var PDFUrl: URL?
     @Published var showShareSheet: Bool = false
     //@Published var collectionName: String

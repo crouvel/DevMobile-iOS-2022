@@ -69,7 +69,7 @@ class SheetDAO {
                     //print(re)
                     SheetCompleteListViewIntent(list : list ).httpJsonLoaded(result: dataDTO)
                     for tdata in dataDTO{
-                        let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: tdata.nomProgression )
+                        let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: tdata.nomProgression ?? "" )
                         list.data.append(sheet)
                         let vm = SheetCompleteViewModel(sheet: sheet)
                         vm.delegate = list
@@ -90,6 +90,43 @@ class SheetDAO {
                 }
 
             }.resume()
-       
     }
+    
+    static func fetchSheetIncomplete(list : SheetIncompleteListViewModel){
+        list.vms = []
+        list.data = []
+        //SheetCompleteListViewIntent(list : list).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
+        let surl = "https://awi-back-2021.herokuapp.com/api/sheet/incomplete"
+            guard let url = URL(string: surl) else { print("rien"); return }
+            let request = URLRequest(url: url)
+            URLSession.shared.dataTask(with: request) { data,response,error in
+                guard let data = data else{return}
+                do{
+                    let dataDTO : [SheetCompleteDTO] = try JSONDecoder().decode([SheetCompleteDTO].self, from: data)
+                    //print(re)
+                    //SheetCompleteListViewIntent(list : list ).httpJsonLoaded(result: dataDTO)
+                    for tdata in dataDTO{
+                        let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: tdata.nomProgression ?? "" )
+                        list.data.append(sheet)
+                        let vm = SheetCompleteViewModel(sheet: sheet)
+                        vm.delegate = list
+                        list.vms.append(vm)
+                    }
+                    DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                        //SheetCompleteListViewIntent(list : list).loaded(sheets: list.data)
+                        print("reload")
+                        //print(self.data)
+                    }
+                    
+                }catch{
+                    DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                        //list.sheetListState = .loadingError("\(error)")
+                        print("error")
+                    }
+                    print("Error: \(error)")
+                }
+
+            }.resume()
+    }
+
 }

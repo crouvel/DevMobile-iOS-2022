@@ -18,11 +18,11 @@ struct SheetCompleteDTO: Decodable{
     var nomProgression: String?
 }
 
-/*protocol TrackObserver {
-    func changed(trackName: String)
+protocol SheetObserver {
+    /*func changed(trackName: String)
     func changed(collectionName: String)
-    func changed(artistName: String)
-}*/
+    func changed(artistName: String)*/
+}
 
 /*enum TrackPropertyChange {
     case TRACKNAME
@@ -31,13 +31,13 @@ struct SheetCompleteDTO: Decodable{
 }*/
 
 class SheetComplete: ObservableObject {
-    /*private var observers: [TrackObserver] = []*/
+    private var observers: [SheetObserver] = []
     public var idFiche: Int
     @Published var nomRecette : String
     @Published var nomAuteur: String
     @Published var Nbre_couverts: Int
     @Published var categorieRecette: String
-    @Published var nomProgression: String?
+    @Published var nomProgression: String
     /*@Published var trackName: String {
         didSet {
             notifyObservers(t: .TRACKNAME)
@@ -66,7 +66,7 @@ class SheetComplete: ObservableObject {
     }
     */
     
-    init(nomRecette: String, idFiche: Int, nomAuteur: String, Nbre_couverts: Int, categorieRecette: String, nomProgression: String?){
+    init(nomRecette: String, idFiche: Int, nomAuteur: String, Nbre_couverts: Int, categorieRecette: String, nomProgression: String){
         self.nomRecette = nomRecette
         self.idFiche = idFiche
         self.nomAuteur = nomAuteur
@@ -75,9 +75,9 @@ class SheetComplete: ObservableObject {
         self.nomProgression = nomProgression
     }
     
-    /*func addObserver(obs: TrackObserver){
+    func addObserver(obs: SheetObserver){
         observers.append(obs)
-    }*/
+    }
     
     /*func notifyObservers(t: TrackPropertyChange){
         for observer in observers {

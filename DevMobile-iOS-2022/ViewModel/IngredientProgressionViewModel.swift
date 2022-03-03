@@ -28,7 +28,12 @@ enum IngredientProgressionError: Error, Equatable, CustomStringConvertible {
     }
 }
 
-class IngredientProgressionViewModel: ObservableObject, Subscriber {
+class IngredientProgressionViewModel: ObservableObject, Subscriber, Equatable {
+    static func == (lhs: IngredientProgressionViewModel, rhs: IngredientProgressionViewModel) -> Bool {
+        return true
+    }
+    
+    
     typealias Input = IngredientProgressionIntentState
     typealias Failure = Never
     

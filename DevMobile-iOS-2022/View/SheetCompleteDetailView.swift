@@ -40,7 +40,7 @@ struct SheetCompleteDetailView: View {
     //private var dataSteps: StepProgressionListViewModel { return StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)}
     
     var body: some View {
-        if self.viewModel.nomProgression != nil {
+        if self.viewModel.nomProgression != "" {
             ScrollView {
                 VStack {
                     HStack{
