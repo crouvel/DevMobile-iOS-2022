@@ -66,7 +66,7 @@ struct SheetDetailIncompleteView: View {
                         .scaleEffect(2)
                 case .deleted:
                     Text("La fiche technique a bien été supprimée !")
-                        .font(.system(size: 20))
+                        .font(.system(size: 25))
                         .fontWeight(.bold)
                         .foregroundColor(.blue)
                         .italic()

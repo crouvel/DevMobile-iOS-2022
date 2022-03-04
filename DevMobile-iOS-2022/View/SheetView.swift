@@ -30,6 +30,10 @@ struct SheetView: View {
         return self.viewModel2.sheetListState
     }
     
+    func deleteItems(at offsets: IndexSet) {
+        dataSheetComplete.vms.remove(atOffsets: offsets)
+    }
+    
     var body: some View {
         NavigationView{
             
@@ -74,7 +78,8 @@ struct SheetView: View {
                          indexSet, index in
                          dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
                          }*/
-                    }.overlay {
+                    }
+                    .overlay {
                         if dataSheetComplete.fetching {
                             Text("Chargement des fiches techniques")
                                 .foregroundColor(.blue)

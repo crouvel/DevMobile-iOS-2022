@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SheetCompleteDetailView: View {
-    //var exportURL : URL
     //var intent: SheetCompleteIntent
     @ObservedObject var viewModel: SheetCompleteViewModel
     //@ObservedObject var viewModel2: IngredientProgressionViewModel
     @State var errorMessage: String = ""
     @State var showErrorMessage: Bool = false
+    @State var confirmationShown: Bool = false
     //@ObservedObject var listvm : StepProgressionListViewModel
     
     private var _listvm: StepProgressionListViewModel!
@@ -32,50 +32,55 @@ struct SheetCompleteDetailView: View {
         //self.intent.addObserver(vm: self.viewModel)
         self._listvm = StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression ?? "")
         self._listvm2 = IngredientsProgressionListViewModel(idFiche: self.viewModel.idFiche)
-        /*vm.ingredients.split(separator: ",").map {_ in
-         
-         }*/
-        
     }
+    
+    private var deletionSheetState : DeleteSheetIntentState {
+        return self.viewModel.deletionState
+    }
+    
     //private var dataSteps: StepProgressionListViewModel { return StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)}
     
     var body: some View {
-        if self.viewModel.nomProgression != "" {
-            ScrollView {
+        ScrollView {
+            switch deletionSheetState {
+            case .ready:
                 VStack {
-                    HStack{
-                        Button("Export PDF") {
-                            
-                            let outputFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("SwiftUI.pdf")
-                            let pageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                            let rootVC = UIApplication.shared.windows.first?.rootViewController
-                            
-                            //Render the PDF
-                            let pdfRenderer = UIGraphicsPDFRenderer(bounds: CGRect(origin: .zero, size: pageSize))
-                            DispatchQueue.main.async {
-                                do {
-                                    try pdfRenderer.writePDF(to: outputFileURL, withActions: { (context) in
-                                        context.beginPage()
-                                        rootVC?.view.layer.render(in: context.cgContext)
-                                    })
-                                    print("wrote file to: \(outputFileURL.path)")
-                                } catch {
-                                    print("Could not create PDF file: \(error.localizedDescription)")
+                    VStack{
+                        HStack {
+                            Button("Export PDF  ") {
+                                let outputFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("SwiftUI.pdf")
+                                let pageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                                let rootVC = UIApplication.shared.windows.first?.rootViewController
+                                
+                                //Render the PDF
+                                let pdfRenderer = UIGraphicsPDFRenderer(bounds: CGRect(origin: .zero, size: pageSize))
+                                DispatchQueue.main.async {
+                                    do {
+                                        try pdfRenderer.writePDF(to: outputFileURL, withActions: { (context) in
+                                            context.beginPage()
+                                            rootVC?.view.layer.render(in: context.cgContext)
+                                        })
+                                        print("wrote file to: \(outputFileURL.path)")
+                                    } catch {
+                                        print("Could not create PDF file: \(error.localizedDescription)")
+                                    }
                                 }
                             }
-                            //func savePDF() {
-                            /*@available(iOS 11.0, *)
-                             guard let documentData = document.dataRepresentation() else { return }
-                             let activityController = UIActivityViewController(activityItems: [documentData], applicationActivities: nil)
-                             self.present(activityController, animated: true, completion: nil)
-                             //}*/
-                            
-                        }.padding()
-                        NavigationLink(destination: CalculCoutsView(vm: self.viewModel)){
-                            Text("Calcul des coûts")
-                                .fontWeight(.bold)
-                            EmptyView()
+                            NavigationLink(destination: CalculCoutsView(vm: self.viewModel)){
+                                Text("  Calcul des coûts")
+                                    .fontWeight(.bold)
+                                EmptyView()
+                            }
                         }
+                        Button(action: {
+                            //SheetDAO.deleteSheet(idFiche: self.viewModel.sheet.idFiche, vm: self.viewModel)
+                            confirmationShown = true
+                        }){
+                            Text("Supprimer la fiche")
+                                .fontWeight(.bold)
+                                .foregroundColor(.red)
+                                .frame(alignment: .center)
+                        }.padding()
                     }
                     VStack{
                         HStack{
@@ -93,14 +98,8 @@ struct SheetCompleteDetailView: View {
                                 .fontWeight(.bold)
                                 .font(.system(size: 17))
                             
-                            Text("\(viewModel.Nbre_couverts)")                //Text("\(listvm.vms.count)")
+                            Text("\(viewModel.Nbre_couverts)")
                         }
-                        /*HStack{
-                         Text("Nombre de couverts : ")
-                         .fontWeight(.bold)
-                         .frame(maxHeight: .infinity)
-                         Text("\(viewModel.Nbre_couverts)")
-                         .frame(maxHeight: .infinity)              }.fixedSize(horizontal: false, vertical: true)*/
                     }
                     Divider()
                     VStack{
@@ -111,17 +110,7 @@ struct SheetCompleteDetailView: View {
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
                                     .font(.system(size: 20))
-                                /*Text("Unité")
-                                 .fontWeight(.bold)
-                                 .foregroundColor(.white)
-                                 .font(.system(size: 20))
-                                 Text("Qté")
-                                 .fontWeight(.bold)
-                                 .foregroundColor(.white)
-                                 .font(.system(size: 20))*/                    }
-                            /*.fontWeight(.bold)
-                             .foregroundColor(.white)
-                             .font(.system(size: 20))*/
+                            }
                             Spacer()
                         }.background(Color.cyan)
                             .frame( alignment: .center)
@@ -257,14 +246,55 @@ struct SheetCompleteDetailView: View {
                          self.errorMessage = reason
                          self.showErrorMessage = true*/
                     }
-                }.alert("\(errorMessage)", isPresented: $showErrorMessage){
+                }
+                .confirmationDialog("Voulez-vous supprimer la fiche", isPresented: $confirmationShown) {
+                    Button("Supprimer", role: .destructive) {
+                        withAnimation {
+                            SheetDAO.deleteSheet(idFiche: viewModel.idFiche, vm: viewModel)
+                        }
+                    }.keyboardShortcut(.defaultAction)
+                    
+                    Button("Annuler", role: .cancel) {}
+                }
+                .alert("\(errorMessage)", isPresented: $showErrorMessage){
                     Button("Ok", role: .cancel){
                         showErrorMessage = false
                     }
                 }
+                
+            case .deleting(let string):
+                Text("Suppression de la fiche")
+                    .foregroundColor(.black)
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                    .scaleEffect(2)
+            case .deleted:
+                Divider()
+                Text("La fiche technique a bien été supprimée !")
+                    .font(.system(size: 25))
+                    .fontWeight(.bold)
+                    .foregroundColor(.blue)
+                    .italic()
+                    .padding()
+                Divider()
+                Text("Vous pouvez désormais retourner à la liste principale des fiches complètes, et RAFRAICHIR⚠️ la liste.")
+                    .fontWeight(.bold)
+                    .foregroundColor(.black)
+                    .italic()
+                    .padding()
+            case .deletingError(let string):
+                Text("Erreur à la suppression de la fiche, veuillez réessayer ulérieurement")
+                    .fontWeight(.bold)
+                    .italic()
+                Divider()
+                Button(action: {
+                    SheetCompleteIntent(vm: self.viewModel).deleted()
+                }){
+                    Text("Ok")
+                        .fontWeight(.bold)
+                        .frame(alignment: .center)
+                }
             }
-        } else {
-            SheetDetailIncompleteView(vm: self.viewModel)
         }
     }
 }

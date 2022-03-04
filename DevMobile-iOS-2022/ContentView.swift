@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    init(){
+        UITabBar.appearance().unselectedItemTintColor = UIColor(Color.primary)
+    }
     var body: some View {
         TabView{
            HomeView()
@@ -30,7 +33,7 @@ struct ContentView: View {
                     Image(systemName: "allergens")
                     Text("Allergènes")
                 }
-        }
+        }.accentColor(.indigo)
     }
 }
 

@@ -14,11 +14,6 @@ struct MercurialView: View {
     
     init(viewModel: IngredientListViewModel){
         self.viewModel = viewModel
-        //print(viewModel.idIngredientCat)
-        //self.categoryId = categoryId
-        //self.categoryId = categoryId
-        //TrackDAO.get()
-        
     }
     
     private var ingredientState : IngredientsListState{

@@ -69,11 +69,12 @@ struct CreateSheetView: View {
                                     .fontWeight(.bold)
                             }
                             if (nomRecette != "") && (categorieRecette != "") && (Nbre_couverts != nil) && (nomAuteur != "")  {
-                                Divider()
-                                Button(action: {SheetDAO.CreateSheet(nomRecette: nomRecette, nomAuteur: nomAuteur, nombreCouverts: Nbre_couverts, categorieRecette: categorieRecette, vm:viewModelCreation) }){
-                                    Text("Créer fiche technique")
-                                        .fontWeight(.bold)
-                                        .frame(alignment: .center)
+                                Section {
+                                    Button(action: {SheetDAO.CreateSheet(nomRecette: nomRecette, nomAuteur: nomAuteur, nombreCouverts: Nbre_couverts, categorieRecette: categorieRecette, vm:viewModelCreation) }){
+                                        Text("Créer fiche technique")
+                                            .fontWeight(.bold)
+                                            .frame(alignment: .center)
+                                    }
                                 }
                             }
                         }
@@ -85,7 +86,7 @@ struct CreateSheetView: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: .black))
                         .scaleEffect(2)
                 case .created:
-                    Text("La fiche \(nomRecette) a bien été créée ! Vous pouvez la retrouver dans la liste des fiches vides ✨." )
+                    Text("La fiche \(nomRecette) a bien été créée ! Vous pouvez la retrouver dans la liste des fiches vides ✨. Veuillez RAFRAICHIR la liste ⚠️." )
                         .fontWeight(.bold)
                         .foregroundColor(.green)
                         .padding()
