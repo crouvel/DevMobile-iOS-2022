@@ -58,7 +58,7 @@ class StepProgressionListViewModel: ObservableObject/*, SheetCompleteViewModelDe
                     }
                     DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
                         self.stepListState = .loaded(self.data)
-                        print(self.data)
+                        //print(self.data)
                     }
                     
                 }catch{

@@ -60,7 +60,7 @@ class IngredientsProgressionListViewModel: ObservableObject/*, SheetCompleteView
                     }
                     DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
                         self.ingredientListState = .ready
-                        print(self.data)
+                        //print(self.data)
                     }
                     
                 }catch{

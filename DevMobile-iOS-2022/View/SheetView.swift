@@ -127,12 +127,9 @@ struct SheetView: View {
                   }*/
                  }.searchable(text: $searchString)*/
                 VStack {
-                        Button(action: {
-                            //print(self.intent.creationState.description)
-                            SheetDAO.fetchSheet(list: dataSheetComplete)
-                            /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/
-                        }){
-                            Text("Rafraîchir la liste")
+                    HStack{
+                        NavigationLink(destination: CreateSheetView()){
+                            Text("Créer une fiche +")
                                 .fontWeight(.bold)
                                 .foregroundColor(.cyan)
                                 .padding()
@@ -140,33 +137,35 @@ struct SheetView: View {
                                     RoundedRectangle(cornerRadius: 20)
                                         .stroke(Color.cyan, lineWidth: 5)
                                 )
-                        }
-                    
-                    HStack{
-                        NavigationLink(destination: CreateSheetView()){
-                            Text("Créer une fiche +   ")
-                                .fontWeight(.bold)
-                                .foregroundColor(.blue)
-                                //.padding()
-                                /*.overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.blue, lineWidth: 5)
-                                )*/
                             EmptyView()
                         }
                         NavigationLink(destination: SheetIncompleteListView(viewModel: SheetIncompleteListViewModel())){
-                            Text("   Liste Fiches vides")
+                            Text("Liste Fiches vides")
                                 .fontWeight(.bold)
-                                .foregroundColor(.blue)
-                                //.padding()
-                                /*.overlay(
+                                .foregroundColor(.cyan)
+                                .padding()
+                                .overlay(
                                     RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.blue, lineWidth: 5)
-                                )*/
+                                        .stroke(Color.cyan, lineWidth: 5)
+                                )
                             EmptyView()
                         }
-                        
-                    }.padding()
+                    }
+                    
+                    Button(action: {
+                            //print(self.intent.creationState.description)
+                            SheetDAO.fetchSheet(list: dataSheetComplete)
+                            /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/
+                        }){
+                            Text("Rafraîchir la liste")
+                                .fontWeight(.bold)
+                                .foregroundColor(.blue)
+                                .padding()
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.blue, lineWidth: 5)
+                                )
+                        }.padding()
                 }
             }
         }

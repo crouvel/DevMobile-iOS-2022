@@ -57,7 +57,7 @@ class SheetIncompleteListViewModel: ObservableObject, SheetCompleteViewModelDele
                         //self.sheetListState = .loaded(self.data)
                         //SheetListViewIntent(list : self ).httpJsonLoaded(results: dataDTO)
                         SheetListViewIntent(list : self ).loaded(sheets: self.data)
-                        print(self.data)
+                        //print(self.data)
                     }
                     
                 }catch{

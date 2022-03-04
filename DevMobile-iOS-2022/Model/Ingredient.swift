@@ -7,10 +7,31 @@
 
 import Foundation
 
-struct IngredientDTO: Decodable{
+struct IngredientDTO: Decodable {
     var idIngredient: Int
     var libelle: String
     var libelleCategorie: String
+    var quantiteStockee: Float?
+    var prixUnitaire : Float
+    var allergene: String
+    var idCategorieIngredient: Int
+    var idCategorieAllergene: String?
+    var unite: String
+}
+
+struct IngredientSheetDTO: Decodable {
+    var idIngredient: Int
+    var libelle: String
+}
+
+class IngredientSheet: ObservableObject {
+    @Published var idIngredient: Int
+    @Published var libelle : String
+
+    init(libelle: String, idIngredient: Int){
+        self.libelle = libelle
+        self.idIngredient = idIngredient
+    }
 }
 
 /*protocol TrackObserver {
@@ -30,6 +51,12 @@ class Ingredient: ObservableObject {
     @Published var idIngredient: Int
     @Published var libelle : String
     @Published var nomCategorie: String
+    @Published var quantiteStockee: Float?
+    @Published var prixUnitaire : Float
+    @Published var allergene: String
+    @Published var idCategorieIngredient: Int
+    @Published var idCategorieAllergene: String?
+    @Published var unite: String
     /*@Published var trackName: String {
      didSet {
      notifyObservers(t: .TRACKNAME)
@@ -58,11 +85,16 @@ class Ingredient: ObservableObject {
      }
      */
     
-    init(libelle: String, idIngredient: Int, nomCategorie: String){
+    init(libelle: String, idIngredient: Int, nomCategorie: String, quantite: Float?, prix: Float, allergene: String, idCategorie: Int, idCatAllergene: String?, unite: String){
         self.libelle = libelle
         self.idIngredient = idIngredient
         self.nomCategorie = nomCategorie
-        
+        self.quantiteStockee = quantite
+        self.allergene = allergene
+        self.prixUnitaire = prix
+        self.idCategorieAllergene = idCatAllergene
+        self.unite = unite
+        self.idCategorieIngredient = idCategorie
     }
     
     /*func addObserver(obs: TrackObserver){

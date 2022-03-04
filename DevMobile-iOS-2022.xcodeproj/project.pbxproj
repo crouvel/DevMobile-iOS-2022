@@ -61,6 +61,9 @@
 		6F4E00B827BB165600BA78AC /* MercurialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E00B727BB165600BA78AC /* MercurialView.swift */; };
 		6FCA09BE27D05D6000BD82B5 /* TotalCost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA09BD27D05D6000BD82B5 /* TotalCost.swift */; };
 		6FCA09C027D0604D00BD82B5 /* TotalCostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA09BF27D0604D00BD82B5 /* TotalCostViewModel.swift */; };
+		6FCA09C227D1BBFB00BD82B5 /* IngredientSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA09C127D1BBFB00BD82B5 /* IngredientSheetViewModel.swift */; };
+		6FCA09C427D1BC1100BD82B5 /* IngredientSheetListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA09C327D1BC1100BD82B5 /* IngredientSheetListViewModel.swift */; };
+		6FCA09C627D1CAF700BD82B5 /* IngredientDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA09C527D1CAF700BD82B5 /* IngredientDAO.swift */; };
 		6FCF6DAF27BABB9E00369461 /* DevMobile_iOS_2022App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCF6DAE27BABB9E00369461 /* DevMobile_iOS_2022App.swift */; };
 		6FCF6DB127BABB9E00369461 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCF6DB027BABB9E00369461 /* ContentView.swift */; };
 		6FCF6DB327BABB9F00369461 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FCF6DB227BABB9F00369461 /* Assets.xcassets */; };
@@ -142,6 +145,9 @@
 		6F4E00B727BB165600BA78AC /* MercurialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercurialView.swift; sourceTree = "<group>"; };
 		6FCA09BD27D05D6000BD82B5 /* TotalCost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalCost.swift; sourceTree = "<group>"; };
 		6FCA09BF27D0604D00BD82B5 /* TotalCostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalCostViewModel.swift; sourceTree = "<group>"; };
+		6FCA09C127D1BBFB00BD82B5 /* IngredientSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSheetViewModel.swift; sourceTree = "<group>"; };
+		6FCA09C327D1BC1100BD82B5 /* IngredientSheetListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSheetListViewModel.swift; sourceTree = "<group>"; };
+		6FCA09C527D1CAF700BD82B5 /* IngredientDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDAO.swift; sourceTree = "<group>"; };
 		6FCF6DAB27BABB9E00369461 /* DevMobile-iOS-2022.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DevMobile-iOS-2022.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FCF6DAE27BABB9E00369461 /* DevMobile_iOS_2022App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevMobile_iOS_2022App.swift; sourceTree = "<group>"; };
 		6FCF6DB027BABB9E00369461 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -195,6 +201,7 @@
 				6F41AB7427CC743E00649DC6 /* ProgressionDAO.swift */,
 				6F41AB7627CD56CA00649DC6 /* StepDAO.swift */,
 				6F41AB8027CEAC8600649DC6 /* IngredientsListStepDAO.swift */,
+				6FCA09C527D1CAF700BD82B5 /* IngredientDAO.swift */,
 			);
 			path = DAO;
 			sourceTree = "<group>";
@@ -294,6 +301,8 @@
 				6F41AB7027CC6BAB00649DC6 /* ProgressionViewModel.swift */,
 				6F41AB7A27CD6BE400649DC6 /* ProgressionListViewModel.swift */,
 				6FCA09BF27D0604D00BD82B5 /* TotalCostViewModel.swift */,
+				6FCA09C127D1BBFB00BD82B5 /* IngredientSheetViewModel.swift */,
+				6FCA09C327D1BC1100BD82B5 /* IngredientSheetListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -468,9 +477,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F41AB8327CEB45400649DC6 /* FinishSheetCreationView.swift in Sources */,
+				6FCA09C227D1BBFB00BD82B5 /* IngredientSheetViewModel.swift in Sources */,
 				6F41AB3927C50E1A00649DC6 /* SheetCompleteIntent.swift in Sources */,
 				6F41AB4927C524BE00649DC6 /* StepProgression.swift in Sources */,
 				6F41AB4527C520FC00649DC6 /* CreateIngredientView.swift in Sources */,
+				6FCA09C427D1BC1100BD82B5 /* IngredientSheetListViewModel.swift in Sources */,
 				6F41AB2527C4CC4800649DC6 /* Sheet.swift in Sources */,
 				6F41AB1927C4C4BF00649DC6 /* IngredientViewModel.swift in Sources */,
 				6F4E00B427BB13C200BA78AC /* HomeView.swift in Sources */,
@@ -501,6 +512,7 @@
 				6F41AB5E27C94AC900649DC6 /* IngredientsProgressionListViewModel.swift in Sources */,
 				6F41AB6227C94B7E00649DC6 /* IngredientProgressionIntent.swift in Sources */,
 				6F41AB7727CD56CA00649DC6 /* StepDAO.swift in Sources */,
+				6FCA09C627D1CAF700BD82B5 /* IngredientDAO.swift in Sources */,
 				6F41AB7B27CD6BE400649DC6 /* ProgressionListViewModel.swift in Sources */,
 				6F41AB6D27CC608D00649DC6 /* CalculCoutsView.swift in Sources */,
 				6F41AB5427C640D700649DC6 /* SheetDAO.swift in Sources */,

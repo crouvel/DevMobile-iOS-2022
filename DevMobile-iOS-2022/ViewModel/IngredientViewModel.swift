@@ -37,6 +37,12 @@ class IngredientViewModel: ObservableObject, Subscriber {
     @Published var libelle: String
     @Published var idIngredient: Int
     @Published var nomCategorie: String
+    @Published var quantiteStockee : Float?
+    @Published var allergene : String
+    @Published var prixUnitaire : Float
+    @Published var idCategorieAllergene : String?
+    @Published var unite : String
+    @Published var idCategorieIngredient : Int
     //@Published var collectionName: String
     @Published var error: IngredientError = .NONE
     var delegate: IngredientViewModelDelegate?
@@ -46,6 +52,12 @@ class IngredientViewModel: ObservableObject, Subscriber {
         self.idIngredient = ingredient.idIngredient
         self.libelle = ingredient.libelle
         self.nomCategorie = ingredient.nomCategorie
+        self.quantiteStockee = ingredient.quantiteStockee
+        self.allergene = ingredient.allergene
+        self.prixUnitaire = ingredient.prixUnitaire
+        self.idCategorieAllergene = ingredient.idCategorieAllergene
+        self.unite = ingredient.unite
+        self.idCategorieIngredient = ingredient.idCategorieIngredient
         /*self.trackName = track.trackName
         self.artistName = track.artistName
         self.collectionName = track.collectionName*/

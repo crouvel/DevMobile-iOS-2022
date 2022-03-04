@@ -19,11 +19,8 @@ struct HomeView: View {
                 Image("cooking")
                     .resizable()
                     .scaledToFit()
-                
             }
             .navigationTitle("🧑‍🍳 Bienvenue !")
-            
-            
         }
         .navigationBarBackButtonHidden(true)
     }

@@ -39,22 +39,29 @@ struct MercurialView: View {
                     Text("erreur")
                 default :
                     List {
-                        ForEach(searchString == "" ? dataIngredient.vms : dataIngredient.vms.filter { $0.ingredient.libelle.contains(searchString) || $0.ingredient.nomCategorie.contains(searchString) }, id: \.ingredient.idIngredient) {
+                        ForEach(searchString == "" ? dataIngredient.vms : dataIngredient.vms.filter { $0.libelle.contains(searchString) || $0.nomCategorie.contains(searchString) }, id: \.ingredient.idIngredient) {
                             vm in
                             NavigationLink(destination: IngredientView(vm: vm)){
                                 VStack(alignment: .leading) {
-                                    Text(vm.ingredient.libelle)
+                                    HStack {
+                                    Text(vm.libelle)
                                         .fontWeight(.bold)
                                         .foregroundColor(.purple)
+                                        if vm.allergene == "Oui" {
+                                            Text("(Allergene)")
+                                                .fontWeight(.bold)
+                                                .italic()
+                                                .foregroundColor(.indigo)
+                                        }
+                                    }
                                     HStack{
-                                        Text("Catégorie : \(vm.ingredient.nomCategorie)")
+                                        Text("Catégorie : \(vm.nomCategorie)")
                                             .fontWeight(.semibold)
                                         
                                     }
-                                    Text("Code : \(vm.ingredient.idIngredient)")
+                                    Text("Code : \(vm.idIngredient)")
                                         .italic()
-                                    //.foregroundColor(.purple)
-                                    /*Text("Album : \(vm.track.collectionName) ")*/
+                                                                
                                 }
                             }
                         }.navigationTitle("Mercurial")
@@ -66,6 +73,35 @@ struct MercurialView: View {
                          dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
                          }*/
                     }.searchable(text: $searchString)
+                }
+                
+                VStack {
+                    NavigationLink(destination: CreateIngredientView()){
+                        Text("Créer un ingrédient +")
+                            .fontWeight(.bold)
+                            .foregroundColor(.purple)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.purple, lineWidth: 5)
+                            )
+                        EmptyView()
+                    }
+                    
+                    Button(action: {
+                        //print(self.intent.creationState.description)
+                        dataIngredient.fetchData()
+                        /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/
+                    }){
+                        Text("Rafraîchir la liste")
+                            .fontWeight(.bold)
+                            .foregroundColor(.indigo)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.indigo, lineWidth: 5)
+                            )
+                    }.padding()
                 }
                 
             }

@@ -24,7 +24,7 @@ struct CreateSheetView: View {
             VStack{
                 switch creationState {
                 case .ready:
-                    Text("Créer l'entête d'une fiche technique. Vous pourrez finir de la compléter ultérieurement 🍳.")
+                    Text("Créer l'entête d'une fiche technique. Vous pourrez finir de la compléter plus tard 🍳.")
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                         .padding()
@@ -66,11 +66,14 @@ struct CreateSheetView: View {
                                     Text("Autre").tag("Autre")
                                 }
                                 Text("\(categorieRecette)")
+                                    .fontWeight(.bold)
                             }
                             if (nomRecette != "") && (categorieRecette != "") && (Nbre_couverts != nil) && (nomAuteur != "")  {
                                 Divider()
                                 Button(action: {SheetDAO.CreateSheet(nomRecette: nomRecette, nomAuteur: nomAuteur, nombreCouverts: Nbre_couverts, categorieRecette: categorieRecette, vm:viewModelCreation) }){
                                     Text("Créer fiche technique")
+                                        .fontWeight(.bold)
+                                        .frame(alignment: .center)
                                 }
                             }
                         }
@@ -84,7 +87,7 @@ struct CreateSheetView: View {
                 case .created:
                     Text("La fiche \(nomRecette) a bien été créée ! Vous pouvez la retrouver dans la liste des fiches vides ✨." )
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+                        .foregroundColor(.green)
                         .padding()
                     Divider()
                     Button(action: {
