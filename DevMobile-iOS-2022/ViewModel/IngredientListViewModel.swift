@@ -65,7 +65,6 @@ class IngredientListViewModel: ObservableObject, IngredientViewModelDelegate {
             }
             
         }.resume()
-        
     }
     
     func fetchData(){

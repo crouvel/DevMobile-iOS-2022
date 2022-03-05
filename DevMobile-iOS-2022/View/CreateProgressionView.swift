@@ -18,7 +18,7 @@ struct CreateProgressionView: View {
     @State var temps : Int = 0
     @State var progressionAj : String = ""
     //@ObservedObject var intent : ProgressionIntent
-    @StateObject var dataProgression: ProgressionListViewModel = ProgressionListViewModel()
+    @ObservedObject var dataProgression: ProgressionListViewModel = ProgressionListViewModel()
     @State var created: Bool = false
     
     /*private var _viewModel2: ProgressionViewModel!
@@ -30,7 +30,10 @@ struct CreateProgressionView: View {
         self.viewModel = vm
         //self.intent = intent
     }
-    
+    private var _listProgression: [String]!
+    var listProgression: [String] {
+        return dataProgression.vms.map{$0.referenceProgression}
+    }
     
     private var creationProgressionState : ProgressionCreationIntentState {
         return self.viewModel.creationState
@@ -39,7 +42,6 @@ struct CreateProgressionView: View {
     private var creationStepState : StepCreationIntentState {
         return self.viewModel.creationStateStep
     }
-    
     
     var body: some View {
         NavigationView{
@@ -166,22 +168,6 @@ struct CreateProgressionView: View {
                                                 }
                                                 
                                             }
-                                            /*Picker("Favorite Color", selection: $progressionAj, content: {
-                                             ForEach(0..<dataProgression.data.count, content: { index in
-                                             Text(dataProgression.data[index].referenceProgression)
-                                             })
-                                             })*/
-                                            
-                                            
-                                            /*Picker("", selection: self.$selection) {
-                                             ForEach(self.array, id : \.self) { i in
-                                             Text(String(i))
-                                             }
-                                             }*/
-                                            
-                                            /*.onSubmit {
-                                             vm.intentstate.intentToChange(name: name)
-                                             }*/
                                         }
                                     }
                                 }
@@ -201,7 +187,12 @@ struct CreateProgressionView: View {
                                  vm.intentstate.intentToChange(name: name)
                                  }*/
                             }
-                            if (referenceProgression != "") {
+                            if listProgression.contains(where: { $0.lowercased() == referenceProgression.lowercased() }){
+                                Text("Le nom de progression est déjà utilisé, changez-le.")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.red)
+                            }
+                            if (referenceProgression != "") && !(listProgression.contains(where: { $0.lowercased() == referenceProgression.lowercased() })) {
                                 Divider()
                                 Button(action: {ProgressionDAO.CreateProgression(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette, vm: self.viewModel)
                                     //print(self.intent.creationState.description)

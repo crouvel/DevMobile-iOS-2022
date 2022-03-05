@@ -98,10 +98,10 @@ struct MercurialView: View {
                             )
                     }.padding()
                 }
-                
             }
         }
-    }}
+    }
+}
 
 struct MercurialView_Previews: PreviewProvider {
     static var previews: some View {

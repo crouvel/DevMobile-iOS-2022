@@ -19,6 +19,7 @@ struct IngredientView: View {
         self.intent = IngredientIntent(vm: vm)
         self.intent.addObserver(vm: self.viewModel)
     }
+    
     private var _listIngredientSheet: [String]!
     var listIngredientSheet: [String] {
         return dataIngredientSheet.vms.map{$0.libelle}

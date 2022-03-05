@@ -13,18 +13,28 @@ struct CreateSheetView: View {
     @State var Nbre_couverts: Int = 1
     @State var categorieRecette: String = ""
     @ObservedObject var viewModelCreation: SheetCompleteViewModel = SheetCompleteViewModel(sheet: SheetComplete(nomRecette: "recette", idFiche: 4444, nomAuteur: "auteur", Nbre_couverts: 2, categorieRecette: "categorie", nomProgression: "testtt"))
+    @ObservedObject var dataSheetComplete: SheetCompleteListViewModel = SheetCompleteListViewModel()
+    @ObservedObject var dataSheetIncomplete: SheetIncompleteListViewModel = SheetIncompleteListViewModel()
     
     private var creationState : CreateSheetIntentState {
         return viewModelCreation.enteteCreationState
     }
     
+    private var _listSheetComplete: [String]!
+    var listSheetComplete: [String] {
+        return dataSheetComplete.vms.map{$0.nomRecette}
+    }
+    private var _listSheetIncomplete: [String]!
+    var listSheetIncomplete: [String] {
+        return dataSheetIncomplete.vms.map{$0.nomRecette}
+    }
+    
     var body: some View {
         NavigationView{
-            
             VStack{
                 switch creationState {
                 case .ready:
-                    Text("Créer l'entête d'une fiche technique. Vous pourrez finir de la compléter plus tard 🍳.")
+                    Text("Créer l'entête d'une fiche technique. Vous pourrez finir de la compléter plus tard.")
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                         .padding()
@@ -41,6 +51,11 @@ struct CreateSheetView: View {
                                 /*.onSubmit {
                                  vm.intentstate.intentToChange(name: name)
                                  }*/
+                            }
+                            if listSheetIncomplete.contains(where: { $0.lowercased() == nomRecette.lowercased()}) || listSheetComplete.contains(where: { $0.lowercased() == nomRecette.lowercased()}) {
+                                Text("Le nom de recette est déjà utilisé, changez-le.")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.red)
                             }
                             HStack{
                                 Text("Nom de l'auteur :")
@@ -68,8 +83,9 @@ struct CreateSheetView: View {
                                 Text("\(categorieRecette)")
                                     .fontWeight(.bold)
                             }
-                            if (nomRecette != "") && (categorieRecette != "") && (Nbre_couverts != nil) && (nomAuteur != "")  {
+                            if (nomRecette != "") && (categorieRecette != "") && (nomAuteur != "") && !(listSheetIncomplete.contains(where: { $0.lowercased() == nomRecette.lowercased()})) && !(listSheetComplete.contains(where: { $0.lowercased() == nomRecette.lowercased()})) {
                                 Section {
+                                    Divider()
                                     Button(action: {SheetDAO.CreateSheet(nomRecette: nomRecette, nomAuteur: nomAuteur, nombreCouverts: Nbre_couverts, categorieRecette: categorieRecette, vm:viewModelCreation) }){
                                         Text("Créer fiche technique")
                                             .fontWeight(.bold)

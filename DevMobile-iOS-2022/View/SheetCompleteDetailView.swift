@@ -10,11 +10,9 @@ import SwiftUI
 struct SheetCompleteDetailView: View {
     //var intent: SheetCompleteIntent
     @ObservedObject var viewModel: SheetCompleteViewModel
-    //@ObservedObject var viewModel2: IngredientProgressionViewModel
     @State var errorMessage: String = ""
     @State var showErrorMessage: Bool = false
     @State var confirmationShown: Bool = false
-    //@ObservedObject var listvm : StepProgressionListViewModel
     
     private var _listvm: StepProgressionListViewModel!
     var listvm: StepProgressionListViewModel {
@@ -24,12 +22,8 @@ struct SheetCompleteDetailView: View {
     var listvm2: IngredientsProgressionListViewModel {
         return _listvm2
     }
-    init(vm: SheetCompleteViewModel/*, vm2: IngredientProgressionViewModel*/){
-        //self.intent = SheetCompleteIntent()
+    init(vm: SheetCompleteViewModel){
         self.viewModel = vm
-        //self.exportURL = URL(string: "")!
-        //self.viewModel2 = vm2
-        //self.intent.addObserver(vm: self.viewModel)
         self._listvm = StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression ?? "")
         self._listvm2 = IngredientsProgressionListViewModel(idFiche: self.viewModel.idFiche)
     }
@@ -38,8 +32,6 @@ struct SheetCompleteDetailView: View {
         return self.viewModel.deletionState
     }
     
-    //private var dataSteps: StepProgressionListViewModel { return StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)}
-    
     var body: some View {
         ScrollView {
             switch deletionSheetState {
@@ -47,7 +39,7 @@ struct SheetCompleteDetailView: View {
                 VStack {
                     VStack{
                         HStack {
-                            Button("Export PDF  ") {
+                            Button(action: {
                                 let outputFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("SwiftUI.pdf")
                                 let pageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                                 let rootVC = UIApplication.shared.windows.first?.rootViewController
@@ -65,10 +57,20 @@ struct SheetCompleteDetailView: View {
                                         print("Could not create PDF file: \(error.localizedDescription)")
                                     }
                                 }
+                            }){
+                                Text("Export   ")
+                                //.fontWeight(.semibold)
+                                    .foregroundColor(.blue)
                             }
                             NavigationLink(destination: CalculCoutsView(vm: self.viewModel)){
-                                Text("  Calcul des coûts")
+                                Text("Calcul des coûts")
                                     .fontWeight(.bold)
+                                    .foregroundColor(.blue)
+                                    .padding()
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.blue, lineWidth: 5)
+                                    )
                                 EmptyView()
                             }
                         }
@@ -79,6 +81,7 @@ struct SheetCompleteDetailView: View {
                             Text("Supprimer la fiche")
                                 .fontWeight(.bold)
                                 .foregroundColor(.red)
+                                .italic()
                                 .frame(alignment: .center)
                         }.padding()
                     }
@@ -92,7 +95,7 @@ struct SheetCompleteDetailView: View {
                             Spacer()
                         }.background(Color.cyan)
                             .frame( alignment: .center)
-                        Divider()
+                        //Divider()
                         HStack{
                             Text("Nombre de couverts : ")
                                 .fontWeight(.bold)
@@ -101,7 +104,7 @@ struct SheetCompleteDetailView: View {
                             Text("\(viewModel.Nbre_couverts)")
                         }
                     }
-                    Divider()
+                    //Divider()
                     VStack{
                         HStack{
                             Spacer()
@@ -169,34 +172,49 @@ struct SheetCompleteDetailView: View {
                         }.background(Color.cyan)
                             .frame( alignment: .center)
                         Divider()
-                        /*HStack{
-                         Text("\(viewModel.nomAuteur)")                //Text("\(listvm.vms.count)")
-                         }*/
                     }
                     HStack {
                         VStack{
                             ForEach( _listvm.vms, id: \.step.id ) {
                                 vm in
                                 if vm.step.titre2 == nil {
-                                    VStack{
-                                        Text("\(vm.step.titre1)")
+                                    HStack{
+                                        Text("\(vm.step.ordre1)")
                                             .fontWeight(.bold)
-                                            .underline()
-                                        Text(vm.step.description1 ?? "")
-                                            .italic()
-                                            .fixedSize(horizontal: false, vertical: true)
+                                            .padding()
+                                        VStack{
+                                            Text("\(vm.step.titre1)")
+                                                .fontWeight(.bold)
+                                                .underline()
+                                            Text(vm.step.description1 ?? "")
+                                                .italic()
+                                                .fixedSize(horizontal: false, vertical: true)
+                                        }
+                                        Text("\(vm.step.temps1) min")
+                                            .fontWeight(.bold)
+                                            .padding()
                                     }
                                 }else {
-                                    VStack{
-                                        /*Text("\(vm.step.titre1)")
-                                         .fontWeight(.bold)
-                                         .font(.system(size: 19))*/
-                                        Text(vm.step.titre2 ?? "")
+                                    HStack {
+                                        VStack {
+                                            Text("\(vm.step.ordre1)")
+                                                .fontWeight(.bold)
+                                        }.padding()
+                                        VStack{
+                                            /*Text("\(vm.step.titre1)")
+                                             .fontWeight(.bold)
+                                             .font(.system(size: 19))*/
+                                            Text("(\(vm.step.titre1))")
+                                                .italic()
+                                            Text(vm.step.titre2 ?? "")
+                                                .fontWeight(.bold)
+                                                .underline()
+                                            Text(vm.step.description2 ?? "")
+                                                .italic()
+                                                .fixedSize(horizontal: false, vertical: true)
+                                        }
+                                        Text("\(vm.step.temps2 ?? 0) min")
                                             .fontWeight(.bold)
-                                            .underline()
-                                        Text(vm.step.description2 ?? "")
-                                            .italic()
-                                            .fixedSize(horizontal: false, vertical: true)
                                     }
                                 }
                             }
@@ -223,7 +241,10 @@ struct SheetCompleteDetailView: View {
                                 HStack{
                                     VStack{
                                         ForEach(vm.ingredients.split(separator: ","), id: \.self){ ingredient in
-                                            Text(ingredient)
+                                            HStack{
+                                                Text("- ")
+                                                Text(ingredient)
+                                            }
                                         }
                                     }
                                 }

@@ -27,10 +27,20 @@ struct CreateIngredientView: View {
     @State var categorieAllergene: String = ""
     @State var unite : String = ""
     @ObservedObject var viewModelIngredient: IngredientViewModel = IngredientViewModel(ingredient:Ingredient(libelle: "oui", idIngredient: 8888888, nomCategorie: "test", quantite: 5, prix: 2, allergene: "Oui", idCategorie: 55, idCatAllergene: "categorie" , unite: "Kg"  ))
-    
+    @ObservedObject var dataIngredient: IngredientListViewModel = IngredientListViewModel()
     private var creationState : CreateIngredientIntentState {
         return viewModelIngredient.creationIngredientState
     }
+    
+    private var _listIngredientLibelle: [String]!
+    var listIngredientLibelle: [String] {
+        return dataIngredient.vms.map{$0.libelle}
+    }
+    private var _listIngredientCode: [Int]!
+    var listIngredientCode: [Int] {
+        return dataIngredient.vms.map{$0.idIngredient}
+    }
+    
     private var valueFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -40,7 +50,6 @@ struct CreateIngredientView: View {
     
     var body: some View {
         NavigationView{
-            
             VStack{
                 switch creationState {
                 case .ready:
@@ -57,6 +66,11 @@ struct CreateIngredientView: View {
                                  vm.intentstate.intentToChange(name: name)
                                  }*/
                             }
+                            if listIngredientCode.contains(where: { $0 == code }){
+                                Text("Le code est déjà utilisé, changez-le.")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.red)
+                            }
                             HStack{
                                 Text("Libellé : ")
                                     .fontWeight(.bold)
@@ -64,6 +78,11 @@ struct CreateIngredientView: View {
                                 /*.onSubmit {
                                  vm.intentstate.intentToChange(ram: vm.ram)
                                  }*/
+                            }
+                            if listIngredientLibelle.contains(where: { $0.lowercased() == libelle.lowercased() }){
+                                Text("Le nom d'ingrédient est déjà utilisé, changez-le.")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.red)
                             }
                             HStack{
                                 Text("Quantité :")
@@ -129,13 +148,14 @@ struct CreateIngredientView: View {
                                     }
                                 }//.fontWeight(.bold)
                             }
-                            if ((code != 00) && (libelle != "") && (prixUnitaire != 0.0) && (allergene != "") && (categorieAllergene != "") && (unite != "") && (allergene == "Oui") ) || ( (code != 00) && (libelle != "") && (quantiteStockee != 0.0) && (prixUnitaire != 0.0) && (allergene != "")  && (unite != "") && (allergene == "Non")){
-                                Section {
-                                    Button(action: {IngredientDAO.CreateIngredient(code: code, libelle: libelle, quantiteStockee: quantiteStockee, prixUnitaire: prixUnitaire, allergene: allergene, idCategorieIngredient: idCategorieIngredient, categorieAllergene: categorieAllergene, unite: unite, vm: self.viewModelIngredient) }){
-                                        Text("Créer l'ingrédient !")
-                                            .fontWeight(.bold)
-                                            .frame(alignment: .center)
-                                    }
+                          
+                        }
+                        if ((code != 00) && (libelle != "") && (prixUnitaire != 0.0) && (allergene != "") && (categorieAllergene != "") && (unite != "") && (allergene == "Oui") && !(listIngredientCode.contains(where: { $0 == code })) && !(listIngredientLibelle.contains(where: { $0.lowercased() == libelle.lowercased() })) ) || ( (code != 00) && (libelle != "") && (quantiteStockee != 0.0) && (prixUnitaire != 0.0) && (allergene != "")  && (unite != "") && (allergene == "Non") && !(listIngredientCode.contains(where: { $0 == code })) && !(listIngredientLibelle.contains(where: { $0.lowercased() == libelle.lowercased() }))){
+                            Section {
+                                Button(action: {IngredientDAO.CreateIngredient(code: code, libelle: libelle, quantiteStockee: quantiteStockee, prixUnitaire: prixUnitaire, allergene: allergene, idCategorieIngredient: idCategorieIngredient, categorieAllergene: categorieAllergene, unite: unite, vm: self.viewModelIngredient) }){
+                                    Text("Créer l'ingrédient !")
+                                        .fontWeight(.bold)
+                                        .frame(alignment: .center)
                                 }
                             }
                         }
@@ -147,7 +167,7 @@ struct CreateIngredientView: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: .black))
                         .scaleEffect(2)
                 case .created:
-                    Text("L'ingrédient \(libelle) a bien été créée ! Vous pouvez la retrouver dans la liste des fiches vides ✨." )
+                    Text("L'ingrédient \(libelle) a bien été créé ! Vous pouvez le retrouver dans le mercurial en RAFRAICHISSANT le mercurial 😇." )
                         .fontWeight(.bold)
                         .foregroundColor(.green)
                         .padding()

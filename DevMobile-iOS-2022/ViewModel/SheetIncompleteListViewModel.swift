@@ -35,7 +35,6 @@ class SheetIncompleteListViewModel: ObservableObject, SheetCompleteViewModelDele
         self.vms = []
         self.data = []
         SheetListViewIntent(list : self ).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
-        //self.sheetListState = .loading("https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/incomplete"
             guard let url = URL(string: surl) else { print("rien"); return }
             let request = URLRequest(url: url)
@@ -54,10 +53,7 @@ class SheetIncompleteListViewModel: ObservableObject, SheetCompleteViewModelDele
                         self.vms.append(vm)
                     }
                     DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
-                        //self.sheetListState = .loaded(self.data)
-                        //SheetListViewIntent(list : self ).httpJsonLoaded(results: dataDTO)
                         SheetListViewIntent(list : self ).loaded(sheets: self.data)
-                        //print(self.data)
                     }
                     
                 }catch{

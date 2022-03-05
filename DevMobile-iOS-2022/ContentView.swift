@@ -28,7 +28,7 @@ struct ContentView: View {
                     Image(systemName: "leaf.fill")
                     Text("Mercurial")
                 }
-            Text("Allergènes")
+            AllergensView(viewModel: IngredientListViewModel())
                 .tabItem{
                     Image(systemName: "allergens")
                     Text("Allergènes")

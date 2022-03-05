@@ -12,20 +12,13 @@ struct SheetView: View {
     /*@ObservedObject var viewModel: SheetListViewModel
      @StateObject var dataSheet: SheetListViewModel = SheetListViewModel()*/
     @ObservedObject var viewModel2: SheetCompleteListViewModel
-    @StateObject var dataSheetComplete: SheetCompleteListViewModel = SheetCompleteListViewModel()
+    @ObservedObject var dataSheetComplete: SheetCompleteListViewModel = SheetCompleteListViewModel()
     
     init(viewModel2: SheetCompleteListViewModel){
         //self.viewModel = viewModel
         self.viewModel2 = viewModel2
-        //print(viewModel.idIngredientCat)
-        //self.categoryId = categoryId
-        //self.categoryId = categoryId
-        //TrackDAO.get()
     }
     
-    /*private var sheetListState : SheetListState{
-     return self.viewModel.sheetListState
-     }*/
     private var sheetCompleteListState : SheetCompleteListState {
         return self.viewModel2.sheetListState
     }
@@ -67,16 +60,9 @@ struct SheetView: View {
                                 }
                             }
                         }.navigationTitle("Fiches Complètes")
-                        /*.navigationBarItems(trailing:
-                         
-                         )*/
-                        //Navigation bar Item pour accéder aux fiches techniques imcomplètes
-                        
-                        /*.onDelete{ indexSet in dataTrack.data.remove(atOffsets: indexSet)
-                         }i
-                         .onMove {
+                        /*.onMove {
                          indexSet, index in
-                         dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
+                         dataSheetComplete.data.move(fromOffsets: indexSet , toOffset: index)
                          }*/
                     }
                     .overlay {
@@ -94,43 +80,6 @@ struct SheetView: View {
                         await dataSheetComplete.fetchData()
                     }
                 }
-                /*switch sheetListState {
-                 case .loading:
-                 Text("Chargement des fiches techniques")
-                 .foregroundColor(.blue)
-                 
-                 ProgressView()
-                 .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                 .scaleEffect(2)
-                 
-                 case .loadingError:
-                 Text("erreur")
-                 default :
-                 List {
-                 ForEach(searchString == "" ? dataSheet.vms : dataSheet.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
-                 vm in
-                 //NavigationLink(destination: SheetDetailView(vm: vm)){
-                 VStack(alignment: .leading) {
-                 Text(vm.sheet.nomRecette)
-                 .fontWeight(.bold)
-                 .foregroundColor(.blue)
-                 HStack{
-                 Text("Catégorie : \(vm.sheet.categorieRecette)")
-                 .fontWeight(.semibold)
-                 }
-                 Text("Couverts : \(vm.sheet.Nbre_couverts)")
-                 .italic()
-                 // }
-                 }
-                 }.navigationTitle("Fiches Incomplètes")
-                 
-                 /*.onDelete{ indexSet in dataTrack.data.remove(atOffsets: indexSet)
-                  }
-                  .onMove {
-                  indexSet, index in
-                  dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
-                  }*/
-                 }.searchable(text: $searchString)*/
                 VStack {
                     HStack{
                         NavigationLink(destination: CreateSheetView()){
@@ -158,19 +107,17 @@ struct SheetView: View {
                     }
                     
                     Button(action: {
-                            //print(self.intent.creationState.description)
-                            SheetDAO.fetchSheet(list: dataSheetComplete)
-                            /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/
-                        }){
-                            Text("Rafraîchir la liste")
-                                .fontWeight(.bold)
-                                .foregroundColor(.blue)
-                                .padding()
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.blue, lineWidth: 5)
-                                )
-                        }.padding()
+                        SheetDAO.fetchSheet(list: dataSheetComplete)
+                    }){
+                        Text("Rafraîchir la liste")
+                            .fontWeight(.bold)
+                            .foregroundColor(.blue)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.blue, lineWidth: 5)
+                            )
+                    }.padding()
                 }
             }
         }

@@ -44,7 +44,7 @@ struct CalculCoutsView: View {
                             .font(.system(size: 20))
                     }
                     Spacer()
-                }.background(Color.cyan)
+                }.background(Color.blue)
                     .frame( alignment: .center)
                 Divider()
                 VStack{
@@ -88,7 +88,7 @@ struct CalculCoutsView: View {
                             }
                         }
                         VStack {
-                            Text("Qté totale")
+                            Text("Qté tot")
                                 .fontWeight(.bold)
                             ForEach( _listvm2.vms,id: \.ingredient.nomListeIngredients) {
                                 vm in
@@ -111,7 +111,7 @@ struct CalculCoutsView: View {
                             .font(.system(size: 20))
                     }
                     Spacer()
-                }.background(Color.cyan)
+                }.background(Color.blue)
                     .frame( alignment: .center)
                 Divider()
                 VStack {
@@ -119,7 +119,7 @@ struct CalculCoutsView: View {
                         VStack {
                             Text("Ingrédient")
                                 .fontWeight(.bold)
-                                .foregroundColor(.cyan)
+                                .foregroundColor(.blue)
                             ForEach( _listvm2.vms,id: \.ingredient.nomListeIngredients) {
                                 vm in
                                 VStack{
@@ -137,7 +137,10 @@ struct CalculCoutsView: View {
                                 vm in
                                 VStack{
                                     ForEach(vm.prix.split(separator: ","), id: \.self){ prix in
-                                        Text(prix)
+                                        HStack {
+                                            Text(prix)
+                                            Text("€")
+                                        }
                                     }
                                 }
                             }
@@ -177,6 +180,10 @@ struct CalculCoutsView: View {
                                 Text("Coût fluide : ")
                                     .fontWeight(.bold)
                             }
+                            Divider()
+                            Text("Coût de production tot : ")
+                                .fontWeight(.bold)
+                            //Text("Coût de production pour portion de 200g")
                         }
                         VStack{
                             HStack {
@@ -200,6 +207,10 @@ struct CalculCoutsView: View {
                                     Text(String(format: "%.1f", coutForfaitaire))
                                     Text("€")
                                 }
+                            }
+                        Divider()
+                            HStack {
+                                Text(String(format: "%.2f", (_listcost.vms[0].cost.prix_total*0.05) + _listcost.vms[0].cost.prix_total ))
                             }
                         }
                     }
