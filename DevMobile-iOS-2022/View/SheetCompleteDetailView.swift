@@ -24,8 +24,19 @@ struct SheetCompleteDetailView: View {
     }
     init(vm: SheetCompleteViewModel){
         self.viewModel = vm
-        self._listvm = StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression ?? "")
+        self._listvm = StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)
         self._listvm2 = IngredientsProgressionListViewModel(idFiche: self.viewModel.idFiche)
+    }
+    private var _times: [Int]!
+    var times: [Int] {
+        return listvm.vms.map{$0.id2 != nil ? $0.temps2 as! Int : $0.temps1}
+    }
+    
+    private var _totaltime: Int!
+    var totaltime: Int {
+        return times.reduce( 0, { x, y in
+            x + y
+        } )
     }
     
     private var deletionSheetState : DeleteSheetIntentState {
@@ -217,6 +228,10 @@ struct SheetCompleteDetailView: View {
                                             .fontWeight(.bold)
                                     }
                                 }
+                            }
+                            HStack{
+                                Text("Temps total : \(totaltime) minutes")
+                                    .fontWeight(.semibold)
                             }
                         }
                     }

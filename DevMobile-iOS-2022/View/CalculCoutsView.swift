@@ -18,8 +18,26 @@ struct CalculCoutsView: View {
     @State var applyCoef2 : Bool = false
     init(vm: SheetCompleteViewModel){
         self.viewModel = vm
+        self._listvm = StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)
         self._listvm2 = IngredientsProgressionListViewModel(idFiche: self.viewModel.idFiche)
         self._listcost = TotalCostsViewModel(idFiche: self.viewModel.idFiche)
+    }
+    
+    private var _listvm: StepProgressionListViewModel!
+    var listvm: StepProgressionListViewModel {
+        return _listvm
+    }
+    
+    private var _times: [Int]!
+    var times: [Int] {
+        return listvm.vms.map{$0.id2 != nil ? $0.temps2 as! Int : $0.temps1}
+    }
+    
+    private var _totaltime: Int!
+    var totaltime: Int {
+        return times.reduce( 0, { x, y in
+            x + y
+        } )
     }
     
     private var _listvm2: IngredientsProgressionListViewModel!
@@ -181,9 +199,6 @@ struct CalculCoutsView: View {
                                     .fontWeight(.bold)
                             }
                             Divider()
-                            Text("Coût de production tot : ")
-                                .fontWeight(.bold)
-                            //Text("Coût de production pour portion de 200g")
                         }
                         VStack{
                             HStack {
@@ -200,7 +215,7 @@ struct CalculCoutsView: View {
                             }
                             if fluidePersonnel {
                                 HStack {
-                                    Text(String(format: "%.1f", coutMoyen))
+                                    Text(String(format: "%.1f", coutMoyen * (Float(totaltime) / 60.0)))
                                     Text("€")
                                 }
                                 HStack {
@@ -208,11 +223,49 @@ struct CalculCoutsView: View {
                                     Text("€")
                                 }
                             }
-                        Divider()
-                            HStack {
-                                Text(String(format: "%.2f", (_listcost.vms[0].cost.prix_total*0.05) + _listcost.vms[0].cost.prix_total ))
-                            }
+                            Divider()
                         }
+                    }
+                    HStack{
+                        Spacer()
+                        HStack{
+                            Text("Totaux")
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .font(.system(size: 20))
+                        }
+                        Spacer()
+                    }.background(Color.indigo)
+                        .frame( alignment: .center)
+                    Divider()
+                    HStack {
+                        Text("Coût de production total : ")
+                            .fontWeight(.bold)
+                            .foregroundColor(.indigo)
+                        //Text("Coût de production pour portion de 200g")
+                        if fluidePersonnel {
+                            Text(String(format: "%.2f", (_listcost.vms[0].cost.prix_total * 0.05) + _listcost.vms[0].cost.prix_total + coutMoyen * (Float(totaltime) / 60.0) + coutForfaitaire))
+                                .fontWeight(.bold)
+                        } else {
+                            Text(String(format: "%.2f", (_listcost.vms[0].cost.prix_total * 0.05) + _listcost.vms[0].cost.prix_total ))
+                                .fontWeight(.bold)
+                        }
+                        Text("€")
+                            .fontWeight(.bold)
+                    }
+                    HStack {
+                        Text("Coût de production tot. portion 200g : ")
+                            .fontWeight(.bold)
+                            .foregroundColor(.indigo)
+                        if fluidePersonnel {
+                            Text(String(format: "%.2f", ((((_listcost.vms[0].cost.prix_total * 0.05) + _listcost.vms[0].cost.prix_total + coutMoyen * (Float(totaltime) / 60.0) + coutForfaitaire))/( _listcost.vms[0].cost.qtetotale / 0.2 )) * coefficientfp))
+                                .fontWeight(.bold)
+                        } else {
+                            Text(String(format: "%.2f", ((((_listcost.vms[0].cost.prix_total * 0.05) + _listcost.vms[0].cost.prix_total + coutMoyen * (Float(totaltime) / 60.0) + coutForfaitaire))/( _listcost.vms[0].cost.qtetotale / 0.2 )) * coefficient))
+                                .fontWeight(.bold)
+                        }
+                        Text("€")
+                            .fontWeight(.bold)
                     }
                 }
             }.navigationTitle("Calcul des coûts")
