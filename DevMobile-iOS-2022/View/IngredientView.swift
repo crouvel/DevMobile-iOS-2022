@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: vue Ingredient détail
 struct IngredientView: View {
     var intent: IngredientIntent
     @ObservedObject var viewModel: IngredientViewModel
@@ -23,6 +24,7 @@ struct IngredientView: View {
         self.intent.addObserver(vm: self.viewModel)
     }
     
+//MARK: liste des libelle
     private var _listIngredientLibelle: [String]!
     var listIngredientLibelle: [String] {
         return dataIngredient.datavm.map{$0.libelle}
@@ -49,6 +51,7 @@ struct IngredientView: View {
             VStack{
                 switch deletionState {
                 case .ready:
+                   //MARK: Détails ingrédients
                     Divider()
                     HStack{
                         Spacer()

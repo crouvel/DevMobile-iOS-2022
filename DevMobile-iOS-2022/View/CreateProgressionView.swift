@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+//MARK: vue creation progression et étapes
 struct CreateProgressionView: View {
     @ObservedObject var viewModel: SheetCompleteViewModel
     //private var _viewModel2 : ProgressionViewModel

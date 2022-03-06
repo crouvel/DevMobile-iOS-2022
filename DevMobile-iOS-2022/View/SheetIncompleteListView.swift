@@ -7,18 +7,14 @@
 
 import SwiftUI
 
+//MARK: vue liste des fiches non complètes
 struct SheetIncompleteListView: View {
     @State private var searchString = ""
     @ObservedObject var viewModel: SheetIncompleteListViewModel
     @StateObject var dataSheetIncomplete: SheetIncompleteListViewModel = SheetIncompleteListViewModel()
     
     init(viewModel: SheetIncompleteListViewModel){
-        //self.viewModel = viewModel
         self.viewModel = viewModel
-        //print(viewModel.idIngredientCat)
-        //self.categoryId = categoryId
-        //self.categoryId = categoryId
-        //TrackDAO.get()
     }
     
     private var sheetListState : SheetListState {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: vue detail fiche incomplète
 struct SheetDetailIncompleteView: View {
     var intent: SheetIntent
     @ObservedObject var viewModel: SheetCompleteViewModel
@@ -16,7 +17,6 @@ struct SheetDetailIncompleteView: View {
     init(vm: SheetCompleteViewModel){
         self.intent = SheetIntent()
         self.viewModel = vm
-        //self.intent.addObserver(vm: self.viewModel)
     }
     
     private var deletionSheetState : DeleteSheetIntentState {

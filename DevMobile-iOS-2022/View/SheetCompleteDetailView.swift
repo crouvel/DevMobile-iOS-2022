@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: vue detail fiche complète
 struct SheetCompleteDetailView: View {
     var intent: SheetCompleteIntent
     @ObservedObject var viewModel: SheetCompleteViewModel

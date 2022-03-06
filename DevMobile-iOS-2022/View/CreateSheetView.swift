@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: vue pour créer une fiche
 struct CreateSheetView: View {
     @State var nomRecette: String = ""
     @State var nomAuteur: String = ""

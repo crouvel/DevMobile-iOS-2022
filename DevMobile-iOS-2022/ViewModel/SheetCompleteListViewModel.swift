@@ -21,8 +21,7 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
            didSet{
                print("state: \(self.sheetListState)")
                switch self.sheetListState { // state has changed
-               case .loaded(let data):    // new data has been loaded, to change all games of list
-                   //let sortedData = data.sorted(by: { $0. < $1.name })
+               case .loaded(let data):   
                    print(data)
                    if data.count == 0 {
                        self.sheetListState = .loadingError("la")

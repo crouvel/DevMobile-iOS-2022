@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: vue etiquettte de vente
 struct EtiquetteVenteView: View {
     @ObservedObject var viewModel: SheetCompleteViewModel
     private var _listvm: IngredientVenteListViewModel!

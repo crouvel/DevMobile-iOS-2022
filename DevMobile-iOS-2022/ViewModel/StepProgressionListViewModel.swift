@@ -18,13 +18,12 @@ class StepProgressionListViewModel: ObservableObject {
            didSet{
                print("state: \(self.stepListState)")
                switch self.stepListState { // state has changed
-               case .loaded(let data):    // new data has been loaded, to change all games of list
-                   //let sortedData = data.sorted(by: { $0. < $1.name })
+               case .loaded(let data):    
                    print(data)
                    if data.count == 0 {
                        self.stepListState = .loadingError("la")
                    }
-               default:                   // nothing to do for ViewModel, perhaps for the view
+               default:
                    return
                }
            }

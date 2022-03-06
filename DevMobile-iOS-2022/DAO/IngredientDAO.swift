@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: DAO Ingredient
 class IngredientDAO {
     static func deleteIngredient(idIngredient: Int, vm: IngredientViewModel){
         IngredientIntent( vm: vm ).deleting(s: "https://awi-back-2021.herokuapp.com/api/ingredients/delete/\(idIngredient)" )

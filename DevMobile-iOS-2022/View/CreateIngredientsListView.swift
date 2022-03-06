@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: vue creer liste ingrédients
 struct CreateIngredientsListView: View {
     var nomProgression: String
     @ObservedObject var viewModel: SheetCompleteViewModel

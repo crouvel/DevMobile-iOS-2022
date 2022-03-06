@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: VUE ACCUEIL
 struct HomeView: View {
     var body: some View {
         NavigationView{

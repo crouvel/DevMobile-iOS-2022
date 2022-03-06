@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: vue fin compléter fiche vide
 struct FinishSheetCreationView: View {
     //var nomProgression: String
     @ObservedObject var viewModel: SheetCompleteViewModel

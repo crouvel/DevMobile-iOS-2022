@@ -11,7 +11,6 @@ import Combine
 enum SheetIncompleteIntentState: Equatable, CustomStringConvertible {
     //case ready
     case READY
-    /*case CHANGING_ARTISTNAME(String)*/
     case LIST_UPDATED
     
     var description: String {

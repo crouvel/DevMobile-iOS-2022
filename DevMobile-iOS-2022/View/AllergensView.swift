@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: vue liste allergènes
 struct AllergensView: View {
     @State private var searchString = ""
     @ObservedObject var viewModel: IngredientListViewModel

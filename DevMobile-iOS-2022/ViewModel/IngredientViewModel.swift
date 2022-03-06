@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 
+//MARK: Intent states pour Ingrédient
 enum IngredientError: Error, Equatable, CustomStringConvertible {
     case NONE
     case LIBELLE(String)

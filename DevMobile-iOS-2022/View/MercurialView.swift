@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: Vue Mercurial
 struct MercurialView: View {
     @State private var searchString = ""
     @ObservedObject var viewModel: IngredientListViewModel
@@ -61,6 +62,10 @@ struct MercurialView: View {
                             }
                         }.navigationTitle("Mercurial 🌶️")
                     }.searchable(text: $searchString)
+                        .onAppear{
+                            dataIngredient.fetchData()
+                        }
+
                 }
                 
                 VStack {

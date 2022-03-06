@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: vue Fiches complètes
 struct SheetView: View {
     @State private var searchString = ""
     /*@ObservedObject var viewModel: SheetListViewModel

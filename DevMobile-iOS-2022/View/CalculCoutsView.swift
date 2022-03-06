@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: vue calcul des coûts
 struct CalculCoutsView: View {
     @ObservedObject var viewModel: SheetCompleteViewModel
     @State var fluidePersonnel : Bool = true

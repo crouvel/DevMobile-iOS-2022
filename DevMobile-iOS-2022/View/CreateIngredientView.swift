@@ -1,11 +1,3 @@
-//
-//  CreateIngredientView.swift
-//  DevMobile-iOS-2022
-//
-//  Created by m1 on 22/02/2022.
-//
-
-import SwiftUI
 
 //
 //  CreateSheetView.swift
@@ -16,6 +8,7 @@ import SwiftUI
 
 import SwiftUI
 
+//MARK: vue pour créer un ingrédient
 struct CreateIngredientView: View {
     
     @State var code: Int = 00
