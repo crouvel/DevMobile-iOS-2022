@@ -27,14 +27,29 @@ enum SheetIncompleteIntentState: Equatable, CustomStringConvertible {
 }
 
 class SheetIntent: ObservableObject {
-    private var state = PassthroughSubject<SheetCompleteIntentState, Never>()
+    //private var state = PassthroughSubject<SheetIncompleteIntentState, Never>()
     
-    func intentToChange(artistName: String){
-        /*self.state.send(.CHANGING_ARTISTNAME(artistName))*/
+    /*func intentToChange(nom: String){
+        self.state.send(.CHANGING_NOM(nom))
+        self.state.send(.LIST_UPDATED)
+    }
+    
+    func intentToChange(categorie: String){
+        self.state.send(.CHANGING_CATEGORY(categorie))
+        self.state.send(.LIST_UPDATED)
+    }
+    
+    func intentToChange(couvert: Int){
+        self.state.send(.CHANGING_COUVERT(couvert))
+        self.state.send(.LIST_UPDATED)
+    }
+    
+    func intentToChange(auteur: String){
+        self.state.send(.CHANGING_AUTEUR(auteur))
         self.state.send(.LIST_UPDATED)
     }
     
     func addObserver(vm: SheetCompleteViewModel){
         self.state.subscribe(vm)
-    }
+    }*/
 }

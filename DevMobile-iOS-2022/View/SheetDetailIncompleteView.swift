@@ -16,7 +16,7 @@ struct SheetDetailIncompleteView: View {
     init(vm: SheetCompleteViewModel){
         self.intent = SheetIntent()
         self.viewModel = vm
-        self.intent.addObserver(vm: self.viewModel)
+        //self.intent.addObserver(vm: self.viewModel)
     }
     
     private var deletionSheetState : DeleteSheetIntentState {
@@ -94,11 +94,11 @@ struct SheetDetailIncompleteView: View {
             
                 .navigationBarHidden(true)
             
-                .onChange(of: viewModel.error){ error in
+                /*.onChange(of: viewModel.error){ error in
                     switch error {
                     case .NONE:
                         return
-                        /*case .ARTISTNAME(let reason):
+                        case .ARTISTNAME(let reason):
                          self.errorMessage = reason
                          self.showErrorMessage = true
                          case .TRACKNAME(let reason):
@@ -106,13 +106,13 @@ struct SheetDetailIncompleteView: View {
                          self.showErrorMessage = true
                          case .COLLECTIONNAME(let reason):
                          self.errorMessage = reason
-                         self.showErrorMessage = true*/
+                         self.showErrorMessage = true
                     }
                 }.alert("\(errorMessage)", isPresented: $showErrorMessage){
                     Button("Ok", role: .cancel){
                         showErrorMessage = false
                     }
-                }
+                }*/
         }
         .navigationTitle("\(viewModel.nomRecette)")
         .navigationBarBackButtonHidden(true)

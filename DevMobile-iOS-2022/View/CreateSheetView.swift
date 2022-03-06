@@ -34,7 +34,7 @@ struct CreateSheetView: View {
             VStack{
                 switch creationState {
                 case .ready:
-                    Text("Créer l'entête d'une fiche technique. Vous pourrez finir de la compléter plus tard.")
+                    Text("Créer l'entête d'une fiche technique. Vous pourrez finir de la compléter plus tard.🍳")
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                         .padding()
@@ -55,9 +55,16 @@ struct CreateSheetView: View {
                                     .foregroundColor(.red)
                             }
                             HStack{
-                                Text("Nom de l'auteur :")
-                                    .fontWeight(.bold)
-                                TextField("auteur", text: $nomAuteur)
+                                Picker("Auteur", selection: $nomAuteur) {
+                                    Text("Garde-manger").tag("Garde-manger")
+                                    Text("Rôtisseur").tag("Rôtisseur")
+                                    Text("Pâtissier").tag("Pâtissier")
+                                    Text("Saucier").tag("Saucier")
+                                    Text("Entremétier").tag("Entremétier")
+                                    Text("Boulanger").tag("Boulanger")
+                                    Text("Poissonnier").tag("Poissonnier")
+                                    Text("Chef").tag("Chef")
+                                }
                             }
                             HStack{
                                 Text("Nombre de couverts :")

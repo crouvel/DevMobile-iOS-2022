@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct SheetCompleteDetailView: View {
-    //var intent: SheetCompleteIntent
+    var intent: SheetCompleteIntent
     @ObservedObject var viewModel: SheetCompleteViewModel
     @State var errorMessage: String = ""
     @State var showErrorMessage: Bool = false
     @State var confirmationShown: Bool = false
+    @State private var modify: Bool = false
+    @State private var showingIncorrect = false
+    private var oldcouvert : Int
+    @ObservedObject var dataSheetComplete: SheetCompleteListViewModel = SheetCompleteListViewModel()
+    @ObservedObject var dataSheetIncomplete: SheetIncompleteListViewModel = SheetIncompleteListViewModel()
     
     private var _listvm: StepProgressionListViewModel!
     var listvm: StepProgressionListViewModel {
@@ -22,8 +27,19 @@ struct SheetCompleteDetailView: View {
     var listvm2: IngredientsProgressionListViewModel {
         return _listvm2
     }
+    private var _listSheetComplete: [String]!
+    var listSheetComplete: [String] {
+        return dataSheetComplete.vms.map{$0.nomRecette}
+    }
+    private var _listSheetIncomplete: [String]!
+    var listSheetIncomplete: [String] {
+        return dataSheetIncomplete.vms.map{$0.nomRecette}
+    }
+    
     init(vm: SheetCompleteViewModel){
         self.viewModel = vm
+        self.intent = SheetCompleteIntent(vm: vm)
+        self.oldcouvert = vm.Nbre_couverts
         self._listvm = StepProgressionListViewModel(referenceProgression: self.viewModel.nomProgression)
         self._listvm2 = IngredientsProgressionListViewModel(idFiche: self.viewModel.idFiche)
     }
@@ -48,54 +64,191 @@ struct SheetCompleteDetailView: View {
             switch deletionSheetState {
             case .ready:
                 VStack {
-                    VStack{
-                        HStack {
-                            Button(action: {
-                                let outputFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("SwiftUI.pdf")
-                                let pageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                                let rootVC = UIApplication.shared.windows.first?.rootViewController
-                                
-                                //Render the PDF
-                                let pdfRenderer = UIGraphicsPDFRenderer(bounds: CGRect(origin: .zero, size: pageSize))
-                                DispatchQueue.main.async {
-                                    do {
-                                        try pdfRenderer.writePDF(to: outputFileURL, withActions: { (context) in
-                                            context.beginPage()
-                                            rootVC?.view.layer.render(in: context.cgContext)
-                                        })
-                                        print("wrote file to: \(outputFileURL.path)")
-                                    } catch {
-                                        print("Could not create PDF file: \(error.localizedDescription)")
-                                    }
+                    //MARK: ENTETE
+                    if !modify {
+                        VStack{
+                            //Text("\(oldcouvert)")
+                            HStack {
+                                /*Button(action: {
+                                 let outputFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("SwiftUI.pdf")
+                                 let pageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                                 let rootVC = UIApplication.shared.windows.first?.rootViewController
+                                 
+                                 //Render the PDF
+                                 let pdfRenderer = UIGraphicsPDFRenderer(bounds: CGRect(origin: .zero, size: pageSize))
+                                 DispatchQueue.main.async {
+                                 do {
+                                 try pdfRenderer.writePDF(to: outputFileURL, withActions: { (context) in
+                                 context.beginPage()
+                                 rootVC?.view.layer.render(in: context.cgContext)
+                                 })
+                                 print("wrote file to: \(outputFileURL.path)")
+                                 } catch {
+                                 print("Could not create PDF file: \(error.localizedDescription)")
+                                 }
+                                 }
+                                 }){
+                                 Text("Export   ")
+                                 //.fontWeight(.semibold)
+                                 .foregroundColor(.blue)
+                                 }*/
+                                NavigationLink(destination: CalculCoutsView(vm: self.viewModel)){
+                                    Text("Calcul des coûts")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.blue)
+                                        .padding()
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(Color.blue, lineWidth: 5)
+                                        )
+                                    EmptyView()
                                 }
-                            }){
-                                Text("Export   ")
-                                //.fontWeight(.semibold)
-                                    .foregroundColor(.blue)
+                                Button(action: {
+                                    modify = true
+                                }){
+                                    Text("Modifier entête")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.blue)
+                                        .frame(alignment: .center)
+                                        .padding()
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(Color.blue, lineWidth: 5)
+                                        )
+                                }
                             }
-                            NavigationLink(destination: CalculCoutsView(vm: self.viewModel)){
-                                Text("Calcul des coûts")
+                            
+                            NavigationLink(destination: EtiquetteVenteView(viewModel: self.viewModel)){
+                                Text("Etiquette Vente")
                                     .fontWeight(.bold)
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.green)
                                     .padding()
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.blue, lineWidth: 5)
+                                            .stroke(Color.green, lineWidth: 5)
                                     )
                                 EmptyView()
                             }
+                            Button(action: {
+                                //SheetDAO.deleteSheet(idFiche: self.viewModel.sheet.idFiche, vm: self.viewModel)
+                                confirmationShown = true
+                            }){
+                                Text("Supprimer la fiche")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.red)
+                                    .frame(alignment: .center)
+                            }.padding()
+                        }
+                    }
+                    //MARK: MODIFICATION BLOCK
+                    else {
+                        Section {
+                            VStack {
+                                HStack{
+                                    Text("Nom de la recette :")
+                                        .fontWeight(.bold)
+                                        .padding()
+                                    TextField("", text: $viewModel.nomRecette)
+                                        .onSubmit {
+                                        }
+                                    Button(action :{
+                                        if listSheetIncomplete.contains(where: { $0.lowercased() == viewModel.nomRecette.lowercased()}) || listSheetComplete.contains(where: { $0.lowercased() == viewModel.nomRecette.lowercased()})
+                                        {
+                                            print("alert : libelle name cannot be used")
+                                            showingIncorrect = true
+                                        }else {
+                                            SheetDAO.updateRecette(nom: viewModel.nomRecette, idFiche: viewModel.idFiche)
+                                            intent.intentToChange(nomRecette: viewModel.nomRecette)
+                                            modify = false
+                                        }
+                                    }){
+                                        Text("Modifier")
+                                            .foregroundColor(.blue)
+                                            .fontWeight(.bold)
+                                    }.padding()
+                                }
+                                Divider()
+                                /*HStack{
+                                    Text("Catégorie de recette : ")
+                                        .fontWeight(.bold)
+                                        .padding()
+                                    Picker("Catégorie de recette", selection: $viewModel.categorieRecette) {
+                                        Text("Entrée").tag("Entrée")
+                                        Text("Plat").tag("Plat")
+                                        Text("Dessert").tag("Dessert")
+                                        Text("Autre").tag("Autre")
+                                    }.padding()
+                                        .onSubmit {
+                                            //intent.intentToChange(categorie: viewModel.nomCategorie)
+                                        }
+                                    Button(action :{
+                                        intent.intentToChange(categorie: viewModel.categorieRecette)
+                                        modify = false
+                                    }){
+                                        Text("Modifier")
+                                            .foregroundColor(.blue)
+                                            .fontWeight(.bold)
+                                        
+                                    }.padding()
+                                }*/
+                                Divider()
+                                /*HStack{
+                                    Text("Nombre de couverts :")
+                                        .fontWeight(.bold)
+                                        .padding()
+                                    TextField("", value: $viewModel.Nbre_couverts, formatter: NumberFormatter())
+                                        .padding()
+                                    if viewModel.Nbre_couverts != nil {
+                                        Button(action :{
+                                            SheetDAO.updateCouvert(couvert: viewModel.Nbre_couverts, idFiche: viewModel.idFiche, oldcouvert: oldcouvert, nomProgression: viewModel.nomProgression)
+                                            //_listvm2.fetchData(idFiche: viewModel.idFiche)
+                                            intent.intentToChange(couvert: viewModel.Nbre_couverts)
+                                            
+                                            modify = false
+                                        }){
+                                            Text("Modifier")
+                                                .foregroundColor(.blue)
+                                                .fontWeight(.bold)
+                                        }.padding()
+                                    }
+                                }*/
+                                Divider()
+                                HStack{
+                                    Text("Nom de l'auteur :")
+                                        .fontWeight(.bold)
+                                        .padding()
+                                    TextField("", text: $viewModel.nomAuteur)
+                                        .padding()
+                                        .onSubmit {
+                                        }
+                                    Button(action :{
+                                        intent.intentToChange(auteur: viewModel.nomAuteur)
+                                        modify = false
+                                    }){
+                                        Text("Modifier")
+                                            .foregroundColor(.blue)
+                                            .fontWeight(.bold)
+                                    }.padding()
+                                }
+                                Divider()
+                            }.alert("Nom de recette est déjà employé ou identique, veuillez changer de nom.", isPresented: $showingIncorrect) {
+                                Button("OK", role: .cancel) { }
+                            }
                         }
                         Button(action: {
-                            //SheetDAO.deleteSheet(idFiche: self.viewModel.sheet.idFiche, vm: self.viewModel)
-                            confirmationShown = true
+                            modify = false
                         }){
-                            Text("Supprimer la fiche")
+                            Text("Terminer")
                                 .fontWeight(.bold)
-                                .foregroundColor(.red)
-                                .italic()
-                                .frame(alignment: .center)
-                        }.padding()
+                                .foregroundColor(.blue)
+                                .padding()
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.blue, lineWidth: 5)
+                                )
+                        }
                     }
+                    //MARK: END MODIF BLOCK
                     VStack{
                         HStack{
                             Spacer()
@@ -106,7 +259,7 @@ struct SheetCompleteDetailView: View {
                             Spacer()
                         }.background(Color.cyan)
                             .frame( alignment: .center)
-                        //Divider()
+                        Divider()
                         HStack{
                             Text("Nombre de couverts : ")
                                 .fontWeight(.bold)
@@ -115,7 +268,7 @@ struct SheetCompleteDetailView: View {
                             Text("\(viewModel.Nbre_couverts)")
                         }
                     }
-                    //Divider()
+                    Divider()
                     VStack{
                         HStack{
                             Spacer()
@@ -156,6 +309,7 @@ struct SheetCompleteDetailView: View {
                         }
                     }
                     Divider()
+                    //MARK: ETAPES FICHE
                     VStack{
                         HStack{
                             Spacer()
@@ -212,9 +366,6 @@ struct SheetCompleteDetailView: View {
                                                 .fontWeight(.bold)
                                         }.padding()
                                         VStack{
-                                            /*Text("\(vm.step.titre1)")
-                                             .fontWeight(.bold)
-                                             .font(.system(size: 19))*/
                                             Text("(\(vm.step.titre1))")
                                                 .italic()
                                             Text(vm.step.titre2 ?? "")
@@ -236,6 +387,7 @@ struct SheetCompleteDetailView: View {
                         }
                     }
                     Divider()
+                    //MARK: SYNTHESE RECAP
                     VStack {
                         HStack{
                             Spacer()
@@ -272,15 +424,18 @@ struct SheetCompleteDetailView: View {
                     switch error {
                     case .NONE:
                         return
-                        /*case .ARTISTNAME(let reason):
-                         self.errorMessage = reason
-                         self.showErrorMessage = true
-                         case .TRACKNAME(let reason):
-                         self.errorMessage = reason
-                         self.showErrorMessage = true
-                         case .COLLECTIONNAME(let reason):
-                         self.errorMessage = reason
-                         self.showErrorMessage = true*/
+                    case .COUVERT(let reason):
+                        self.errorMessage = reason
+                        self.showErrorMessage = true
+                    case .NOM(let reason):
+                        self.errorMessage = reason
+                        self.showErrorMessage = true
+                    case .AUTEUR(let reason):
+                        self.errorMessage = reason
+                        self.showErrorMessage = true
+                    case .CATEGORY(let reason):
+                        self.errorMessage = reason
+                        self.showErrorMessage = true
                     }
                 }
                 .confirmationDialog("Voulez-vous supprimer la fiche", isPresented: $confirmationShown) {

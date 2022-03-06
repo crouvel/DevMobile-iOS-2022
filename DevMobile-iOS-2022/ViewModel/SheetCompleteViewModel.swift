@@ -10,20 +10,23 @@ import Combine
 
 enum SheetCompleteError: Error, Equatable, CustomStringConvertible {
     case NONE
-    /*case TRACKNAME(String)
-    case ARTISTNAME(String)
-    case COLLECTIONNAME(String)*/
+    case NOM(String)
+    case COUVERT(String)
+    case CATEGORY(String)
+    case AUTEUR(String)
     
     var description: String {
         switch self {
-            case .NONE:
-                    return "No error"
-            /*case .TRACKNAME:
-                    return "Trackname isn't  valid"
-            case .ARTISTNAME:
-                    return "Artist name isn't valid"
-            case .COLLECTIONNAME:
-                return "Collection name isn't valid"*/
+        case .NONE:
+            return "No error"
+        case .NOM:
+            return "Name isn't  valid"
+        case .COUVERT:
+            return "Number couverts isn't valid"
+        case .AUTEUR:
+            return "AUTEUR isn't valid"
+        case .CATEGORY:
+            return "Category isn't valid"
         }
     }
 }
@@ -33,15 +36,13 @@ enum ProgressionCreationIntentState : CustomStringConvertible{
     case creating
     case created
     case creatingError(String)
-    //case newEditeurs([EditeurViewModel])
-
+    
     var description: String{
         switch self {
         case .ready                               : return "ready"
         case .creating                            : return "creating progession"
         case .created                              : return "created"
         case .creatingError(let error)             : return "creatingError: Error loading -> \(error)"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
     }
     
@@ -52,15 +53,13 @@ enum StepCreationIntentState : CustomStringConvertible{
     case creating
     case created
     case creatingError(String)
-    //case newEditeurs([EditeurViewModel])
-
+    
     var description: String{
         switch self {
         case .ready                               : return "ready"
         case .creating                            : return "creating step"
         case .created                              : return "created"
         case .creatingError(let error)             : return "creatingError: Error loading -> \(error)"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
     }
     
@@ -71,15 +70,13 @@ enum IngredientListCreationIntentState : CustomStringConvertible{
     case creating
     case created
     case creatingError(String)
-    //case newEditeurs([EditeurViewModel])
-
+    
     var description: String{
         switch self {
         case .ready                               : return "ready"
         case .creating                            : return "creating ingredient list"
         case .created                              : return "created"
         case .creatingError(let error)             : return "creatingError: Error loading -> \(error)"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
     }
 }
@@ -90,7 +87,7 @@ enum AddIngredientToListIntentState : CustomStringConvertible {
     case added
     case addingError(String)
     case addMoreList
-
+    
     var description: String{
         switch self {
         case .ready                               : return "ready"
@@ -107,7 +104,7 @@ enum DeleteSheetIntentState : CustomStringConvertible {
     case deleting(String)
     case deleted
     case deletingError(String)
-
+    
     var description: String{
         switch self {
         case .ready                               : return "ready"
@@ -123,33 +120,44 @@ enum CreateSheetIntentState : CustomStringConvertible {
     case creating
     case created
     case creatingError(String)
-    //case newEditeurs([EditeurViewModel])
-
+    
     var description: String{
         switch self {
         case .ready                               : return "ready"
         case .creating                            : return "creating sheet"
         case .created                              : return "created"
         case .creatingError(let error)             : return "creatingError: Error loading -> \(error)"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
     }
 }
 
-class SheetCompleteViewModel: ObservableObject, Subscriber {
+class SheetCompleteViewModel: SheetCompleteObserver, ObservableObject, Subscriber {
     typealias Input = SheetCompleteIntentState
     typealias Failure = Never
+    
+    func changed(nomRecette: String, idFiche: Int){
+        SheetDAO.updateRecette(nom: nomRecette, idFiche: idFiche)
+        self.nomRecette = nomRecette
+    }
+    func changed(nomAuteur: String){
+        self.nomAuteur = nomAuteur
+    }
+    func changed(category: String){
+        self.categorieRecette = category
+    }
+    func changed(couverts: Int){
+        self.Nbre_couverts = couverts
+    }
     
     @Published var creationState : ProgressionCreationIntentState = .ready{
         didSet{
             print("state: \(self.creationState)")
-            switch self.creationState { // state has changed
-            case .created:    // new data has been loaded, to change all games of list
-                //let sortedData = data.sorted(by: { $0. < $1.name })
+            switch self.creationState {
+            case .created:
                 print("created")
             case .creatingError(let error):
                 print("\(error)")
-            default:                   // nothing to do for ViewModel, perhaps for the view
+            default:
                 return
             }
         }
@@ -158,29 +166,27 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
     @Published var enteteCreationState : CreateSheetIntentState = .ready{
         didSet{
             print("state: \(self.enteteCreationState)")
-            switch self.enteteCreationState { // state has changed
-            case .created:    // new data has been loaded, to change all games of list
-                //let sortedData = data.sorted(by: { $0. < $1.name })
+            switch self.enteteCreationState {
+            case .created:
                 print("created")
             case .creatingError(let error):
                 print("\(error)")
-            default:                   // nothing to do for ViewModel, perhaps for the view
+            default:
                 return
             }
         }
     }
-
+    
     
     @Published var deletionState : DeleteSheetIntentState = .ready{
         didSet{
             print("state: \(self.deletionState)")
-            switch self.deletionState { // state has changed
-            case .deleted:    // new data has been loaded, to change all games of list
-                //let sortedData = data.sorted(by: { $0. < $1.name })
+            switch self.deletionState {
+            case .deleted:
                 print("deleted")
             case .deletingError(let error):
                 print("\(error)")
-            default:                   // nothing to do for ViewModel, perhaps for the view
+            default:
                 return
             }
         }
@@ -189,13 +195,12 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
     @Published var creationStateStep : StepCreationIntentState = .ready{
         didSet{
             print("state: \(self.creationStateStep)")
-            switch self.creationStateStep { // state has changed
-            case .created:    // new data has been loaded, to change all games of list
-                //let sortedData = data.sorted(by: { $0. < $1.name })
+            switch self.creationStateStep {
+            case .created:
                 print("created")
             case .creatingError(let error):
                 print("\(error)")
-            default:                   // nothing to do for ViewModel, perhaps for the view
+            default:
                 return
             }
         }
@@ -204,13 +209,12 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
     @Published var creationStateIngredientList : IngredientListCreationIntentState = .ready{
         didSet{
             print("state: \(self.creationStateIngredientList)")
-            switch self.creationStateIngredientList { // state has changed
-            case .created:    // new data has been loaded, to change all games of list
-                //let sortedData = data.sorted(by: { $0. < $1.name })
+            switch self.creationStateIngredientList {
+            case .created:
                 print("created")
             case .creatingError(let error):
                 print("\(error)")
-            default:                   // nothing to do for ViewModel, perhaps for the view
+            default:
                 return
             }
         }
@@ -219,13 +223,12 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
     @Published var addStateIngredientList : AddIngredientToListIntentState = .ready{
         didSet{
             print("state: \(self.addStateIngredientList)")
-            switch self.addStateIngredientList { // state has changed
-            case .added:    // new data has been loaded, to change all games of list
-                //let sortedData = data.sorted(by: { $0. < $1.name })
+            switch self.addStateIngredientList {
+            case .added:
                 print("added : addStateIngredientList")
             case .addingError(let error):
                 print("\(error)")
-            default:                   // nothing to do for ViewModel, perhaps for the view
+            default:
                 return
             }
         }
@@ -240,7 +243,6 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
     @Published var nomProgression: String
     @Published var PDFUrl: URL?
     @Published var showShareSheet: Bool = false
-    //@Published var collectionName: String
     @Published var error: SheetCompleteError = .NONE
     var delegate: SheetCompleteViewModelDelegate?
     
@@ -253,24 +255,11 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
         self.categorieRecette = sheet.categorieRecette
         self.nomProgression = sheet.nomProgression
         /*self.trackName = track.trackName
-        self.artistName = track.artistName
-        self.collectionName = track.collectionName*/
-        /*self.track.addObserver(obs: self)*/
+         self.artistName = track.artistName
+         self.collectionName = track.collectionName*/
+        self.sheet.addObserver(obs: self)
     }
-    
-    /*func changed(trackName: String) {
-        self.trackName = trackName
-    }
-    
-    func changed(collectionName: String) {
-        self.collectionName = collectionName
-    }
-    
-    func changed(artistName: String) {
-        self.artistName = artistName
-    }*/
-    
-    
+        
     func receive(subscription: Subscription) {
         subscription.request(.unlimited)
     }
@@ -281,18 +270,32 @@ class SheetCompleteViewModel: ObservableObject, Subscriber {
     
     func receive(_ input: SheetCompleteIntentState) -> Subscribers.Demand {
         switch input {
-            case .READY:
-                break
-            /*case .CHANGING_ARTISTNAME(let artistName):
-                self.track.artistName = artistName
-                if(self.track.artistName != artistName){
-                    self.error = .ARTISTNAME("Invalid input")
-                }*/
-            case .LIST_UPDATED:
-                self.delegate?.sheetCompleteViewModelChanged()
-                break
+        case .READY:
+            break
+        case .CHANGING_NOM(let nom):
+            self.sheet.nomRecette = nom
+            if(self.sheet.nomRecette != nom){
+                self.error = .NOM("Invalid input")
+            }
+        case .CHANGING_COUVERT(let couvert):
+            self.sheet.Nbre_couverts = couvert
+            if(self.sheet.Nbre_couverts != couvert){
+                self.error = .COUVERT("Invalid input")
+            }
+        case .CHANGING_CATEGORY(let category):
+            self.sheet.categorieRecette = category
+            if(self.sheet.categorieRecette != category){
+                self.error = .CATEGORY("Invalid input")
+            }
+        case .CHANGING_AUTEUR(let auteur):
+            self.sheet.nomAuteur = auteur
+            if(self.sheet.nomAuteur != auteur){
+                self.error = .AUTEUR("Invalid input")
+            }
+        case .LIST_UPDATED:
+            self.delegate?.sheetCompleteViewModelChanged()
+            break
         }
-        
         return .none
     }
 }

@@ -60,6 +60,9 @@
 		6F4E00B627BB15F700BA78AC /* SheetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E00B527BB15F700BA78AC /* SheetsView.swift */; };
 		6F4E00B827BB165600BA78AC /* MercurialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E00B727BB165600BA78AC /* MercurialView.swift */; };
 		6FA4D9DA27D31EF80060DED5 /* AllergensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA4D9D927D31EF80060DED5 /* AllergensView.swift */; };
+		6FA4D9DC27D4D09F0060DED5 /* IngredientVente.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA4D9DB27D4D09F0060DED5 /* IngredientVente.swift */; };
+		6FA4D9DE27D4D5040060DED5 /* IngredientVenteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA4D9DD27D4D5040060DED5 /* IngredientVenteViewModel.swift */; };
+		6FA4D9E027D4D6EE0060DED5 /* IngredientVenteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA4D9DF27D4D6EE0060DED5 /* IngredientVenteListViewModel.swift */; };
 		6FCA09BE27D05D6000BD82B5 /* TotalCost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA09BD27D05D6000BD82B5 /* TotalCost.swift */; };
 		6FCA09C027D0604D00BD82B5 /* TotalCostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA09BF27D0604D00BD82B5 /* TotalCostViewModel.swift */; };
 		6FCA09C227D1BBFB00BD82B5 /* IngredientSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA09C127D1BBFB00BD82B5 /* IngredientSheetViewModel.swift */; };
@@ -145,6 +148,9 @@
 		6F4E00B527BB15F700BA78AC /* SheetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsView.swift; sourceTree = "<group>"; };
 		6F4E00B727BB165600BA78AC /* MercurialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercurialView.swift; sourceTree = "<group>"; };
 		6FA4D9D927D31EF80060DED5 /* AllergensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergensView.swift; sourceTree = "<group>"; };
+		6FA4D9DB27D4D09F0060DED5 /* IngredientVente.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientVente.swift; sourceTree = "<group>"; };
+		6FA4D9DD27D4D5040060DED5 /* IngredientVenteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientVenteViewModel.swift; sourceTree = "<group>"; };
+		6FA4D9DF27D4D6EE0060DED5 /* IngredientVenteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientVenteListViewModel.swift; sourceTree = "<group>"; };
 		6FCA09BD27D05D6000BD82B5 /* TotalCost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalCost.swift; sourceTree = "<group>"; };
 		6FCA09BF27D0604D00BD82B5 /* TotalCostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalCostViewModel.swift; sourceTree = "<group>"; };
 		6FCA09C127D1BBFB00BD82B5 /* IngredientSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSheetViewModel.swift; sourceTree = "<group>"; };
@@ -280,6 +286,7 @@
 				6F41AB5B27C9485600649DC6 /* IngredientProgression.swift */,
 				6F41AB7827CD677700649DC6 /* Progression.swift */,
 				6FCA09BD27D05D6000BD82B5 /* TotalCost.swift */,
+				6FA4D9DB27D4D09F0060DED5 /* IngredientVente.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -305,6 +312,8 @@
 				6FCA09BF27D0604D00BD82B5 /* TotalCostViewModel.swift */,
 				6FCA09C127D1BBFB00BD82B5 /* IngredientSheetViewModel.swift */,
 				6FCA09C327D1BC1100BD82B5 /* IngredientSheetListViewModel.swift */,
+				6FA4D9DD27D4D5040060DED5 /* IngredientVenteViewModel.swift */,
+				6FA4D9DF27D4D6EE0060DED5 /* IngredientVenteListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -480,6 +489,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F41AB8327CEB45400649DC6 /* FinishSheetCreationView.swift in Sources */,
+				6FA4D9E027D4D6EE0060DED5 /* IngredientVenteListViewModel.swift in Sources */,
 				6FCA09C227D1BBFB00BD82B5 /* IngredientSheetViewModel.swift in Sources */,
 				6F41AB3927C50E1A00649DC6 /* SheetCompleteIntent.swift in Sources */,
 				6F41AB4927C524BE00649DC6 /* StepProgression.swift in Sources */,
@@ -526,10 +536,12 @@
 				6F41AB7D27CD94FC00649DC6 /* SearchBar.swift in Sources */,
 				6F41AB2D27C4D26C00649DC6 /* SheetIncompleteListViewModel.swift in Sources */,
 				6F41AB6F27CC6B2C00649DC6 /* ProgressionIntent.swift in Sources */,
+				6FA4D9DC27D4D09F0060DED5 /* IngredientVente.swift in Sources */,
 				6FCA09C027D0604D00BD82B5 /* TotalCostViewModel.swift in Sources */,
 				6F41AB4127C512C700649DC6 /* SheetCompleteDetailView.swift in Sources */,
 				6F41AB7927CD677700649DC6 /* Progression.swift in Sources */,
 				6FA4D9DA27D31EF80060DED5 /* AllergensView.swift in Sources */,
+				6FA4D9DE27D4D5040060DED5 /* IngredientVenteViewModel.swift in Sources */,
 				6F41AB7527CC743E00649DC6 /* ProgressionDAO.swift in Sources */,
 				6F41AB1D27C4C5E300649DC6 /* IngredientIntent.swift in Sources */,
 				6F41AB2327C4C9D600649DC6 /* IngredientView.swift in Sources */,

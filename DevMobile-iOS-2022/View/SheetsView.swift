@@ -12,7 +12,7 @@ struct SheetView: View {
     /*@ObservedObject var viewModel: SheetListViewModel
      @StateObject var dataSheet: SheetListViewModel = SheetListViewModel()*/
     @ObservedObject var viewModel2: SheetCompleteListViewModel
-    @ObservedObject var dataSheetComplete: SheetCompleteListViewModel = SheetCompleteListViewModel()
+    @StateObject var dataSheetComplete: SheetCompleteListViewModel = SheetCompleteListViewModel()
     
     init(viewModel2: SheetCompleteListViewModel){
         //self.viewModel = viewModel
@@ -45,18 +45,18 @@ struct SheetView: View {
                             vm in
                             NavigationLink(destination: SheetCompleteDetailView(vm: vm)){
                                 VStack(alignment: .leading) {
-                                    Text(vm.sheet.nomRecette)
+                                    Text(vm.nomRecette)
                                         .fontWeight(.bold)
                                         .foregroundColor(.blue)
                                     HStack{
-                                        Text("Catégorie : \(vm.sheet.categorieRecette)")
+                                        Text("Catégorie : \(vm.categorieRecette)")
                                             .fontWeight(.semibold)
                                     }
-                                    Text("Couverts : \(vm.sheet.Nbre_couverts)")
+                                    Text("Couverts : \(vm.Nbre_couverts)")
                                         .italic()
                                 }
                             }
-                        }.navigationTitle("Fiches Complètes")
+                        }.navigationTitle("Fiches Complètes 🍱")
                         
                     }
                     .overlay {
@@ -70,8 +70,8 @@ struct SheetView: View {
                         }
                     }
                     .searchable(text: $searchString)
-                    .refreshable {
-                        await dataSheetComplete.fetchData()
+                    .onAppear{
+                        dataSheetComplete.fetchData()
                     }
                 }
                 VStack {

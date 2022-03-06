@@ -87,7 +87,6 @@ class SheetDAO {
             guard let data = data else{return}
             do{
                 let dataDTO : [SheetCompleteDTO] = try JSONDecoder().decode([SheetCompleteDTO].self, from: data)
-                //print(re)
                 SheetCompleteListViewIntent(list : list ).httpJsonLoaded(result: dataDTO)
                 for tdata in dataDTO{
                     let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: tdata.nomProgression ?? "" )
@@ -96,13 +95,13 @@ class SheetDAO {
                     vm.delegate = list
                     list.vms.append(vm)
                 }
-                DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                DispatchQueue.main.async {
                     SheetCompleteListViewIntent(list : list).loaded(sheets: list.data)
                     print("reload")
                     //print(self.data)
                 }
             }catch{
-                DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                DispatchQueue.main.async {
                     list.sheetListState = .loadingError("\(error)")
                     print("error")
                 }
@@ -122,27 +121,129 @@ class SheetDAO {
             guard let data = data else{return}
             do{
                 let dataDTO : [SheetCompleteDTO] = try JSONDecoder().decode([SheetCompleteDTO].self, from: data)
-                //print(re)
                 //SheetCompleteListViewIntent(list : list ).httpJsonLoaded(result: dataDTO)
                 for tdata in dataDTO{
                     let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: tdata.nomProgression ?? "" )
                     list.data.append(sheet)
                     let vm = SheetCompleteViewModel(sheet: sheet)
-                    vm.delegate = list
+                    //vm.delegate = list
                     list.vms.append(vm)
                 }
-                DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                DispatchQueue.main.async {
                     //SheetCompleteListViewIntent(list : list).loaded(sheets: list.data)
                     print("reload")
                     //print(self.data)
                 }
             }catch{
-                DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                DispatchQueue.main.async {
                     //list.sheetListState = .loadingError("\(error)")
                     print("error")
                 }
                 print("Error: \(error)")
             }
         }.resume()
+    }
+    
+    static func updateRecette(nom: String, idFiche: Int){
+        let url = URL(string: "https://awi-back-2021.herokuapp.com/api/sheet/updateNomRecette")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PUT"
+        let parameters: [String: Any] = [
+            "nomRecette" : nom,
+            "id" : idFiche
+        ]
+        request.httpBody = parameters.percentEncoded()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else {                                              // check for fundamental networking error
+                      print("error", error ?? "Unknown error")
+                      //IngredientIntent( vm: vm ).creatingError(error: error!)
+                      return
+                  }
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString)")
+            
+            if response.statusCode == 200  {
+                //IngredientIntent( vm: vm ).ingredientCreated()
+                print("modif !")
+            }
+        }
+        task.resume()
+    }
+
+    static func updateCouvert(couvert: Int, idFiche: Int, oldcouvert: Int, nomProgression: String){
+        let url = URL(string: "https://awi-back-2021.herokuapp.com/api/sheet/updateNomRecette")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PUT"
+        let parameters: [String: Any] = [
+            "nbCouvert" : couvert,
+            "id" : idFiche
+        ]
+        request.httpBody = parameters.percentEncoded()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else {                                              // check for fundamental networking error
+                      print("error", error ?? "Unknown error")
+                      //IngredientIntent( vm: vm ).creatingError(error: error!)
+                      return
+                  }
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString)")
+            
+            if response.statusCode == 200  {
+                SheetDAO.updateAllQte(progression: nomProgression, couvert: couvert, oldcouvert: oldcouvert)
+                //print("modif !")
+            }
+        }
+        task.resume()
+    }
+
+    static func updateAllQte(progression:String, couvert : Int, oldcouvert: Int ){
+        let url = URL(string: "https://awi-back-2021.herokuapp.com/api/sheet/updateAllQuantite")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PUT"
+        let parameters: [String: Any] = [
+            "nbCouvert" : couvert,
+            "nbCouvertModified" : oldcouvert,
+            "nomProgression" : progression
+        ]
+        request.httpBody = parameters.percentEncoded()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else {                                              // check for fundamental networking error
+                      print("error", error ?? "Unknown error")
+                      //IngredientIntent( vm: vm ).creatingError(error: error!)
+                      return
+                  }
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString)")
+            
+            if response.statusCode == 200  {
+                
+                print("modif !")
+            }
+        }
+        task.resume()
     }
 }

@@ -9,8 +9,8 @@ import SwiftUI
 
 class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelegate {
   
-    @Published var data: [SheetComplete]
-    @Published var vms: [SheetCompleteViewModel]
+    var data: [SheetComplete]
+    var vms: [SheetCompleteViewModel]
     @Published var fetching : Bool = false
     
     func sheetCompleteViewModelChanged() {
@@ -27,7 +27,7 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
                    if data.count == 0 {
                        self.sheetListState = .loadingError("la")
                    }
-               default:                   // nothing to do for ViewModel, perhaps for the view
+               default:
                    return
                }
            }
@@ -36,7 +36,6 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
     init(){
         self.vms = []
         self.data = []
-        fetching = true
         SheetCompleteListViewIntent(list : self ).load(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/join"
             guard let url = URL(string: surl) else { print("rien"); return }
@@ -55,10 +54,7 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
                         //self.data.append(sheet)
                         let vm = SheetCompleteViewModel(sheet: sheet)
                         vm.delegate = self
-                        //let hasSheetvm = self.vms.contains(where: { $0.sheet.idFiche == vm.sheet.idFiche })
-                        //if hasSheetvm == false {
                             self.vms.append(vm)
-                        //}
                         //self.vms.append(vm)
                     }
                     DispatchQueue.main.async {

@@ -14,18 +14,17 @@ class IngredientListViewModel: ObservableObject, IngredientViewModelDelegate {
     func ingredientViewModelChanged() {
         objectWillChange.send()
     }
-    /// State of new data loading
+    
     @Published var ingredientListState : IngredientsListState = .ready{
         didSet{
             print("state: \(self.ingredientListState)")
-            switch self.ingredientListState { // state has changed
-            case .loaded(let data):    // new data has been loaded, to change all games of list
-                //let sortedData = data.sorted(by: { $0. < $1.name })
+            switch self.ingredientListState {
+            case .loaded(let data):
                 print(data)
                 if data.count == 0 {
                     self.ingredientListState = .loadingError("la")
                 }
-            default:                   // nothing to do for ViewModel, perhaps for the view
+            default:
                 return
             }
         }
@@ -51,13 +50,13 @@ class IngredientListViewModel: ObservableObject, IngredientViewModelDelegate {
                     vm.delegate = self
                     self.vms.append(vm)
                 }
-                DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                DispatchQueue.main.async {
                     self.ingredientListState = .loaded(self.data)
                     //print(self.data)
                 }
                 
             }catch{
-                DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                DispatchQueue.main.async { 
                     self.ingredientListState = .loadingError("\(error)")
                     print("\(error)")
                 }

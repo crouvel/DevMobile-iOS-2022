@@ -73,57 +73,7 @@ struct SheetIncompleteListView: View {
                       
                             //.navigationBarHidden(true)
                 }
-                /*switch sheetListState {
-                 case .loading:
-                 Text("Chargement des fiches techniques")
-                 .foregroundColor(.blue)
-                 
-                 ProgressView()
-                 .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                 .scaleEffect(2)
-                 
-                 case .loadingError:
-                 Text("erreur")
-                 default :
-                 List {
-                 ForEach(searchString == "" ? dataSheet.vms : dataSheet.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
-                 vm in
-                 //NavigationLink(destination: SheetDetailView(vm: vm)){
-                 VStack(alignment: .leading) {
-                 Text(vm.sheet.nomRecette)
-                 .fontWeight(.bold)
-                 .foregroundColor(.blue)
-                 HStack{
-                 Text("Catégorie : \(vm.sheet.categorieRecette)")
-                 .fontWeight(.semibold)
-                 }
-                 Text("Couverts : \(vm.sheet.Nbre_couverts)")
-                 .italic()
-                 // }
-                 }
-                 }.navigationTitle("Fiches Incomplètes")
-                 
-                 /*.onDelete{ indexSet in dataTrack.data.remove(atOffsets: indexSet)
-                  }
-                  .onMove {
-                  indexSet, index in
-                  dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
-                  }*/
-                 }.searchable(text: $searchString)*/
-                /*HStack{
-                 NavigationLink(destination: CreateSheetView()){
-                 Text("CREER FICHE +")
-                 .fontWeight(.bold)
-                 .foregroundColor(.cyan)
-                 EmptyView()
-                 }.padding()
-                 NavigationLink(destination: SheetIncompleteListView()){
-                 Text("Fiches vides>>")
-                 .fontWeight(.bold)
-                 .foregroundColor(.cyan)
-                 EmptyView()
-                 }
-                 }*/
+            
             } .navigationTitle("Fiches à compléter")
         }
     }

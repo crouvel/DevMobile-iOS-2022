@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-class SheetIncompleteListViewModel: ObservableObject, SheetCompleteViewModelDelegate {
+class SheetIncompleteListViewModel: ObservableObject/*, SheetCompleteViewModelDelegate*/ {
     var data: [SheetComplete]
     var vms: [SheetCompleteViewModel]
     
-    func sheetCompleteViewModelChanged() {
+    /*func sheetCompleteViewModelChanged() {
         objectWillChange.send()
-    }
+    }*/
  
        @Published var sheetListState : SheetListState = .ready{
            didSet{
@@ -48,7 +48,7 @@ class SheetIncompleteListViewModel: ObservableObject, SheetCompleteViewModelDele
                         let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: nomProgression )
                         self.data.append(sheet)
                         let vm = SheetCompleteViewModel(sheet: sheet)
-                        vm.delegate = self
+                        //vm.delegate = self
                         self.vms.append(vm)
                     }
                     DispatchQueue.main.async {

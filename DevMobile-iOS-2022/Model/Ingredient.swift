@@ -48,10 +48,10 @@ enum IngredientPropertyChange {
     case PRIX
 }
 
-class Ingredient: ObservableObject{
+class Ingredient: ObservableObject {
     private var observers: [IngredientObserver] = []
-    @Published var idIngredient: Int
-    @Published var libelle : String {
+     var idIngredient: Int
+    var libelle : String {
         didSet {
             if(libelle.count < 1 ){
                 libelle = oldValue
@@ -60,32 +60,32 @@ class Ingredient: ObservableObject{
         }
     }
     
-    @Published var nomCategorie: String
-    @Published var quantiteStockee: Float? {
+    var nomCategorie: String
+    var quantiteStockee: Float? {
         didSet{
             if(quantiteStockee == nil ){
-             quantiteStockee = oldValue
-             }
+                quantiteStockee = oldValue
+            }
             notifyObservers(ing: .QUANTITE)
         }
     }
     
-    @Published var prixUnitaire : Float {
+    var prixUnitaire : Float {
         didSet {
             if(prixUnitaire == nil ){
-             prixUnitaire = oldValue
-             }
+                prixUnitaire = oldValue
+            }
             notifyObservers(ing: .PRIX)
         }
     }
-    @Published var allergene: String
-    @Published var idCategorieIngredient: Int  {
+     var allergene: String
+    var idCategorieIngredient: Int  {
         didSet {
             notifyObservers(ing: .CATEGORIE)
         }
     }
-    @Published var idCategorieAllergene: String?
-    @Published var unite: String
+    var idCategorieAllergene: String?
+    var unite: String
     
     init(libelle: String, idIngredient: Int, nomCategorie: String, quantite: Float?, prix: Float, allergene: String, idCategorie: Int, idCatAllergene: String?, unite: String){
         self.libelle = libelle

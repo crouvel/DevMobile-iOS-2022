@@ -18,52 +18,57 @@ struct SheetCompleteDTO: Decodable{
     var nomProgression: String?
 }
 
-protocol SheetObserver {
-    /*func changed(trackName: String)
-    func changed(collectionName: String)
-    func changed(artistName: String)*/
+protocol SheetCompleteObserver {
+    func changed(nomRecette: String, idFiche: Int)
+    func changed(nomAuteur: String)
+    func changed(category: String)
+    func changed(couverts: Int)
 }
 
-/*enum TrackPropertyChange {
-    case TRACKNAME
-    case ARTISTNAME
-    case COLLECTIONNAME
-}*/
+enum SheetPropertyChange {
+    case NOM
+    case AUTEUR
+    case CATEGORY
+    case COUVERT
+}
 
 class SheetComplete: ObservableObject {
-    private var observers: [SheetObserver] = []
+    private var observers: [SheetCompleteObserver] = []
     public var idFiche: Int
-    @Published var nomRecette : String
-    @Published var nomAuteur: String
-    @Published var Nbre_couverts: Int
-    @Published var categorieRecette: String
-    @Published var nomProgression: String
-    /*@Published var trackName: String {
+    @Published var nomRecette : String {
         didSet {
-            notifyObservers(t: .TRACKNAME)
-        }
-    }
-    @Published var artistName: String {
-        didSet {
-            if(artistName.count < 3){
-                artistName = oldValue
+            if(nomRecette.count < 1 ){
+                nomRecette = oldValue
             }
-            notifyObservers(t: .ARTISTNAME)
+            notifyObservers(sh: .NOM)
         }
     }
-    @Published var collectionName: String {
+    @Published var nomAuteur: String {
         didSet {
-            notifyObservers(t: .COLLECTIONNAME)
+            if(nomAuteur.count < 1 ){
+                nomAuteur = oldValue
+            }
+            notifyObservers(sh: .AUTEUR)
         }
     }
-    @Published var releaseDate: String
-    private enum CodingKeys: String, CodingKey {
-        case trackId = "trackId"
-        case trackName = "trackName"
-        case artistName = "artistName"
-        case collectionName = "collectionName"
-        case releaseDate = "releaseDate"
+    @Published var Nbre_couverts: Int {
+        didSet {
+            if(Nbre_couverts == nil ){
+                Nbre_couverts = oldValue
+            }
+            notifyObservers(sh: .COUVERT)
+        }
     }
+    @Published var categorieRecette: String {
+        didSet {
+            if(categorieRecette.count < 1){
+                categorieRecette = oldValue
+            }
+            notifyObservers(sh: .CATEGORY)
+        }
+    }
+    @Published var nomProgression: String
+    /*
     */
     
     init(nomRecette: String, idFiche: Int, nomAuteur: String, Nbre_couverts: Int, categorieRecette: String, nomProgression: String){
@@ -75,20 +80,22 @@ class SheetComplete: ObservableObject {
         self.nomProgression = nomProgression
     }
     
-    func addObserver(obs: SheetObserver){
+    func addObserver(obs: SheetCompleteObserver){
         observers.append(obs)
     }
     
-    /*func notifyObservers(t: TrackPropertyChange){
+    func notifyObservers(sh: SheetPropertyChange){
         for observer in observers {
-            switch t {
-                case .ARTISTNAME:
-                    observer.changed(artistName: artistName)
-                case .COLLECTIONNAME:
-                    observer.changed(collectionName: collectionName)
-                case .TRACKNAME:
-                    observer.changed(trackName: trackName)
+            switch sh {
+                case .NOM:
+                observer.changed(nomRecette: nomRecette, idFiche: idFiche)
+                case .AUTEUR:
+                    observer.changed(nomAuteur: nomAuteur)
+                case .CATEGORY:
+                    observer.changed(category: categorieRecette)
+            case .COUVERT:
+                observer.changed(couverts: Nbre_couverts)
             }
         }
-    }*/
+    }
 }
