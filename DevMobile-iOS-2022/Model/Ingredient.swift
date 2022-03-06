@@ -27,63 +27,65 @@ struct IngredientSheetDTO: Decodable {
 class IngredientSheet: ObservableObject {
     @Published var idIngredient: Int
     @Published var libelle : String
-
+    
     init(libelle: String, idIngredient: Int){
         self.libelle = libelle
         self.idIngredient = idIngredient
     }
 }
 
-/*protocol TrackObserver {
- func changed(trackName: String)
- func changed(collectionName: String)
- func changed(artistName: String)
- }*/
+protocol IngredientObserver{
+    func changed(libelle: String, idIngredient: Int)
+    func changed(categorie: Int, idIngredient: Int)
+    func changed(quantite: Float, idIngredient: Int)
+    func changed(prix: Float, idIngredient: Int)
+}
 
-/*enum TrackPropertyChange {
- case TRACKNAME
- case ARTISTNAME
- case COLLECTIONNAME
- }*/
+enum IngredientPropertyChange {
+    case LIBELLE
+    case CATEGORIE
+    case QUANTITE
+    case PRIX
+}
 
-class Ingredient: ObservableObject {
-    /*private var observers: [TrackObserver] = []*/
+class Ingredient: ObservableObject{
+    private var observers: [IngredientObserver] = []
     @Published var idIngredient: Int
-    @Published var libelle : String
+    @Published var libelle : String {
+        didSet {
+            if(libelle.count < 1 ){
+                libelle = oldValue
+            }
+            notifyObservers(ing: .LIBELLE)
+        }
+    }
+    
     @Published var nomCategorie: String
-    @Published var quantiteStockee: Float?
-    @Published var prixUnitaire : Float
+    @Published var quantiteStockee: Float? {
+        didSet{
+            if(quantiteStockee == nil ){
+             quantiteStockee = oldValue
+             }
+            notifyObservers(ing: .QUANTITE)
+        }
+    }
+    
+    @Published var prixUnitaire : Float {
+        didSet {
+            if(prixUnitaire == nil ){
+             prixUnitaire = oldValue
+             }
+            notifyObservers(ing: .PRIX)
+        }
+    }
     @Published var allergene: String
-    @Published var idCategorieIngredient: Int
+    @Published var idCategorieIngredient: Int  {
+        didSet {
+            notifyObservers(ing: .CATEGORIE)
+        }
+    }
     @Published var idCategorieAllergene: String?
     @Published var unite: String
-    /*@Published var trackName: String {
-     didSet {
-     notifyObservers(t: .TRACKNAME)
-     }
-     }
-     @Published var artistName: String {
-     didSet {
-     if(artistName.count < 3){
-     artistName = oldValue
-     }
-     notifyObservers(t: .ARTISTNAME)
-     }
-     }
-     @Published var collectionName: String {
-     didSet {
-     notifyObservers(t: .COLLECTIONNAME)
-     }
-     }
-     @Published var releaseDate: String
-     private enum CodingKeys: String, CodingKey {
-     case trackId = "trackId"
-     case trackName = "trackName"
-     case artistName = "artistName"
-     case collectionName = "collectionName"
-     case releaseDate = "releaseDate"
-     }
-     */
     
     init(libelle: String, idIngredient: Int, nomCategorie: String, quantite: Float?, prix: Float, allergene: String, idCategorie: Int, idCatAllergene: String?, unite: String){
         self.libelle = libelle
@@ -97,20 +99,23 @@ class Ingredient: ObservableObject {
         self.idCategorieIngredient = idCategorie
     }
     
-    /*func addObserver(obs: TrackObserver){
-     observers.append(obs)
-     }*/
+    func addObserver(obs: IngredientObserver){
+        observers.append(obs)
+    }
     
-    /*func notifyObservers(t: TrackPropertyChange){
-     for observer in observers {
-     switch t {
-     case .ARTISTNAME:
-     observer.changed(artistName: artistName)
-     case .COLLECTIONNAME:
-     observer.changed(collectionName: collectionName)
-     case .TRACKNAME:
-     observer.changed(trackName: trackName)
-     }
-     }
-     }*/
+    func notifyObservers(ing: IngredientPropertyChange){
+        for observer in observers {
+            switch ing {
+            case .LIBELLE:
+                observer.changed(libelle: libelle, idIngredient: idIngredient)
+            case .CATEGORIE:
+                observer.changed(categorie: idCategorieIngredient, idIngredient: idIngredient)
+            case .PRIX:
+                observer.changed(prix: prixUnitaire, idIngredient: idIngredient)
+            case .QUANTITE:
+                observer.changed(quantite: quantiteStockee ?? 0.0, idIngredient: idIngredient)
+            }
+            
+        }
+    }
 }

@@ -28,13 +28,20 @@ struct CreateIngredientsListView: View {
         return self.viewModel.addStateIngredientList
     }
     
+    private var valueFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
+    
     var body: some View {
         NavigationView{
             VStack {
                 switch creationIngredientListState {
                 case .ready:
                     Form{
-                        Section(header: Text("Créer une Liste")
+                        Section(header: Text("Créer une Liste d'ingrédients 📝")
                                     .font(.system(size: 20))
                                     .foregroundColor(.black)
                                     .fontWeight(.bold)){
@@ -75,11 +82,11 @@ struct CreateIngredientsListView: View {
                             .padding()
                         Divider()
                         Form{
-                            Section(header: Text("Ajouter un ingrédient")
+                            Section(header: Text("Ajoutez un ingrédient 🥑")
                                         .font(.system(size: 20))
                                         .foregroundColor(.black)
                                         .fontWeight(.bold)){
-                                HStack{
+                                VStack{
                                     Picker("Choisissez un ingrédient", selection: $libelle){
                                         ForEach(dataIngredient.vms, id : \.ingredient.idIngredient) { vm in
                                             Text("\(vm.ingredient.libelle)").tag("\(vm.ingredient.libelle)")
@@ -88,11 +95,9 @@ struct CreateIngredientsListView: View {
                                     
                                     VStack{
                                         Text("Quantité : ");
-                                        TextField("Quantité de l'ingrédient", value: $quantite, formatter: NumberFormatter())
+                                        TextField("Quantité de l'ingrédient", value: $quantite, formatter: valueFormatter)
                                     }
-                                    /*.onSubmit {
-                                     vm.intentstate.intentToChange(name: name)
-                                     }*/
+                                    
                                 }.padding()
                                 if (libelle != "") {
                                     Button(action: {
@@ -187,8 +192,9 @@ struct CreateIngredientsListView: View {
                         .padding()
                     Divider()
                 }
-            }.navigationTitle("Ajout d'une liste")
-        }
+            }
+        }.navigationTitle("")
+        .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
     }
 }

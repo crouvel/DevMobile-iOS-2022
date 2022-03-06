@@ -231,7 +231,7 @@ struct SheetCompleteDetailView: View {
                             }
                             HStack{
                                 Text("Temps total : \(totaltime) minutes")
-                                    .fontWeight(.semibold)
+                                    .fontWeight(.bold)
                             }
                         }
                     }

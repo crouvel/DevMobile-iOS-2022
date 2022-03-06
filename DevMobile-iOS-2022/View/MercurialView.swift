@@ -39,9 +39,9 @@ struct MercurialView: View {
                             NavigationLink(destination: IngredientView(vm: vm)){
                                 VStack(alignment: .leading) {
                                     HStack {
-                                    Text(vm.libelle)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.purple)
+                                        Text(vm.libelle)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.purple)
                                         if vm.allergene == "Oui" {
                                             Text("(Allergene)")
                                                 .fontWeight(.bold)
@@ -56,17 +56,10 @@ struct MercurialView: View {
                                     }
                                     Text("Code : \(vm.idIngredient)")
                                         .italic()
-                                                                
+                                    
                                 }
                             }
                         }.navigationTitle("Mercurial")
-                        
-                        /*.onDelete{ indexSet in dataTrack.data.remove(atOffsets: indexSet)
-                         }
-                         .onMove {
-                         indexSet, index in
-                         dataTrack.data.move(fromOffsets: indexSet , toOffset: index)
-                         }*/
                     }.searchable(text: $searchString)
                 }
                 
@@ -84,9 +77,7 @@ struct MercurialView: View {
                     }
                     
                     Button(action: {
-                        //print(self.intent.creationState.description)
                         dataIngredient.fetchData()
-                        /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/
                     }){
                         Text("Rafraîchir la liste")
                             .fontWeight(.bold)

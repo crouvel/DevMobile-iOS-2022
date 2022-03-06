@@ -79,7 +79,7 @@ class SheetDAO {
     static func fetchSheet(list : SheetCompleteListViewModel){
         list.vms = []
         list.data = []
-        SheetCompleteListViewIntent(list : list).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
+        SheetCompleteListViewIntent(list : list).load(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/join"
         guard let url = URL(string: surl) else { print("rien"); return }
         let request = URLRequest(url: url)

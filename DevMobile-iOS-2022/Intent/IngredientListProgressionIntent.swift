@@ -12,15 +12,13 @@ enum IngredientProgressionListState : CustomStringConvertible{
     case loading(String)
     case loaded([IngredientProgressionDTO])
     case loadingError(String)
-    //case newEditeurs([EditeurViewModel])
 
     var description: String{
         switch self {
         case .ready                               : return "ready"
         case .loading(let s)                      : return "loading"
-        case .loaded(let editeurs)                  : return "loaded: \(editeurs.count) ingredients"
+        case .loaded(let ingredients)                  : return "loaded: \(ingredients.count) ingredients"
         case .loadingError(let error)             : return "loadingError: Error loading -> \(error)"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
     }
 }
@@ -35,36 +33,35 @@ class IngredientProgressionListViewIntent{
         
     func loaded(ingredients: [IngredientProgression]){
         #if DEBUG
-        debugPrint("SheetCompleteListIntent: \(self.ingredientList.ingredientListState) => \(ingredients.count) editors loaded")
+        debugPrint("SheetCompleteListIntent: \(self.ingredientList.ingredientListState) => \(ingredients.count)  loaded")
         #endif
         self.ingredientList.ingredientListState = .ready
     }
     
     func httpJsonLoaded(result: [IngredientProgressionDTO]){
             #if DEBUG
-            debugPrint("SearchIntent: httpJsonLoaded -> success -> .loaded(editors)")
+            debugPrint("SearchIntent: httpJsonLoaded -> success ")
             #endif
             ingredientList.ingredientListState = .loaded(result)
     }
     
     func httpJsonLoadedError(error: Error){
             #if DEBUG
-            debugPrint("SearchIntent: httpJsonLoaded -> success -> .loaded(editors)")
+            debugPrint("SearchIntent: httpJsonLoaded -> success ")
             #endif
             ingredientList.ingredientListState = .loadingError("\(error)")
     }
-    func editeurLoaded(){
+    func ingredientsLoaded(){
         #if DEBUG
-        debugPrint("SearchIntent: editor deleted => save data")
+        debugPrint("loaded -> ready")
         #endif
         ingredientList.ingredientListState = .ready
     }
 
    
-    func loadEditeurs(url : String){
+    func load(url : String){
         #if DEBUG
         debugPrint("SearchIntent: .loading(\(url))")
-        debugPrint("SearchIntent: asyncLoadEditors")
         #endif
         ingredientList.ingredientListState = .loading(url)
     }

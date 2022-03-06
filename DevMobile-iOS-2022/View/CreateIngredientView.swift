@@ -62,9 +62,6 @@ struct CreateIngredientView: View {
                                 Text("Code : ")
                                     .fontWeight(.bold)
                                 TextField("code ingrédient", value: $code , formatter: NumberFormatter())
-                                /*.onSubmit {
-                                 vm.intentstate.intentToChange(name: name)
-                                 }*/
                             }
                             if listIngredientCode.contains(where: { $0 == code }){
                                 Text("Le code est déjà utilisé, changez-le.")
@@ -75,9 +72,6 @@ struct CreateIngredientView: View {
                                 Text("Libellé : ")
                                     .fontWeight(.bold)
                                 TextField("libellé ", text: $libelle)
-                                /*.onSubmit {
-                                 vm.intentstate.intentToChange(ram: vm.ram)
-                                 }*/
                             }
                             if listIngredientLibelle.contains(where: { $0.lowercased() == libelle.lowercased() }){
                                 Text("Le nom d'ingrédient est déjà utilisé, changez-le.")
@@ -88,17 +82,11 @@ struct CreateIngredientView: View {
                                 Text("Quantité :")
                                     .fontWeight(.bold)
                                 TextField("Quantité stock", value: $quantiteStockee, formatter: valueFormatter)
-                                /*.onSubmit {
-                                 vm.intentstate.intentToChange(ram: vm.ram)
-                                 }*/
                             }
                             HStack{
                                 Text("Prix :")
                                     .fontWeight(.bold)
                                 TextField("Prix", value: $prixUnitaire, formatter: valueFormatter)
-                                /*.onSubmit {
-                                 vm.intentstate.intentToChange(ram: vm.ram)
-                                 }*/
                             }
                             HStack{
                                 Picker("Catégorie d'ingrédient", selection: $idCategorieIngredient) {
@@ -108,8 +96,6 @@ struct CreateIngredientView: View {
                                     Text("Epicerie").tag(9)
                                     Text("Fruits et Légumes").tag(11)
                                 }
-                                /*Text("\(categorieRecette)")
-                                 .fontWeight(.bold)*/
                             }
                             HStack{
                                 Picker("Unité", selection: $unite) {

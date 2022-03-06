@@ -29,17 +29,14 @@ struct SheetView: View {
     
     var body: some View {
         NavigationView{
-            
             VStack{
                 switch sheetCompleteListState {
                 case .loading, .loaded:
                     Text("Chargement des fiches techniques")
                         .foregroundColor(.blue)
-                    
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .blue))
                         .scaleEffect(2)
-                    
                 case .loadingError:
                     Text("erreur")
                 case .ready:
@@ -60,10 +57,7 @@ struct SheetView: View {
                                 }
                             }
                         }.navigationTitle("Fiches Complètes")
-                        /*.onMove {
-                         indexSet, index in
-                         dataSheetComplete.data.move(fromOffsets: indexSet , toOffset: index)
-                         }*/
+                        
                     }
                     .overlay {
                         if dataSheetComplete.fetching {

@@ -51,13 +51,13 @@ struct AllergensView: View {
                                     Text("Catégorie : ")
                                         .fontWeight(.semibold)
                                         .italic()
+                                        .foregroundColor(.mint)
                                     Text(allergenIngredient.idCategorieAllergene ?? "")
                                         .italic()
-                                        .foregroundColor(.mint)
+                                        .fontWeight(.bold)
                                 }
                                 Text("Code : \(allergenIngredient.idIngredient)")
                                     .italic()
-                                
                             }
                             //}
                         }.navigationTitle("Allergènes")
@@ -66,9 +66,7 @@ struct AllergensView: View {
                 
                 VStack {
                     Button(action: {
-                        //print(self.intent.creationState.description)
                         dataIngredient.fetchData()
-                        /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/
                     }){
                         Text("Rafraîchir la liste")
                             .fontWeight(.bold)

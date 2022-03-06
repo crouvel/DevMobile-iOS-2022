@@ -48,9 +48,6 @@ struct CreateSheetView: View {
                                 Text("Nom de la recette :")
                                     .fontWeight(.bold)
                                 TextField("nom recette", text: $nomRecette)
-                                /*.onSubmit {
-                                 vm.intentstate.intentToChange(name: name)
-                                 }*/
                             }
                             if listSheetIncomplete.contains(where: { $0.lowercased() == nomRecette.lowercased()}) || listSheetComplete.contains(where: { $0.lowercased() == nomRecette.lowercased()}) {
                                 Text("Le nom de recette est déjà utilisé, changez-le.")
@@ -61,17 +58,11 @@ struct CreateSheetView: View {
                                 Text("Nom de l'auteur :")
                                     .fontWeight(.bold)
                                 TextField("auteur", text: $nomAuteur)
-                                /*.onSubmit {
-                                 vm.intentstate.intentToChange(ram: vm.ram)
-                                 }*/
                             }
                             HStack{
                                 Text("Nombre de couverts :")
                                     .fontWeight(.bold)
                                 TextField("couverts", value: $Nbre_couverts, formatter: NumberFormatter())
-                                /*.onSubmit {
-                                 vm.intentstate.intentToChange(ram: vm.ram)
-                                 }*/
                             }
                             HStack{
                                 Picker("Catégorie de recette", selection: $categorieRecette) {
@@ -102,7 +93,7 @@ struct CreateSheetView: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: .black))
                         .scaleEffect(2)
                 case .created:
-                    Text("La fiche \(nomRecette) a bien été créée ! Vous pouvez la retrouver dans la liste des fiches vides ✨. Veuillez RAFRAICHIR la liste ⚠️." )
+                    Text("La fiche \(nomRecette) a bien été créée ! Vous pouvez la retrouver dans la liste des fiches vides ✨." )
                         .fontWeight(.bold)
                         .foregroundColor(.green)
                         .padding()

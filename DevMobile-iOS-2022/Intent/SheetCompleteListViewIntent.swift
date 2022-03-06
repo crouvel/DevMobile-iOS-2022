@@ -12,15 +12,14 @@ enum SheetCompleteListState : CustomStringConvertible{
     case loading(String)
     case loaded([SheetCompleteDTO])
     case loadingError(String)
-    //case newEditeurs([EditeurViewModel])
+    
 
     var description: String{
         switch self {
         case .ready                               : return "ready"
         case .loading(let s)                      : return "loading"
-        case .loaded(let editeurs)                  : return "loaded: \(editeurs.count) ingredients"
+        case .loaded(let complete)                  : return "loaded: \(complete.count) comp sheets"
         case .loadingError(let error)             : return "loadingError: Error loading -> \(error)"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
     }
 }
@@ -42,29 +41,28 @@ class SheetCompleteListViewIntent{
     
     func httpJsonLoaded(result: [SheetCompleteDTO]){
             #if DEBUG
-            debugPrint("SearchIntent: httpJsonLoaded -> success -> .loaded(editors)")
+            debugPrint("SearchIntent: httpJsonLoaded -> success ")
             #endif
             sheetCompleteList.sheetListState = .loaded(result)
     }
     
     func httpJsonLoadedError(error: Error){
             #if DEBUG
-            debugPrint("SearchIntent: httpJsonLoaded -> success -> .loaded(editors)")
+            debugPrint("SearchIntent: httpJsonLoaded -> success ")
             #endif
             sheetCompleteList.sheetListState = .loadingError("\(error)")
     }
-    func editeurLoaded(){
+    func sheetsLoaded(){
         #if DEBUG
-        debugPrint("SearchIntent: editor deleted => save data")
+        debugPrint("SearchIntent: sheets loaded")
         #endif
         sheetCompleteList.sheetListState = .ready
     }
 
    
-    func loadEditeurs(url : String){
+    func load(url : String){
         #if DEBUG
         debugPrint("SearchIntent: .loading(\(url))")
-        debugPrint("SearchIntent: asyncLoadEditors")
         #endif
         sheetCompleteList.sheetListState = .loading(url)
     }

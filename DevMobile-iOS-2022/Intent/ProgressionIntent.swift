@@ -12,7 +12,6 @@ enum ProgressionState : CustomStringConvertible{
     case loading(String)
     case loaded([Ingredient])
     case loadingError(String)
-    //case newEditeurs([EditeurViewModel])
 
     var description: String{
         switch self {
@@ -20,7 +19,6 @@ enum ProgressionState : CustomStringConvertible{
         case .loading(let s)                      : return "loading"
         case .loaded(let editeurs)                  : return "loaded: \(editeurs.count) ingredients"
         case .loadingError(let error)             : return "loadingError: Error loading -> \(error)"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
     }
     

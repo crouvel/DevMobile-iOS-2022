@@ -9,17 +9,26 @@ import Foundation
 import Combine
 
 enum IngredientIntentState: Equatable, CustomStringConvertible {
-    //case ready
+    
     case READY
-    /*case CHANGING_ARTISTNAME(String)*/
+    case CHANGING_LIBELLE(String)
+    case CHANGING_CATEGORIE(Int)
+    case CHANGING_PRIX(Float)
+    case CHANGING_QTE(Float?)
     case LIST_UPDATED
     
     var description: String {
         switch self {
         case .READY:
             return "Ready"
-            /*case .CHANGING_ARTISTNAME(let artistName):
-             return "Changing artist name to \(artistName)"*/
+        case .CHANGING_LIBELLE(let libelle):
+            return "Changing libelle to \(libelle)"
+        case .CHANGING_CATEGORIE(let categorie):
+            return "Changing categorie to \(categorie)"
+        case .CHANGING_PRIX(let prix):
+            return "Changing prix to \(prix)"
+        case .CHANGING_QTE(let qte):
+            return "Changing quantité to \(qte)"
         case .LIST_UPDATED:
             return "List updated"
         }
@@ -33,6 +42,26 @@ class IngredientIntent: ObservableObject {
     
     init(vm: IngredientViewModel){
         self.ingredientvm = vm
+    }
+    
+    func intentToChange(libelle: String){
+        self.state.send(.CHANGING_LIBELLE(libelle))
+        self.state.send(.LIST_UPDATED)
+    }
+    
+    func intentToChange(categorie: Int){
+        self.state.send(.CHANGING_CATEGORIE(categorie))
+        self.state.send(.LIST_UPDATED)
+    }
+    
+    func intentToChange(prix: Float){
+        self.state.send(.CHANGING_PRIX(prix))
+        self.state.send(.LIST_UPDATED)
+    }
+    
+    func intentToChange(qte: Float?){
+        self.state.send(.CHANGING_QTE(qte))
+        self.state.send(.LIST_UPDATED)
     }
     
     func deleted(){
@@ -92,11 +121,6 @@ class IngredientIntent: ObservableObject {
         DispatchQueue.main.async {
             self.ingredientvm.creationIngredientState = .created
         }
-    }
-    
-    func intentToChange(artistName: String){
-        /*self.state.send(.CHANGING_ARTISTNAME(artistName))*/
-        self.state.send(.LIST_UPDATED)
     }
     
     func addObserver(vm: IngredientViewModel){

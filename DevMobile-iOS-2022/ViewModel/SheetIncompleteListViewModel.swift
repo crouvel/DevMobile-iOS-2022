@@ -18,14 +18,13 @@ class SheetIncompleteListViewModel: ObservableObject, SheetCompleteViewModelDele
        @Published var sheetListState : SheetListState = .ready{
            didSet{
                print("state: \(self.sheetListState)")
-               switch self.sheetListState { // state has changed
-               case .loaded(let data):    // new data has been loaded, to change all games of list
-                   //let sortedData = data.sorted(by: { $0. < $1.name })
+               switch self.sheetListState {
+               case .loaded(let data):
                    print(data)
                    if data.count == 0 {
                        self.sheetListState = .loadingError("la")
                    }
-               default:                   // nothing to do for ViewModel, perhaps for the view
+               default:
                    return
                }
            }
@@ -34,7 +33,7 @@ class SheetIncompleteListViewModel: ObservableObject, SheetCompleteViewModelDele
     init(){
         self.vms = []
         self.data = []
-        SheetListViewIntent(list : self ).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
+        SheetListViewIntent(list : self ).load(url: "https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/incomplete"
             guard let url = URL(string: surl) else { print("rien"); return }
             let request = URLRequest(url: url)
@@ -43,7 +42,7 @@ class SheetIncompleteListViewModel: ObservableObject, SheetCompleteViewModelDele
                 do{
                     let dataDTO : [SheetCompleteDTO] = try JSONDecoder().decode([SheetCompleteDTO].self, from: data)
                     SheetListViewIntent(list : self ).httpJsonLoaded(results: dataDTO)
-                    //print(re)
+                    
                     for tdata in dataDTO{
                         let nomProgression = ""
                         let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: nomProgression )
@@ -52,12 +51,12 @@ class SheetIncompleteListViewModel: ObservableObject, SheetCompleteViewModelDele
                         vm.delegate = self
                         self.vms.append(vm)
                     }
-                    DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                    DispatchQueue.main.async {
                         SheetListViewIntent(list : self ).loaded(sheets: self.data)
                     }
                     
                 }catch{
-                    DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                    DispatchQueue.main.async { 
                         SheetListViewIntent(list : self ).httpJsonLoadedError(error: error)
                         print("error")
                     }

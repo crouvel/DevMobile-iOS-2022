@@ -37,7 +37,7 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
         self.vms = []
         self.data = []
         fetching = true
-        //SheetCompleteListViewIntent(list : self ).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
+        SheetCompleteListViewIntent(list : self ).load(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/join"
             guard let url = URL(string: surl) else { print("rien"); return }
             let request = URLRequest(url: url)
@@ -45,7 +45,6 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
                 guard let data = data else{return}
                 do{
                     let dataDTO : [SheetCompleteDTO] = try JSONDecoder().decode([SheetCompleteDTO].self, from: data)
-                    //print(re)
                     //SheetCompleteListViewIntent(list : self ).httpJsonLoaded(result: dataDTO)
                     for tdata in dataDTO{
                         let sheet = SheetComplete(nomRecette: tdata.nomRecette, idFiche: tdata.idFiche, nomAuteur: tdata.nomAuteur, Nbre_couverts: tdata.Nbre_couverts, categorieRecette: tdata.categorieRecette, nomProgression: tdata.nomProgression ?? "" )
@@ -62,14 +61,14 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
                         //}
                         //self.vms.append(vm)
                     }
-                    DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                    DispatchQueue.main.async {
                         SheetCompleteListViewIntent(list : self ).loaded(sheets: self.data)
                         self.fetching = false
                         //print(self.data)
                     }
                     
                 }catch{
-                    DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
+                    DispatchQueue.main.async { 
                         self.fetching = false
                         self.sheetListState = .loadingError("\(error)")
                         print("error")

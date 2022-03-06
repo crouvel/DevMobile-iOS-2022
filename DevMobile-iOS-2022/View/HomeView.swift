@@ -15,7 +15,6 @@ struct HomeView: View {
                     .fontWeight(.semibold)
                     .padding()
                 Divider()
-                // Cards de redirection pour chaque onglets de l'application
                 Image("cooking")
                     .resizable()
                     .scaledToFit()

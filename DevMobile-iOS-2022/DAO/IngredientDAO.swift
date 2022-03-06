@@ -91,4 +91,139 @@ class IngredientDAO {
         }
         task.resume()
     }
+    
+    static func updateLibelle(libelle: String, idIngredient: Int){
+        let url = URL(string: "https://awi-back-2021.herokuapp.com/api/ingredients/updateLibelle")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PUT"
+        let parameters: [String: Any] = [
+            "libelle" : libelle,
+            "id" : idIngredient
+        ]
+        request.httpBody = parameters.percentEncoded()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else {                                              // check for fundamental networking error
+                      print("error", error ?? "Unknown error")
+                      //IngredientIntent( vm: vm ).creatingError(error: error!)
+                      return
+                  }
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString)")
+            
+            if response.statusCode == 200  {
+                //IngredientIntent( vm: vm ).ingredientCreated()
+                print("fiche supprimée !")
+            }
+        }
+        task.resume()
+    }
+    
+    static func updateCategorie(categorie: Int, idIngredient: Int){
+        let url = URL(string: "https://awi-back-2021.herokuapp.com/api/ingredients/updateCategoryIngredient")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PUT"
+        let parameters: [String: Any] = [
+            "categoryIngredient" : categorie,
+            "id" : idIngredient
+        ]
+        request.httpBody = parameters.percentEncoded()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else {                                              // check for fundamental networking error
+                      print("error", error ?? "Unknown error")
+                      //IngredientIntent( vm: vm ).creatingError(error: error!)
+                      return
+                  }
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString)")
+            
+            if response.statusCode == 200  {
+                //IngredientIntent( vm: vm ).ingredientCreated()
+                print("modif !")
+            }
+        }
+        task.resume()
+    }
+    
+    static func updateQuantite(quantite: Float, idIngredient: Int){
+        let url = URL(string: "https://awi-back-2021.herokuapp.com/api/ingredients/updateQuantite")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PUT"
+        let parameters: [String: Any] = [
+            "quantite" : quantite,
+            "id" : idIngredient
+        ]
+        request.httpBody = parameters.percentEncoded()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else {                                              // check for fundamental networking error
+                      print("error", error ?? "Unknown error")
+                      //IngredientIntent( vm: vm ).creatingError(error: error!)
+                      return
+                  }
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString)")
+            
+            if response.statusCode == 200  {
+                //IngredientIntent( vm: vm ).ingredientCreated()
+                print("modif !")
+            }
+        }
+        task.resume()
+    }
+    static func updatePrix(prix: Float, idIngredient: Int){
+        let url = URL(string: "https://awi-back-2021.herokuapp.com/api/ingredients/updatePrix")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PUT"
+        let parameters: [String: Any] = [
+            "prix" : prix,
+            "id" : idIngredient
+        ]
+        request.httpBody = parameters.percentEncoded()
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else {                                              // check for fundamental networking error
+                      print("error", error ?? "Unknown error")
+                      //IngredientIntent( vm: vm ).creatingError(error: error!)
+                      return
+                  }
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString)")
+            
+            if response.statusCode == 200  {
+                //IngredientIntent( vm: vm ).ingredientCreated()
+                print("fiche supprimée !")
+            }
+        }
+        task.resume()
+    }
 }

@@ -13,11 +13,19 @@ struct IngredientView: View {
     @State var errorMessage: String = ""
     @State var showErrorMessage: Bool = false
     @State private var showingAlert = false
+    @State private var showingIncorrect = false
+    @State private var modify = false
     @ObservedObject var dataIngredientSheet: IngredientSheetListViewModel = IngredientSheetListViewModel()
+    @ObservedObject var dataIngredient: IngredientListViewModel = IngredientListViewModel()
     init(vm: IngredientViewModel){
         self.viewModel = vm
         self.intent = IngredientIntent(vm: vm)
         self.intent.addObserver(vm: self.viewModel)
+    }
+    
+    private var _listIngredientLibelle: [String]!
+    var listIngredientLibelle: [String] {
+        return dataIngredient.vms.map{$0.libelle}
     }
     
     private var _listIngredientSheet: [String]!
@@ -28,6 +36,13 @@ struct IngredientView: View {
     private var deletionState : DeleteIngredientIntentState {
         return self.viewModel.deletionState
     }
+    
+    private var valueFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
     
     var body: some View {
         ScrollView {
@@ -111,39 +126,142 @@ struct IngredientView: View {
                     }
                     Divider()
                     Divider()
-                    Button(action: {
-                    }){
-                        Text("Modifier l'ingrédient")
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.blue, lineWidth: 5)
-                            )
-                    }
-                    Divider()
-                    Divider()
-                    Button(action: {
-                        if  listIngredientSheet.contains(where: { $0 == viewModel.libelle }){
-                            print("alert : cannot be deleted")
-                            showingAlert = true
-                        }else {
-                            IngredientDAO.deleteIngredient(idIngredient: viewModel.idIngredient, vm: viewModel)
+                    if !modify {
+                        Button(action: {
+                            modify = true
+                        }){
+                            Text("Modifier l'ingrédient")
+                                .fontWeight(.bold)
+                                .foregroundColor(.blue)
+                                .padding()
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.blue, lineWidth: 5)
+                                )
                         }
-                    }){
-                        Text("Supprimer l'ingrédient")
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.primary, lineWidth: 5)
-                            )
+                        Divider()
+                        Divider()
+                        Button(action: {
+                            if  listIngredientSheet.contains(where: { $0 == viewModel.libelle }){
+                                print("alert : cannot be deleted")
+                                showingAlert = true
+                            }else {
+                                IngredientDAO.deleteIngredient(idIngredient: viewModel.idIngredient, vm: viewModel)
+                            }
+                        }){
+                            Text("Supprimer l'ingrédient")
+                                .fontWeight(.bold)
+                                .foregroundColor(.primary)
+                                .padding()
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.primary, lineWidth: 5)
+                                )
+                        }
+                        .alert("Cet ingrédient ne peut être supprimé, il est présent dans une ou plusieurs fiche(s) technique(s).", isPresented: $showingAlert) {
+                            Button("OK", role: .cancel) { }
+                        }
                     }
-                    .alert("Cet ingrédient ne peut être supprimé, il est présent dans une ou plusieurs fiche(s) technique(s).", isPresented: $showingAlert) {
-                        Button("OK", role: .cancel) { }
+                    // MARK: EDITION INGREDIENT
+                    if modify {
+                        Section {
+                            VStack {
+                                HStack{
+                                    Text("Libellé :")
+                                        .fontWeight(.bold)
+                                        .padding()
+                                    TextField("", text: $viewModel.libelle)
+                                        .padding()
+                                        .onSubmit {
+                                            
+                                        }
+                                    Button("Modifier"){
+                                        if  listIngredientSheet.contains(where: { $0.lowercased() == viewModel.libelle.lowercased() }){
+                                            print("alert : libelle name cannot be used")
+                                            showingIncorrect = true
+                                        }else {
+                                            intent.intentToChange(libelle: viewModel.libelle)
+                                            modify = false
+                                        }
+                                    }.padding()
+                                }
+                                /*HStack{
+                                 Text("Catégorie d'ingrédient : ")
+                                 .fontWeight(.bold)
+                                 Picker("Catégorie d'ingrédient", selection: $viewModel.idCategorieIngredient) {
+                                 Text("Viandes / Volailles")
+                                 .foregroundColor(.blue)
+                                 .fontWeight(.bold)
+                                 .tag(1)
+                                 Text("Poisson et crustacés")
+                                 .foregroundColor(.blue)
+                                 .fontWeight(.bold)
+                                 .tag(2)
+                                 Text("Crèmerie")
+                                 .foregroundColor(.blue)
+                                 .fontWeight(.bold)
+                                 .tag(5)
+                                 Text("Epicerie")
+                                 .foregroundColor(.blue)
+                                 .fontWeight(.bold)
+                                 .tag(9)
+                                 Text("Fruits et Légumes")
+                                 .foregroundColor(.blue)
+                                 .fontWeight(.bold)
+                                 .tag(11)
+                                 }.padding()
+                                 .onSubmit {
+                                 //intent.intentToChange(categorie: viewModel.nomCategorie)
+                                 }
+                                 Button("Edit"){
+                                 intent.intentToChange(categorie: viewModel.idCategorieIngredient)
+                                 modify = false
+                                 }.padding()
+                                 }*/
+                                HStack{
+                                    Text("Quantité stockée :")
+                                        .fontWeight(.bold)
+                                        .padding()
+                                    TextField("", value: $viewModel.quantiteStockee, formatter: valueFormatter)
+                                    Text("\(viewModel.unite)")
+                                        .fontWeight(.bold)
+                                        .padding()
+                                    if viewModel.quantiteStockee != nil {
+                                        Button("Modifier"){
+                                            intent.intentToChange(qte: viewModel.quantiteStockee ?? 0.0)
+                                            modify = false
+                                        }.padding()
+                                    }
+                                }
+                                HStack{
+                                    Text("Prix Unitaire :")
+                                        .fontWeight(.bold)
+                                        .padding()
+                                    TextField("", value: $viewModel.prixUnitaire, formatter: valueFormatter)
+                                    Button("Modifier"){
+                                        intent.intentToChange(prix: viewModel.prixUnitaire)
+                                        modify = false
+                                    }.padding()
+                                }
+                            }.alert("Nom d'ingrédient déjà employé ou identique, veuillez changer de libellé.", isPresented: $showingIncorrect) {
+                                Button("OK", role: .cancel) { }
+                            }
+                        }
+                        Button(action: {
+                            modify = false
+                        }){
+                            Text("Terminer")
+                                .fontWeight(.bold)
+                                .foregroundColor(.indigo)
+                                .padding()
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.indigo, lineWidth: 5)
+                                )
+                        }
                     }
+                    // MARK: END BLOCK EDITION
+                    
                 case .deleting(let string):
                     Text("Suppression de l'ingrédient")
                         .foregroundColor(.black)
@@ -185,15 +303,15 @@ struct IngredientView: View {
             switch error {
             case .NONE:
                 return
-                /*case .ARTISTNAME(let reason):
-                 self.errorMessage = reason
-                 self.showErrorMessage = true
-                 case .TRACKNAME(let reason):
-                 self.errorMessage = reason
-                 self.showErrorMessage = true
-                 case .COLLECTIONNAME(let reason):
-                 self.errorMessage = reason
-                 self.showErrorMessage = true*/
+            case .LIBELLE(let reason):
+                self.errorMessage = reason
+                self.showErrorMessage = true
+            case .QUANTITE(let reason):
+                self.errorMessage = reason
+                self.showErrorMessage = true
+            case .PRIX(let reason):
+                self.errorMessage = reason
+                self.showErrorMessage = true
             }
         }.alert("\(errorMessage)", isPresented: $showErrorMessage){
             Button("Ok", role: .cancel){

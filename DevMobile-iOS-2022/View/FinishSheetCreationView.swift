@@ -23,12 +23,12 @@ struct FinishSheetCreationView: View {
                 .italic()
                 .padding()
             Divider()
-                    Text("Vous pouvez désormais retourner à l'accueil")
+                    Text("Rafraichissez la liste des fiches complètes et vous pouvez désormais la consulter.")
                         .fontWeight(.bold)
                         .foregroundColor(.black)
-            }.navigationTitle("Fiche complétée")
+            }
                 //.navigationBarHidden(true)
-        }
+        }.navigationTitle("")
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
     }

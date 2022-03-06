@@ -74,7 +74,6 @@ struct CreateProgressionView: View {
                                 ordre = 1
                                 temps = 0
                                 progressionAj = ""
-                                //print(self.intent.creationState.description)
                                 self.viewModel.creationStateStep = .ready
                                 /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/
                             }){
@@ -92,11 +91,6 @@ struct CreateProgressionView: View {
                             }.padding()
                             
                         }
-                        /*titleStep: String = ""
-                         @State var description : String = ""
-                         @State var ordre : Int = 1
-                         @State var temps : Int = 0
-                         @State var progressionAj : String = ""*/
                     case .creating:
                         Text("Création de l'étape")
                             .foregroundColor(.black)
@@ -110,66 +104,65 @@ struct CreateProgressionView: View {
                         Text("Progression \(referenceProgression) Créée !")
                             .fontWeight(.bold)
                             .font(.system(size: 20))
-                            .padding()
+                        Text("Ajoutes des étapes à la progression.")
+                            .fontWeight(.bold)
+                            .italic()
                         Form {
                             Section(header: Text("Informations principales de l'étape")
                                         .font(.system(size: 20))
                                         .foregroundColor(.black)
                                         .fontWeight(.bold)){
-                                if (titleStep != "") && (ordre > 0) && (temps > 1) {
-                                    Button(action: {StepDAO.CreateStep(titre: titleStep, ordre: ordre, temps: temps, description: description, refprogression: referenceProgression, desprogression: progressionAj, vm: self.viewModel)
-                                        //print(self.intent.creationState.description)
-                                        
-                                        /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/
-                                    }){
-                                        Text("Ajouter l'étape")
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.cyan)
-                                            .frame(alignment: .center)
-                                    }
-                                    
-                                    HStack{
-                                        Text("Titre de l'étape : ");
-                                        TextField("Titre de l'étape", text: $titleStep)
-                                        /*.onSubmit {
-                                         vm.intentstate.intentToChange(name: name)
-                                         }*/
-                                    }
-                                    
-                                    HStack{
-                                        Text("Description de l'étape : ");
-                                        TextEditor(text: $description)
-                                        /*.onSubmit {
-                                         vm.intentstate.intentToChange(name: name)
-                                         }*/
-                                    }
-                                    HStack{
-                                        Text("Temps (en minutes) : ");
-                                        TextField("Durée de l'étape", value: $temps, formatter: NumberFormatter())
-                                        /*.onSubmit {
-                                         vm.intentstate.intentToChange(name: name)
-                                         }*/
-                                    }
-                                    HStack{
-                                        Text("Ordre : ");
-                                        TextField("Ordre de l'étape", value: $ordre, formatter: NumberFormatter())
-                                    }
+                                
+                                HStack{
+                                    Text("Titre de l'étape : ");
+                                    TextField("Titre de l'étape", text: $titleStep)
+                                    /*.onSubmit {
+                                     vm.intentstate.intentToChange(name: name)
+                                     }*/
                                 }
                                 
-                                if description == "" {
-                                    Section(header: Text("Associez une progression déjà écrite")
-                                                .font(.system(size: 20))
-                                                .foregroundColor(.black)
-                                                .fontWeight(.bold)){
-                                        HStack{
-                                            Picker("Progression", selection: $progressionAj){
-                                                ForEach(dataProgression.vms, id : \.progression.idProgression) { vm in
-                                                    Text("\(vm.progression.referenceProgression)").tag("\(vm.progression.referenceProgression)")
-                                                }
-                                                
+                                HStack{
+                                    Text("Description de l'étape : ");
+                                    TextEditor(text: $description)
+                                    /*.onSubmit {
+                                     vm.intentstate.intentToChange(name: name)
+                                     }*/
+                                }
+                                HStack{
+                                    Text("Temps (en minutes) : ");
+                                    TextField("Durée de l'étape", value: $temps, formatter: NumberFormatter())
+                                    /*.onSubmit {
+                                     vm.intentstate.intentToChange(name: name)
+                                     }*/
+                                }
+                                HStack{
+                                    Text("Ordre : ");
+                                    TextField("Ordre de l'étape", value: $ordre, formatter: NumberFormatter())
+                                }
+                            }
+                            
+                            if description == "" {
+                                Section(header: Text("Associez une progression déjà écrite")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(.black)
+                                            .fontWeight(.bold)){
+                                    HStack{
+                                        Picker("Progression", selection: $progressionAj){
+                                            ForEach(dataProgression.vms, id : \.progression.idProgression) { vm in
+                                                Text("\(vm.progression.referenceProgression)").tag("\(vm.progression.referenceProgression)")
                                             }
+                                            
                                         }
                                     }
+                                }
+                            }
+                            if (titleStep != "") && (ordre > 0) && (temps > 1) {
+                                Button(action: {StepDAO.CreateStep(titre: titleStep, ordre: ordre, temps: temps, description: description, refprogression: referenceProgression, desprogression: progressionAj, vm: self.viewModel)
+                                }){
+                                    Text("Ajouter l'étape")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.cyan)
+                                        .frame(alignment: .center)
                                 }
                             }
                         }
@@ -183,9 +176,6 @@ struct CreateProgressionView: View {
                             HStack{
                                 Text("Référence de la progression : ");
                                 TextField("Nom progression", text: $referenceProgression)
-                                /*.onSubmit {
-                                 vm.intentstate.intentToChange(name: name)
-                                 }*/
                             }
                             if listProgression.contains(where: { $0.lowercased() == referenceProgression.lowercased() }){
                                 Text("Le nom de progression est déjà utilisé, changez-le.")
@@ -195,9 +185,6 @@ struct CreateProgressionView: View {
                             if (referenceProgression != "") && !(listProgression.contains(where: { $0.lowercased() == referenceProgression.lowercased() })) {
                                 Divider()
                                 Button(action: {ProgressionDAO.CreateProgression(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette, vm: self.viewModel)
-                                    //print(self.intent.creationState.description)
-                                    
-                                    /*ProgressionDAO.addProgressionSheet(nomProgression: referenceProgression, nomRecette: self.viewModel.nomRecette)*/
                                 }){
                                     Text("Créer la progression")
                                         .fontWeight(.bold)

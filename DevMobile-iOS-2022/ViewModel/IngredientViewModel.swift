@@ -11,20 +11,19 @@ import Combine
 
 enum IngredientError: Error, Equatable, CustomStringConvertible {
     case NONE
-    /*case TRACKNAME(String)
-    case ARTISTNAME(String)
-    case COLLECTIONNAME(String)*/
-    
+    case LIBELLE(String)
+    case QUANTITE(String)
+    case PRIX(String)
     var description: String {
         switch self {
-            case .NONE:
-                    return "No error"
-            /*case .TRACKNAME:
-                    return "Trackname isn't  valid"
-            case .ARTISTNAME:
-                    return "Artist name isn't valid"
-            case .COLLECTIONNAME:
-                return "Collection name isn't valid"*/
+        case .NONE:
+            return "No error"
+        case .LIBELLE:
+            return "Libelle of ingredient is not  valid"
+        case .QUANTITE:
+            return "quantity not valid"
+        case .PRIX:
+            return "prix not valid"
         }
     }
 }
@@ -34,7 +33,7 @@ enum DeleteIngredientIntentState : CustomStringConvertible {
     case deleting(String)
     case deleted
     case deletingError(String)
-
+    
     var description: String{
         switch self {
         case .ready                               : return "ready"
@@ -50,20 +49,37 @@ enum CreateIngredientIntentState : CustomStringConvertible {
     case creating
     case created
     case creatingError(String)
-    //case newEditeurs([EditeurViewModel])
-
+    
     var description: String{
         switch self {
         case .ready                               : return "ready"
         case .creating                            : return "creating sheet"
         case .created                              : return "created"
         case .creatingError(let error)             : return "creatingError: Error loading -> \(error)"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
     }
 }
 
-class IngredientViewModel: ObservableObject, Subscriber {
+class IngredientViewModel: ObservableObject, Subscriber, IngredientObserver {
+    func changed(libelle: String, idIngredient: Int) {
+        IngredientDAO.updateLibelle(libelle: libelle, idIngredient: idIngredient)
+        self.libelle = libelle
+    }
+    
+    func changed(categorie: Int, idIngredient: Int) {
+        
+        self.idCategorieIngredient = categorie
+    }
+    
+    func changed(prix: Float, idIngredient: Int) {
+        IngredientDAO.updatePrix(prix: prix, idIngredient: idIngredient)
+        self.prixUnitaire = prix
+    }
+    func changed(quantite: Float, idIngredient: Int) {
+        IngredientDAO.updateQuantite(quantite: quantite, idIngredient: idIngredient)
+        self.quantiteStockee = quantite
+    }
+    
     typealias Input = IngredientIntentState
     typealias Failure = Never
     
@@ -71,28 +87,26 @@ class IngredientViewModel: ObservableObject, Subscriber {
         didSet{
             print("state: \(self.creationIngredientState)")
             switch self.creationIngredientState { // state has changed
-            case .created:    // new data has been loaded, to change all games of list
-                //let sortedData = data.sorted(by: { $0. < $1.name })
+            case .created:
+                
                 print("created")
             case .creatingError(let error):
                 print("\(error)")
-            default:                   // nothing to do for ViewModel, perhaps for the view
+            default:
                 return
             }
         }
     }
-
     
     @Published var deletionState : DeleteIngredientIntentState = .ready{
         didSet{
             print("state: \(self.deletionState)")
             switch self.deletionState { // state has changed
-            case .deleted:    // new data has been loaded, to change all games of list
-                //let sortedData = data.sorted(by: { $0. < $1.name })
+            case .deleted:
                 print("deleted")
             case .deletingError(let error):
                 print("\(error)")
-            default:                   // nothing to do for ViewModel, perhaps for the view
+            default:
                 return
             }
         }
@@ -108,7 +122,6 @@ class IngredientViewModel: ObservableObject, Subscriber {
     @Published var idCategorieAllergene : String?
     @Published var unite : String
     @Published var idCategorieIngredient : Int
-    //@Published var collectionName: String
     @Published var error: IngredientError = .NONE
     var delegate: IngredientViewModelDelegate?
     
@@ -123,23 +136,8 @@ class IngredientViewModel: ObservableObject, Subscriber {
         self.idCategorieAllergene = ingredient.idCategorieAllergene
         self.unite = ingredient.unite
         self.idCategorieIngredient = ingredient.idCategorieIngredient
-        /*self.trackName = track.trackName
-        self.artistName = track.artistName
-        self.collectionName = track.collectionName*/
-        /*self.track.addObserver(obs: self)*/
+        self.ingredient.addObserver(obs: self)
     }
-    
-    /*func changed(trackName: String) {
-        self.trackName = trackName
-    }
-    
-    func changed(collectionName: String) {
-        self.collectionName = collectionName
-    }
-    
-    func changed(artistName: String) {
-        self.artistName = artistName
-    }*/
     
     func receive(subscription: Subscription) {
         subscription.request(.unlimited)
@@ -151,18 +149,32 @@ class IngredientViewModel: ObservableObject, Subscriber {
     
     func receive(_ input: IngredientIntentState) -> Subscribers.Demand {
         switch input {
-            case .READY:
-                break
-            /*case .CHANGING_ARTISTNAME(let artistName):
-                self.track.artistName = artistName
-                if(self.track.artistName != artistName){
-                    self.error = .ARTISTNAME("Invalid input")
-                }*/
-            case .LIST_UPDATED:
-                self.delegate?.ingredientViewModelChanged()
-                break
+        case .READY:
+            break
+        case .CHANGING_LIBELLE(let libelle):
+            self.ingredient.libelle = libelle
+            if (self.ingredient.libelle != libelle){
+                self.error = .LIBELLE("Invalid input")
+            }
+        case .CHANGING_CATEGORIE(let categorie):
+            self.ingredient.idCategorieIngredient = categorie
+            /*if(self.ingredient.nomCategorie != categorie){
+             self.error = .CATEGORIE("Invalid input")
+             }*/
+        case .CHANGING_PRIX(let prix):
+            self.ingredient.prixUnitaire = prix
+            if (self.ingredient.prixUnitaire != prix){
+                self.error = .PRIX("Invalid input")
+            }
+        case .CHANGING_QTE(let quantite):
+            self.ingredient.quantiteStockee = quantite
+            if (self.ingredient.quantiteStockee != quantite){
+                self.error = .QUANTITE("Invalid input")
+            }
+        case .LIST_UPDATED:
+            self.delegate?.ingredientViewModelChanged()
+            break
         }
-        
         return .none
     }
 }
