@@ -11,11 +11,11 @@ import Foundation
 
 class IngredientVenteListViewModel: ObservableObject {
     var data: [IngredientVente]
-    var vms: [IngredientVenteViewModel]
+    var datavm: [IngredientVenteViewModel]
     var idFiche : Int
     
     init(idFiche: Int){
-        self.vms = []
+        self.datavm = []
         self.data = []
         self.idFiche = idFiche
         //self.ingredientListState = .loading("https://awi-back-2021.herokuapp.com/api/ingredients/sheet")
@@ -31,7 +31,7 @@ class IngredientVenteListViewModel: ObservableObject {
                     let ingredient = IngredientVente(ingredients: tdata.ingredients, libelleCategorie: tdata.libelleCategorie )
                     self.data.append(ingredient)
                     let vm = IngredientVenteViewModel(ingredient: ingredient)
-                    self.vms.append(vm)
+                    self.datavm.append(vm)
                 }
                 DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
                     //self.ingredientListState = .loaded(self.data)

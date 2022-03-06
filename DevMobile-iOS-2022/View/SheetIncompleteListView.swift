@@ -42,7 +42,7 @@ struct SheetIncompleteListView: View {
                     Text("erreur")
                 default :
                     List {
-                        ForEach(searchString == "" ? dataSheetIncomplete.vms : dataSheetIncomplete.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
+                        ForEach(searchString == "" ? dataSheetIncomplete.datavm : dataSheetIncomplete.datavm.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
                             vm in
                             NavigationLink(destination: SheetDetailIncompleteView(vm: vm)){
                                 VStack(alignment: .leading) {

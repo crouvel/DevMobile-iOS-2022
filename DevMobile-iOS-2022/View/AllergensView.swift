@@ -13,7 +13,7 @@ struct AllergensView: View {
     @ObservedObject var dataIngredient: IngredientListViewModel = IngredientListViewModel()
     private var _listIngredient: [IngredientViewModel]!
     var listIngredient: [IngredientViewModel] {
-        return dataIngredient.vms.filter{ $0.idCategorieAllergene != ""}
+        return dataIngredient.datavm.filter{ $0.idCategorieAllergene != ""}
     }
     
     init(viewModel: IngredientListViewModel){
@@ -60,7 +60,7 @@ struct AllergensView: View {
                                     .italic()
                             }
                             //}
-                        }.navigationTitle("Allergènes")
+                        }.navigationTitle("Allergènes 🦠")
                     }.searchable(text: $searchString)
                 }
                 

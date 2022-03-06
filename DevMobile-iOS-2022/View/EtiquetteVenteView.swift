@@ -28,15 +28,12 @@ struct EtiquetteVenteView: View {
                     .font(.system(size: 25))
             }
             Spacer()
-        }.background(Color.blue)
+        }.background(Color.indigo)
         VStack{
            
             VStack{
-                /*Text("Ingrédients")
-                    .fontWeight(.bold)
-                    .font(.system(size: 20))*/
                 Divider()
-                ForEach( _listvm.vms,id: \.ingredient.libelleCategorie) {
+                ForEach( _listvm.datavm,id: \.ingredient.libelleCategorie) {
                     vm in
                     HStack{
                         VStack{

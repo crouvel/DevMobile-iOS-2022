@@ -24,7 +24,7 @@ struct SheetView: View {
     }
     
     func deleteItems(at offsets: IndexSet) {
-        dataSheetComplete.vms.remove(atOffsets: offsets)
+        dataSheetComplete.datavm.remove(atOffsets: offsets)
     }
     
     var body: some View {
@@ -41,7 +41,7 @@ struct SheetView: View {
                     Text("erreur")
                 case .ready:
                     List {
-                        ForEach(searchString == "" ? dataSheetComplete.vms : dataSheetComplete.vms.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
+                        ForEach(searchString == "" ? dataSheetComplete.datavm : dataSheetComplete.datavm.filter { $0.sheet.nomRecette.contains(searchString) }, id: \.sheet.idFiche) {
                             vm in
                             NavigationLink(destination: SheetCompleteDetailView(vm: vm)){
                                 VStack(alignment: .leading) {

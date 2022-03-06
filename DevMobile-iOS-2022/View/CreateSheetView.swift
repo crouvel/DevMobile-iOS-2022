@@ -22,11 +22,11 @@ struct CreateSheetView: View {
     
     private var _listSheetComplete: [String]!
     var listSheetComplete: [String] {
-        return dataSheetComplete.vms.map{$0.nomRecette}
+        return dataSheetComplete.datavm.map{$0.nomRecette}
     }
     private var _listSheetIncomplete: [String]!
     var listSheetIncomplete: [String] {
-        return dataSheetIncomplete.vms.map{$0.nomRecette}
+        return dataSheetIncomplete.datavm.map{$0.nomRecette}
     }
     
     var body: some View {

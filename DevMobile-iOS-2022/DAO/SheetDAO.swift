@@ -77,7 +77,7 @@ class SheetDAO {
     }
     
     static func fetchSheet(list : SheetCompleteListViewModel){
-        list.vms = []
+        list.datavm = []
         list.data = []
         SheetCompleteListViewIntent(list : list).load(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/join"
@@ -93,7 +93,7 @@ class SheetDAO {
                     list.data.append(sheet)
                     let vm = SheetCompleteViewModel(sheet: sheet)
                     vm.delegate = list
-                    list.vms.append(vm)
+                    list.datavm.append(vm)
                 }
                 DispatchQueue.main.async {
                     SheetCompleteListViewIntent(list : list).loaded(sheets: list.data)
@@ -111,7 +111,7 @@ class SheetDAO {
     }
     
     static func fetchSheetIncomplete(list : SheetIncompleteListViewModel){
-        list.vms = []
+        list.datavm = []
         list.data = []
         //SheetCompleteListViewIntent(list : list).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/incomplete"
@@ -127,7 +127,7 @@ class SheetDAO {
                     list.data.append(sheet)
                     let vm = SheetCompleteViewModel(sheet: sheet)
                     //vm.delegate = list
-                    list.vms.append(vm)
+                    list.datavm.append(vm)
                 }
                 DispatchQueue.main.async {
                     //SheetCompleteListViewIntent(list : list).loaded(sheets: list.data)
@@ -179,7 +179,7 @@ class SheetDAO {
     }
 
     static func updateCouvert(couvert: Int, idFiche: Int, oldcouvert: Int, nomProgression: String){
-        let url = URL(string: "https://awi-back-2021.herokuapp.com/api/sheet/updateNomRecette")!
+        let url = URL(string: "https://awi-back-2021.herokuapp.com/api/sheet/updateNbcouverts")!
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "PUT"

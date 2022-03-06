@@ -34,7 +34,7 @@ struct MercurialView: View {
                     Text("erreur")
                 default :
                     List {
-                        ForEach(searchString == "" ? dataIngredient.vms : dataIngredient.vms.filter { $0.libelle.contains(searchString) || $0.nomCategorie.contains(searchString) }, id: \.ingredient.idIngredient) {
+                        ForEach(searchString == "" ? dataIngredient.datavm : dataIngredient.datavm.filter { $0.libelle.contains(searchString) || $0.nomCategorie.contains(searchString) }, id: \.ingredient.idIngredient) {
                             vm in
                             NavigationLink(destination: IngredientView(vm: vm)){
                                 VStack(alignment: .leading) {
@@ -59,7 +59,7 @@ struct MercurialView: View {
                                     
                                 }
                             }
-                        }.navigationTitle("Mercurial")
+                        }.navigationTitle("Mercurial 🌶️")
                     }.searchable(text: $searchString)
                 }
                 

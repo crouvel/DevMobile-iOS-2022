@@ -25,12 +25,12 @@ struct IngredientView: View {
     
     private var _listIngredientLibelle: [String]!
     var listIngredientLibelle: [String] {
-        return dataIngredient.vms.map{$0.libelle}
+        return dataIngredient.datavm.map{$0.libelle}
     }
     
     private var _listIngredientSheet: [String]!
     var listIngredientSheet: [String] {
-        return dataIngredientSheet.vms.map{$0.libelle}
+        return dataIngredientSheet.datavm.map{$0.libelle}
     }
     
     private var deletionState : DeleteIngredientIntentState {

@@ -17,7 +17,7 @@ enum ProgressionState : CustomStringConvertible{
         switch self {
         case .ready                               : return "ready"
         case .loading(let s)                      : return "loading"
-        case .loaded(let editeurs)                  : return "loaded: \(editeurs.count) ingredients"
+        case .loaded(let progression)                  : return "loaded: \(progression.count) ingredients"
         case .loadingError(let error)             : return "loadingError: Error loading -> \(error)"
         }
     }

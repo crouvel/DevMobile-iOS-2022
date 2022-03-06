@@ -19,7 +19,7 @@ struct HomeView: View {
                     .resizable()
                     .scaledToFit()
             }
-            .navigationTitle("🧑‍🍳 Bienvenue !")
+            .navigationTitle("Bienvenue ! 🧑‍🍳")
         }
         .navigationBarBackButtonHidden(true)
     }

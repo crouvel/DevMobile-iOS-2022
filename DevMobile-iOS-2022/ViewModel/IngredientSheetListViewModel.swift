@@ -9,27 +9,10 @@ import Foundation
 
 class IngredientSheetListViewModel: ObservableObject {
     var data: [IngredientSheet]
-    var vms: [IngredientSheetViewModel]
-    
-    /// State of new data loading
-    /*@Published var ingredientListState : IngredientsListState = .ready{
-     didSet{
-     print("state: \(self.ingredientListState)")
-     switch self.ingredientListState { // state has changed
-     case .loaded(let data):    // new data has been loaded, to change all games of list
-     //let sortedData = data.sorted(by: { $0. < $1.name })
-     print(data)
-     if data.count == 0 {
-     self.ingredientListState = .loadingError("la")
-     }
-     default:                   // nothing to do for ViewModel, perhaps for the view
-     return
-     }
-     }
-     }*/
+    var datavm: [IngredientSheetViewModel]
     
     init(){
-        self.vms = []
+        self.datavm = []
         self.data = []
         //self.ingredientListState = .loading("https://awi-back-2021.herokuapp.com/api/ingredients/sheet")
         let surl = "https://awi-back-2021.herokuapp.com/api/ingredients/sheet"
@@ -44,7 +27,7 @@ class IngredientSheetListViewModel: ObservableObject {
                     let ingredient = IngredientSheet(libelle: tdata.libelle, idIngredient: tdata.idIngredient)
                     self.data.append(ingredient)
                     let vm = IngredientSheetViewModel(ingredient: ingredient)
-                    self.vms.append(vm)
+                    self.datavm.append(vm)
                 }
                 DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
                     //self.ingredientListState = .loaded(self.data)

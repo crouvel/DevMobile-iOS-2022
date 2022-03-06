@@ -34,11 +34,11 @@ struct CreateIngredientView: View {
     
     private var _listIngredientLibelle: [String]!
     var listIngredientLibelle: [String] {
-        return dataIngredient.vms.map{$0.libelle}
+        return dataIngredient.datavm.map{$0.libelle}
     }
     private var _listIngredientCode: [Int]!
     var listIngredientCode: [Int] {
-        return dataIngredient.vms.map{$0.idIngredient}
+        return dataIngredient.datavm.map{$0.idIngredient}
     }
     
     private var valueFormatter: NumberFormatter = {

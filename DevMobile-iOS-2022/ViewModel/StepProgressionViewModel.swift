@@ -11,20 +11,12 @@ import Combine
 
 enum StepProgressionError: Error, Equatable, CustomStringConvertible {
     case NONE
-    /*case TRACKNAME(String)
-    case ARTISTNAME(String)
-    case COLLECTIONNAME(String)*/
+   
     
     var description: String {
         switch self {
             case .NONE:
                     return "No error"
-            /*case .TRACKNAME:
-                    return "Trackname isn't  valid"
-            case .ARTISTNAME:
-                    return "Artist name isn't valid"
-            case .COLLECTIONNAME:
-                return "Collection name isn't valid"*/
         }
     }
 }

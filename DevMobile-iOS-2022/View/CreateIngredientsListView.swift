@@ -88,7 +88,7 @@ struct CreateIngredientsListView: View {
                                         .fontWeight(.bold)){
                                 VStack{
                                     Picker("Choisissez un ingrédient", selection: $libelle){
-                                        ForEach(dataIngredient.vms, id : \.ingredient.idIngredient) { vm in
+                                        ForEach(dataIngredient.datavm, id : \.ingredient.idIngredient) { vm in
                                             Text("\(vm.ingredient.libelle)").tag("\(vm.ingredient.libelle)")
                                         }
                                     }

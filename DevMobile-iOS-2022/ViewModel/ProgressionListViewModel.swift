@@ -18,9 +18,8 @@ enum ProgressionListState : CustomStringConvertible{
         switch self {
         case .ready                               : return "ready"
         case .loading(let s)                      : return "loading"
-        case .loaded(let editeurs)                  : return "loaded: \(editeurs.count) progressions"
+        case .loaded(let progressions)                  : return "loaded: \(progressions.count) progressions"
         case .loadingError(let error)             : return "loadingError: Error loading -> \(error)"
-        //case .newEditeurs(let editeurs)               : return "newJeu: reset game list with \(editeurs.count) editors"
         }
     }
     

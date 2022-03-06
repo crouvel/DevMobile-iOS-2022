@@ -9,7 +9,7 @@ import SwiftUI
 
 class SheetIncompleteListViewModel: ObservableObject/*, SheetCompleteViewModelDelegate*/ {
     var data: [SheetComplete]
-    var vms: [SheetCompleteViewModel]
+    var datavm: [SheetCompleteViewModel]
     
     /*func sheetCompleteViewModelChanged() {
         objectWillChange.send()
@@ -31,7 +31,7 @@ class SheetIncompleteListViewModel: ObservableObject/*, SheetCompleteViewModelDe
        }
     
     init(){
-        self.vms = []
+        self.datavm = []
         self.data = []
         SheetListViewIntent(list : self ).load(url: "https://awi-back-2021.herokuapp.com/api/sheet/incomplete")
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/incomplete"
@@ -49,7 +49,7 @@ class SheetIncompleteListViewModel: ObservableObject/*, SheetCompleteViewModelDe
                         self.data.append(sheet)
                         let vm = SheetCompleteViewModel(sheet: sheet)
                         //vm.delegate = self
-                        self.vms.append(vm)
+                        self.datavm.append(vm)
                     }
                     DispatchQueue.main.async {
                         SheetListViewIntent(list : self ).loaded(sheets: self.data)

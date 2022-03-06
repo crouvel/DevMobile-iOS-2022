@@ -9,7 +9,7 @@ import SwiftUI
 
 class IngredientListViewModel: ObservableObject, IngredientViewModelDelegate {
     var data: [Ingredient]
-    var vms: [IngredientViewModel]
+    var datavm: [IngredientViewModel]
     
     func ingredientViewModelChanged() {
         objectWillChange.send()
@@ -31,7 +31,7 @@ class IngredientListViewModel: ObservableObject, IngredientViewModelDelegate {
     }
     
     init(){
-        self.vms = []
+        self.datavm = []
         self.data = []
         self.ingredientListState = .loading("https://awi-back-2021.herokuapp.com/api/ingredients")
         let surl = "https://awi-back-2021.herokuapp.com/api/ingredients"
@@ -48,7 +48,7 @@ class IngredientListViewModel: ObservableObject, IngredientViewModelDelegate {
                     self.data.append(ingredient)
                     let vm = IngredientViewModel(ingredient: ingredient)
                     vm.delegate = self
-                    self.vms.append(vm)
+                    self.datavm.append(vm)
                 }
                 DispatchQueue.main.async {
                     self.ingredientListState = .loaded(self.data)
@@ -67,7 +67,7 @@ class IngredientListViewModel: ObservableObject, IngredientViewModelDelegate {
     }
     
     func fetchData(){
-        self.vms = []
+        self.datavm = []
         self.data = []
         self.ingredientListState = .loading("https://awi-back-2021.herokuapp.com/api/ingredients")
         let surl = "https://awi-back-2021.herokuapp.com/api/ingredients"
@@ -84,7 +84,7 @@ class IngredientListViewModel: ObservableObject, IngredientViewModelDelegate {
                     self.data.append(ingredient)
                     let vm = IngredientViewModel(ingredient: ingredient)
                     vm.delegate = self
-                    self.vms.append(vm)
+                    self.datavm.append(vm)
                 }
                 DispatchQueue.main.async { // met dans la file d'attente du thread principal l'action qui suit
                     self.ingredientListState = .loaded(self.data)

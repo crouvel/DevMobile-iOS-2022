@@ -9,21 +9,11 @@ import Foundation
 import Combine
 
 enum IngredientProgressionError: Error, Equatable, CustomStringConvertible {
-    case NONE
-    /*case TRACKNAME(String)
-    case ARTISTNAME(String)
-    case COLLECTIONNAME(String)*/
-    
+    case NONE    
     var description: String {
         switch self {
             case .NONE:
                     return "No error"
-            /*case .TRACKNAME:
-                    return "Trackname isn't  valid"
-            case .ARTISTNAME:
-                    return "Artist name isn't valid"
-            case .COLLECTIONNAME:
-                return "Collection name isn't valid"*/
         }
     }
 }
@@ -86,11 +76,6 @@ class IngredientProgressionViewModel: ObservableObject, Subscriber, Equatable {
         switch input {
             case .READY:
                 break
-            /*case .CHANGING_ARTISTNAME(let artistName):
-                self.track.artistName = artistName
-                if(self.track.artistName != artistName){
-                    self.error = .ARTISTNAME("Invalid input")
-                }*/
             case .LIST_UPDATED:
                 self.delegate?.ingredientProgressionViewModelChanged()
                 break

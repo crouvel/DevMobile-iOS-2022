@@ -10,7 +10,7 @@ import SwiftUI
 class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelegate {
   
     var data: [SheetComplete]
-    var vms: [SheetCompleteViewModel]
+    var datavm: [SheetCompleteViewModel]
     @Published var fetching : Bool = false
     
     func sheetCompleteViewModelChanged() {
@@ -34,9 +34,10 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
        }
     
     init(){
-        self.vms = []
+        self.datavm = []
         self.data = []
         SheetCompleteListViewIntent(list : self ).load(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
+        self.fetching = true
         let surl = "https://awi-back-2021.herokuapp.com/api/sheet/join"
             guard let url = URL(string: surl) else { print("rien"); return }
             let request = URLRequest(url: url)
@@ -54,7 +55,7 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
                         //self.data.append(sheet)
                         let vm = SheetCompleteViewModel(sheet: sheet)
                         vm.delegate = self
-                            self.vms.append(vm)
+                            self.datavm.append(vm)
                         //self.vms.append(vm)
                     }
                     DispatchQueue.main.async {
@@ -77,7 +78,7 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
     }
     
     func fetchData(){
-        self.vms = []
+        self.datavm = []
         self.data = []
         fetching = true
         //SheetCompleteListViewIntent(list : self ).loadEditeurs(url: "https://awi-back-2021.herokuapp.com/api/sheet/join")
@@ -101,7 +102,7 @@ class SheetCompleteListViewModel: ObservableObject, SheetCompleteViewModelDelega
                         vm.delegate = self
                         //let hasSheetvm = self.vms.contains(where: { $0.sheet.idFiche == vm.sheet.idFiche })
                         //if hasSheetvm == false {
-                            self.vms.append(vm)
+                            self.datavm.append(vm)
                         //}
                         //self.vms.append(vm)
                     }

@@ -7,17 +7,13 @@
 
 import SwiftUI
 
-class StepProgressionListViewModel: ObservableObject/*, SheetCompleteViewModelDelegate*/ {
+class StepProgressionListViewModel: ObservableObject {
   
 
     var data: [StepProgression]
     var vms: [StepProgressionViewModel]
     var referenceProgression: String
-    
-    /*func sheetCompleteViewModelChanged() {
-        objectWillChange.send()
-    }*/
- 
+     
        @Published var stepListState : StepProgressionListState = .ready{
            didSet{
                print("state: \(self.stepListState)")
