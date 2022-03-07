@@ -40,7 +40,7 @@ class IngredientDAO {
         }.resume()
     }
     
-    static func CreateIngredient(code: Int,libelle: String,quantiteStockee: Float,prixUnitaire: Float,allergene: String, idCategorieIngredient: Int,categorieAllergene: String?, unite: String, vm: IngredientViewModel){
+    static func CreateIngredient(code: Int,libelle: String,quantiteStockee: Float,prixUnitaire: Float,allergene: String, idCategorieIngredient: Int,categorieAllergene: String, unite: String, vm: IngredientViewModel){
         IngredientIntent( vm: vm ).creating()
         let url = URL(string: "https://awi-back-2021.herokuapp.com/api/ingredients/create")!
         var request = URLRequest(url: url)
